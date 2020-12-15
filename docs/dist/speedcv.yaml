@@ -17,13 +17,13 @@ paths:
       produces:
       - "application/json"
       parameters:
-        - name: api-key
+        - name: apiKey
           in: path
           required: true
           description: The api key of the application.
           schema:
             type: string
-        - name: secret-key
+        - name: secretKey
           in: path
           required: true
           description: The secret key of the application.
@@ -75,13 +75,13 @@ paths:
       produces:
       - "application/json"
       parameters:
-        - name: api-key
+        - name: apiKey
           in: path
           required: true
           description: The api key of the application.
           schema:
             type: string
-        - name: secret-key
+        - name: secretKey
           in: path
           required: true
           description: The secret key of the application.
@@ -104,6 +104,12 @@ paths:
           description: email of user
           schema:
             type: string              
+        - name: password
+          in: path
+          required: true
+          description: password of user
+          schema:
+           type: string
       responses:
         '200':
           description: A user object.
@@ -138,13 +144,13 @@ paths:
       produces:
       - "application/json"
       parameters:
-        - name: api-key
+        - name: apiKey
           in: path
           required: true
           description: The api key of the application.
           schema:
             type: string
-        - name: secret-key
+        - name: secretKey
           in: path
           required: true
           description: The secret key of the application.
@@ -167,7 +173,7 @@ paths:
           description: email of user
           schema:
             type: string
-        - name: user-id
+        - name: userId
           in: path
           required: true
           description: user id from login or register response
@@ -181,12 +187,12 @@ paths:
         - name: website
           in: path
           description: website of user
-        - name: date-of-birth
+        - name: dateOfBirth
           in: path
           description: date of birth
           schema:
             type: string
-        - name: profile-picture
+        - name: profilePicture
           in: path
           description: profile image of user, note, must be in base64 string
           schema:
@@ -224,19 +230,19 @@ paths:
       produces:
       - "application/json"
       parameters:
-        - name: api-key
+        - name: apiKey
           in: path
           required: true
           description: The api key of the application.
           schema:
             type: string
-        - name: secret-key
+        - name: secretKey
           in: path
           required: true
           description: The secret key of the application.
           schema:
             type: string
-        - name: personal-details-id
+        - name: personalDetailsId
           in: path
           required: true
           description: id from personal details.
@@ -295,40 +301,40 @@ paths:
       produces:
       - "application/json"
       parameters:
-        - name: api-key
+        - name: apiKey
           in: path
           required: true
           description: The api key of the application.
           schema:
             type: string
-        - name: secret-key
+        - name: secretKey
           in: path
           required: true
           description: The secret key of the application.
           schema:
             type: string
-        - name: personal-details-id
+        - name: personalDetailsId
           in: path
           required: true
           description: id from personal details.
           schema:
             type: integer 
-        - name: company-name
+        - name: companyName
           in: path
           description: company name.
           schema:
             type: string
-        - name: job-title
+        - name: jobTitle
           in: path
           description: title of job
           schema:
             type: string
-        - name: start-date
+        - name: startDate
           in: path
           description: employment date
           schema:
             type: string
-        - name: end-date
+        - name: endDate
           in: path
           description: termination date
           schema:
@@ -373,19 +379,19 @@ paths:
       produces:
       - "application/json"
       parameters:
-        - name: api-key
+        - name: apiKey
           in: path
           required: true
           description: The api key of the application.
           schema:
             type: string
-        - name: secret-key
+        - name: secretKey
           in: path
           required: true
           description: The secret key of the application.
           schema:
             type: string
-        - name: personal-details-id
+        - name: personalDetailsId
           in: path
           required: true
           description: id from personal details.
@@ -435,19 +441,19 @@ paths:
       produces:
       - "application/json"
       parameters:
-        - name: api-key
+        - name: apiKey
           in: path
           required: true
           description: The api key of the application.
           schema:
             type: string
-        - name: secret-key
+        - name: secretKey
           in: path
           required: true
           description: The secret key of the application.
           schema:
             type: string
-        - name: personal-details-id
+        - name: personalDetailsId
           in: path
           required: true
           description: id from personal details.
@@ -491,37 +497,37 @@ paths:
       produces:
       - "application/json"
       parameters:
-        - name: api-key
+        - name: apiKey
           in: path
           required: true
           description: The api key of the application.
           schema:
             type: string
-        - name: secret-key
+        - name: secretKey
           in: path
           required: true
           description: The secret key of the application.
           schema:
             type: string
-        - name: personal-details-id
+        - name: personalDetailsId
           in: path
           required: true
           description: id from personal details.
           schema:
             type: integer 
-        - name: referee-name
+        - name: refereeName
           in: path
           required: true
           description: name of referee.
           schema:
             type: string
-        - name: job-title
+        - name: jobTitle
           in: path
           required: true
           description: title of job
           schema:
             type: string
-        - name: company-name
+        - name: companyName
           in: path
           required: true
           description: name of the company
@@ -576,19 +582,19 @@ paths:
       produces:
       - "application/json"
       parameters:
-        - name: api-key
+        - name: apiKey
           in: path
           required: true
           description: The api key of the application.
           schema:
             type: string
-        - name: secret-key
+        - name: secretKey
           in: path
           required: true
           description: The secret key of the application.
           schema:
             type: string
-        - name: personal-details-id
+        - name: personalDetailsId
           in: path
           required: true
           description: id from personal details.

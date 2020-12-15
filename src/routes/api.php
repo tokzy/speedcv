@@ -16,8 +16,8 @@ $api = new Apiclass();
 
 $errors = array();
 
-$apikeys = $api->cleanInputs($request->getParam('api-key'));    
-$secretkeys = $api->cleanInputs($request->getParam('secret-key'));    
+$apikeys = $api->cleanInputs($request->getParam('apiKey'));    
+$secretkeys = $api->cleanInputs($request->getParam('secretKey'));    
 $email = $api->cleanInputs($request->getParam('email'));
 $password = $api->cleanInputs($request->getParam('password'));
 
@@ -51,8 +51,8 @@ $api = new Apiclass();
 
 $errors = array();
 
-$apikeys = $api->cleanInputs($request->getParam('api-key'));    
-$secretkeys = $api->cleanInputs($request->getParam('secret-key'));  
+$apikeys = $api->cleanInputs($request->getParam('apiKey'));    
+$secretkeys = $api->cleanInputs($request->getParam('secretKey'));  
 $fullname = $api->cleanInputs($request->getParam('fullname'));
 $phone = $api->cleanInputs($request->getParam('phone'));
 $email = $api->cleanInputs($request->getParam('email'));
@@ -76,7 +76,7 @@ if($signup == true):
 $id = $api->getuserdetailsByEmail($email);    
 return json_encode(['status'=>200,"response"=>"OK","data"=>$id]);
 else:
-$msg = "login failed!";    
+$msg = "signup failed!";    
 array_push($errors,$msg);
 return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
 endif;
@@ -90,16 +90,16 @@ $api = new Apiclass();
 
 $errors = array();
 
-$apikeys = $api->cleanInputs($request->getParam('api-key'));    
-$secretkeys = $api->cleanInputs($request->getParam('secret-key'));  
-$userid = $api->cleanInputs($request->getParam('user-id'));
+$apikeys = $api->cleanInputs($request->getParam('apiKey'));    
+$secretkeys = $api->cleanInputs($request->getParam('secretKey'));  
+$userid = $api->cleanInputs($request->getParam('userId'));
 $name = $api->cleanInputs($request->getParam('name'));
 $email = $api->cleanInputs($request->getParam('email'));
 $phone = $api->cleanInputs($request->getParam('phone'));
 $address = $api->cleanInputs($request->getParam('address'));
-$dob = $api->cleanInputs($request->getParam('date-of-birth'));
+$dob = $api->cleanInputs($request->getParam('dateOfBirth'));
 $website = $api->cleanInputs($request->getParam('website'));
-$image = $api->cleanInputs($request->getParam('profile-picture'));
+$image = $api->cleanInputs($request->getParam('profilePicture'));
 $tracker = rand().time();
 
 
@@ -146,9 +146,9 @@ $app->post('/user/personal-details/education', function (Request $request, Respo
 $api = new Apiclass();    
 $errors = array();
 
-$apikeys = $api->cleanInputs($request->getParam('api-key'));    
-$secretkeys = $api->cleanInputs($request->getParam('secret-key'));  
-$pid = $api->cleanInputs($request->getParam('personal-details-id'));
+$apikeys = $api->cleanInputs($request->getParam('apiKey'));    
+$secretkeys = $api->cleanInputs($request->getParam('secretKey'));  
+$pid = $api->cleanInputs($request->getParam('personalDetailsId'));
 $course = $api->cleanInputs($request->getParam('course'));
 $school = $api->cleanInputs($request->getParam('school'));
 $grade = $api->cleanInputs($request->getParam('grade'));
@@ -175,7 +175,7 @@ if($edu == true):
 $edudetails = $api->geteduBypid($pid,$school,$year);    
 return json_encode(['status'=>200,"response"=>"OK","data"=>$edudetails]);
 else:
-$msg = "signup failed!";    
+$msg = "fail to fetch response!";    
 array_push($errors,$msg);
 return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
 endif;
@@ -188,13 +188,13 @@ $app->post('/user/personal-details/experience', function (Request $request, Resp
 $api = new Apiclass();    
 $errors = array();
 
-$apikeys = $api->cleanInputs($request->getParam('api-key'));    
-$secretkeys = $api->cleanInputs($request->getParam('secret-key'));  
-$pid = $api->cleanInputs($request->getParam('personal-details-id'));
-$companyName = $api->cleanInputs($request->getParam('company-name'));
-$jobTitle = $api->cleanInputs($request->getParam('job-title'));
-$startDate = $api->cleanInputs($request->getParam('start-date'));
-$endDate = $api->cleanInputs($request->getParam('end-date'));
+$apikeys = $api->cleanInputs($request->getParam('apiKey'));    
+$secretkeys = $api->cleanInputs($request->getParam('secretKey'));  
+$pid = $api->cleanInputs($request->getParam('personalDetailsId'));
+$companyName = $api->cleanInputs($request->getParam('companyName'));
+$jobTitle = $api->cleanInputs($request->getParam('jobTitle'));
+$startDate = $api->cleanInputs($request->getParam('startDate'));
+$endDate = $api->cleanInputs($request->getParam('endDate'));
 $details = $api->cleanInputs($request->getParam('details'));
 
 if(empty($apikeys)):$msg = "No api key provided!";array_push($errors,$msg);else:endif;
@@ -217,7 +217,7 @@ if($edu == true):
 $expdetails = $api->getexperienceBypid($pid,$companyName,$jobTitle,$startDate);//  you can work in a company twice with same role but not same start date    
 return json_encode(['status'=>200,"response"=>"OK","data"=>$expdetails]);
 else:
-$msg = "signup failed!";    
+$msg = "fail to fetch response!";    
 array_push($errors,$msg);
 return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
 endif;
@@ -230,9 +230,9 @@ $app->post('/user/personal-details/skills', function (Request $request, Response
 $api = new Apiclass();    
 $errors = array();
 
-$apikeys = $api->cleanInputs($request->getParam('api-key'));    
-$secretkeys = $api->cleanInputs($request->getParam('secret-key'));  
-$pid = $api->cleanInputs($request->getParam('personal-details-id'));
+$apikeys = $api->cleanInputs($request->getParam('apiKey'));    
+$secretkeys = $api->cleanInputs($request->getParam('secretKey'));  
+$pid = $api->cleanInputs($request->getParam('personalDetailsId'));
 $skills = $api->cleanInputs($request->getParam('skills'));
 $level = $api->cleanInputs($request->getParam('level'));
 
@@ -260,16 +260,16 @@ return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
 endif;
 endif;
 });
-/*========================= education ENDS =========================*/
+/*========================= skills ENDS =========================*/
 
 /*========================= objective =========================*/
 $app->post('/user/personal-details/objective', function (Request $request, Response $response,array $args) {
 $api = new Apiclass();    
 $errors = array();
 
-$apikeys = $api->cleanInputs($request->getParam('api-key'));    
-$secretkeys = $api->cleanInputs($request->getParam('secret-key'));  
-$pid = $api->cleanInputs($request->getParam('personal-details-id'));
+$apikeys = $api->cleanInputs($request->getParam('apiKey'));    
+$secretkeys = $api->cleanInputs($request->getParam('secretKey'));  
+$pid = $api->cleanInputs($request->getParam('personalDetailsId'));
 $objective = $api->cleanInputs($request->getParam('objective'));
 
 if(empty($apikeys)):$msg = "No api key provided!";array_push($errors,$msg);else:endif;
@@ -302,12 +302,12 @@ $app->post('/user/personal-details/reference', function (Request $request, Respo
 $api = new Apiclass();    
 $errors = array();
 
-$apikeys = $api->cleanInputs($request->getParam('api-key'));    
-$secretkeys = $api->cleanInputs($request->getParam('secret-key'));  
-$pid = $api->cleanInputs($request->getParam('personal-details-id'));
-$refname = $api->cleanInputs($request->getParam('referee-name'));
-$jobTitle = $api->cleanInputs($request->getParam('job-title'));
-$companyName = $api->cleanInputs($request->getParam('company-name'));
+$apikeys = $api->cleanInputs($request->getParam('apiKey'));    
+$secretkeys = $api->cleanInputs($request->getParam('secretKey'));  
+$pid = $api->cleanInputs($request->getParam('personalDetailsId'));
+$refname = $api->cleanInputs($request->getParam('refereeName'));
+$jobTitle = $api->cleanInputs($request->getParam('jobTitle'));
+$companyName = $api->cleanInputs($request->getParam('companyName'));
 $email = $api->cleanInputs($request->getParam('email'));
 $phone = $api->cleanInputs($request->getParam('phone'));
 
@@ -345,9 +345,9 @@ $app->post('/user/personal-details/projects', function (Request $request, Respon
 $api = new Apiclass();    
 $errors = array();
 
-$apikeys = $api->cleanInputs($request->getParam('api-key'));    
-$secretkeys = $api->cleanInputs($request->getParam('secret-key'));  
-$pid = $api->cleanInputs($request->getParam('personal-details-id'));
+$apikeys = $api->cleanInputs($request->getParam('apiKey'));    
+$secretkeys = $api->cleanInputs($request->getParam('secretKey'));  
+$pid = $api->cleanInputs($request->getParam('personalDetailsId'));
 $title = $api->cleanInputs($request->getParam('title'));
 $description = $api->cleanInputs($request->getParam('description'));
 
@@ -377,6 +377,7 @@ endif;
 });
 /*========================= project ENDS =========================*/
     
+
 
 
 
