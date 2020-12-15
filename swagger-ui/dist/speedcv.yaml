@@ -1,0 +1,632 @@
+openapi: 3.0.0
+info:
+  title: Speed CV api
+  description: Optional multiline or single-line description in [CommonMark](http://commonmark.org/help/) or HTML.
+  version: 0.1.9
+servers:
+  - url: https://speedilypay.com/api/public
+    description: Base url for production
+paths:
+   /login:
+    post:
+      tags:
+        - User 
+      summary: Enable a registered user to login.
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - name: api-key
+          in: path
+          required: true
+          description: The api key of the application.
+          schema:
+            type: string
+        - name: secret-key
+          in: path
+          required: true
+          description: The secret key of the application.
+          schema:
+            type: string
+        - name: email
+          in: path
+          required: true
+          description: email of user.
+          schema:
+            type: string 
+        - name: password
+          in: path
+          required: true
+          description: password of user.
+          schema:
+            type: string          
+      responses:
+        '200':
+          description: A user object.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example : 200
+                  response:
+                    type: string
+                    example : OK  
+                  data:
+                     type: array
+                     example:
+                      id: 10
+                      fullname: john doe
+                      email: test@gmail.com
+                      datemade: 2020-12-05 13:50:3
+                         
+        '400':
+          description: errors
+   /register:
+    post:
+      tags:
+        - User 
+      summary: register a user.
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - name: api-key
+          in: path
+          required: true
+          description: The api key of the application.
+          schema:
+            type: string
+        - name: secret-key
+          in: path
+          required: true
+          description: The secret key of the application.
+          schema:
+            type: string
+        - name: fullname
+          in: path
+          required: true
+          description: fullname of user.
+          schema:
+            type: string 
+        - name: phone
+          in: path
+          description: phone number of user.
+          schema:
+            type: integer
+        - name: email
+          in: path
+          required: true
+          description: email of user
+          schema:
+            type: string              
+      responses:
+        '200':
+          description: A user object.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example : 200
+                  response:
+                    type: string
+                    example : OK  
+                  data:
+                     type: array
+                     example:
+                      id: 10
+                      fullname: john doe
+                      email: test@gmail.com
+                      datemade: 2020-12-05 13:50:3
+                         
+        '400':
+          description: errors        
+   /user/personal-details:
+    post:
+      tags:
+        - Template Details 
+      summary: user personal information.
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - name: api-key
+          in: path
+          required: true
+          description: The api key of the application.
+          schema:
+            type: string
+        - name: secret-key
+          in: path
+          required: true
+          description: The secret key of the application.
+          schema:
+            type: string
+        - name: name
+          in: path
+          required: true
+          description: name of user.
+          schema:
+            type: string 
+        - name: phone
+          in: path
+          description: phone number of user.
+          schema:
+            type: integer
+        - name: email
+          in: path
+          required: true
+          description: email of user
+          schema:
+            type: string
+        - name: user-id
+          in: path
+          required: true
+          description: user id from login or register response
+          schema:
+            type: integer    
+        - name: address
+          in: path
+          description: address of user
+          schema:
+            type: string
+        - name: website
+          in: path
+          description: website of user
+        - name: date-of-birth
+          in: path
+          description: date of birth
+          schema:
+            type: string
+        - name: profile-picture
+          in: path
+          description: profile image of user, note, must be in base64 string
+          schema:
+             type: binary                             
+      responses:
+        '200':
+          description: A user object.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example : 200
+                  response:
+                    type: string
+                    example : OK  
+                  data:
+                     type: array
+                     example:
+                      id: 10
+                      email: test@gmail.com
+                      trackcv: 13478972521607713241
+                         
+        '400':
+          description: errors
+   /user/personal-details/education:
+    post:
+      tags:
+        - Template Details 
+      summary: user education details
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - name: api-key
+          in: path
+          required: true
+          description: The api key of the application.
+          schema:
+            type: string
+        - name: secret-key
+          in: path
+          required: true
+          description: The secret key of the application.
+          schema:
+            type: string
+        - name: personal-details-id
+          in: path
+          required: true
+          description: id from personal details.
+          schema:
+            type: integer 
+        - name: course
+          in: path
+          description: course of study.
+          schema:
+            type: string
+        - name: school
+          in: path
+          description: school attended
+          schema:
+            type: string
+        - name: grade
+          in: path
+          description: school grade
+          schema:
+            type: string
+        - name: year
+          in: path
+          description: graduation date
+          schema:
+            type: string                   
+      responses:
+        '200':
+          description: A user object.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example : 200
+                  response:
+                    type: string
+                    example : OK  
+                  data:
+                     type: array
+                     example:
+                      id: 10
+                      pid: 4
+                      course: biochem
+                      school: uniben
+                      grade: 3.5
+                      year: 2010 - 2015
+   /user/personal-details/experience:
+    post:
+      tags:
+        - Template Details 
+      summary: user work experience details
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - name: api-key
+          in: path
+          required: true
+          description: The api key of the application.
+          schema:
+            type: string
+        - name: secret-key
+          in: path
+          required: true
+          description: The secret key of the application.
+          schema:
+            type: string
+        - name: personal-details-id
+          in: path
+          required: true
+          description: id from personal details.
+          schema:
+            type: integer 
+        - name: company-name
+          in: path
+          description: company name.
+          schema:
+            type: string
+        - name: job-title
+          in: path
+          description: title of job
+          schema:
+            type: string
+        - name: start-date
+          in: path
+          description: employment date
+          schema:
+            type: string
+        - name: end-date
+          in: path
+          description: termination date
+          schema:
+            type: string
+        - name: details
+          in: path
+          description: details of work
+          schema:
+            type: string                       
+      responses:
+        '200':
+          description: data object.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example : 200
+                  response:
+                    type: string
+                    example : OK  
+                  data:
+                     type: array
+                     example:
+                      id: 10
+                      pid: 4
+                      companyName: twitter
+                      jobTitle: senior backend dev
+                      startDate: 2006-5-20
+                      endDate: 2014-7-12
+                      details: testing
+                      datemade: 2020-12-11 14:41:2                   
+   /user/personal-details/skills:
+    post:
+      tags:
+        - Template Details 
+      summary: user skills
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - name: api-key
+          in: path
+          required: true
+          description: The api key of the application.
+          schema:
+            type: string
+        - name: secret-key
+          in: path
+          required: true
+          description: The secret key of the application.
+          schema:
+            type: string
+        - name: personal-details-id
+          in: path
+          required: true
+          description: id from personal details.
+          schema:
+            type: integer 
+        - name: skills
+          in: path
+          required: true
+          description: skills of users.
+          schema:
+            type: string
+        - name: level
+          in: path
+          required: true
+          description: level of expertise
+          schema:
+            type: integer                       
+      responses:
+        '200':
+          description: data object.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example : 200
+                  response:
+                    type: string
+                    example : OK  
+                  data:
+                     type: array
+                     example:
+                      id: 10
+                      pid: 4
+                      skills: javascript
+                      level: 5
+                      datemade: 2020-12-11 14:41:2  
+   /user/personal-details/objective:
+    post:
+      tags:
+        - Template Details 
+      summary: objectives
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - name: api-key
+          in: path
+          required: true
+          description: The api key of the application.
+          schema:
+            type: string
+        - name: secret-key
+          in: path
+          required: true
+          description: The secret key of the application.
+          schema:
+            type: string
+        - name: personal-details-id
+          in: path
+          required: true
+          description: id from personal details.
+          schema:
+            type: integer 
+        - name: objective
+          in: path
+          required: true
+          description: objectives.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: data object.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example : 200
+                  response:
+                    type: string
+                    example : OK  
+                  data:
+                     type: array
+                     example:
+                      id: 10
+                      pid: 4
+                      obj: solving problem with code
+                      datemade: 2020-12-11 14:41:2                                       
+
+   /user/personal-details/reference:
+    post:
+      tags:
+        - Template Details 
+      summary: user referees
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - name: api-key
+          in: path
+          required: true
+          description: The api key of the application.
+          schema:
+            type: string
+        - name: secret-key
+          in: path
+          required: true
+          description: The secret key of the application.
+          schema:
+            type: string
+        - name: personal-details-id
+          in: path
+          required: true
+          description: id from personal details.
+          schema:
+            type: integer 
+        - name: referee-name
+          in: path
+          required: true
+          description: name of referee.
+          schema:
+            type: string
+        - name: job-title
+          in: path
+          required: true
+          description: title of job
+          schema:
+            type: string
+        - name: company-name
+          in: path
+          required: true
+          description: name of the company
+          schema:
+            type: string
+        - name: email
+          in: path
+          required: true
+          description: email of referee
+          schema:
+            type: string
+        - name: phone
+          in: path
+          required: true
+          description: telephone number of referee
+          schema:
+            type: integer    
+      responses:
+        '200':
+          description: data object.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example : 200
+                  response:
+                    type: string
+                    example : OK  
+                  data:
+                     type: array
+                     example:
+                      id: 10
+                      pid: 4
+                      refereeName: tommy j
+                      jobTitle: devops
+                      companyName: twitter
+                      email: devops@gmail.com
+                      phone: 09067453343
+                      datemade: 2020-12-11 14:41:2                     
+        '400':
+          description: errors                          
+   /user/personal-details/projects:
+    post:
+      tags:
+        - Template Details 
+      summary: projects done by user
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - name: api-key
+          in: path
+          required: true
+          description: The api key of the application.
+          schema:
+            type: string
+        - name: secret-key
+          in: path
+          required: true
+          description: The secret key of the application.
+          schema:
+            type: string
+        - name: personal-details-id
+          in: path
+          required: true
+          description: id from personal details.
+          schema:
+            type: integer 
+        - name: title
+          in: path
+          required: true
+          description: title of project.
+          schema:
+            type: string
+        - name: description
+          in: path
+          required: true
+          description: description of the project
+          schema:
+            type: string
+      responses:
+        '200':
+          description: data object.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example : 200
+                  response:
+                    type: string
+                    example : OK  
+                  data:
+                     type: array
+                     example:
+                      id: 10
+                      pid: 4
+                      title: work on elearning platform
+                      description: develop a video based e-learning platform
+                      datemade: 2020-12-11 14:41:2                     
+        '400':
+          description: errors               
