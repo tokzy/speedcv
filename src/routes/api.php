@@ -8,6 +8,8 @@ header("Access-Control-Allow-Methods: PUT, POST, GET, OPTIONS, DELETE");
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
+$url = "http://localhost/speedapi/public/";
+
 $app = new \Slim\App;
 
 /*========================= LOGIN =========================*/
@@ -139,7 +141,6 @@ endif;
 endif;
 });
 /*========================= personal details ends =========================*/
-
 
 /*========================= education =========================*/
 $app->post('/user/personal-details/education', function (Request $request, Response $response,array $args) {
@@ -376,11 +377,390 @@ endif;
 endif;
 });
 /*========================= project ENDS =========================*/
-    
 
 
+/*========================= Headings =========================*/
+$app->get('/sections/{apiKey}/{secretKey}', function (Request $request, Response $response,array $args) {
+$api = new Apiclass();    
+$errors = array();
+
+$apikeys = $request->getAttribute('apiKey');    
+$secretkeys = $request->getAttribute('secretKey');  
+
+if(empty($apikeys)):$msg = "No api key provided!";array_push($errors,$msg);else:endif;
+if(empty($secretkeys)):$msg = "No secret key provided!";array_push($errors,$msg);else:endif;
+$checkkeys = $api->checkKeys($apikeys,$secretkeys);
+if($checkkeys == false && !empty($apikeys) && !empty($secretkeys)):$msg = "Authentication failed, invalid api or secret keys!";array_push($errors,$msg);else:endif;
+
+if(count($errors) > 0):
+return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
+else:
+$fetch = $api->fetchHeadings();
+if($fetch == true):    
+return json_encode($fetch);
+else:
+$msg = "fail to fetch response";    
+array_push($errors,$msg);
+return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
+endif;
+endif;
+});
+/*========================= Headings ENDS =========================*/
+
+/*========================= Create Headings =========================*/
+$app->post('/sections/create', function (Request $request, Response $response,array $args) {
+$api = new Apiclass();    
+$errors = array();
+
+$apikeys = $request->getParam('apiKey');    
+$secretkeys = $request->getParam('secretKey');  
+$title = $api->cleanInputs($request->getParam('title'));
+
+if(empty($apikeys)):$msg = "No api key provided!";array_push($errors,$msg);else:endif;
+if(empty($secretkeys)):$msg = "No secret key provided!";array_push($errors,$msg);else:endif;
+if(empty($title)):$msg = "No title field provided!";array_push($errors,$msg);else:endif;
+if($api->checkIfTitleExists($title) == true):$msg = "title already exists!";array_push($errors,$msg);else:endif;
+$checkkeys = $api->checkKeys($apikeys,$secretkeys);
+if($checkkeys == false && !empty($apikeys) && !empty($secretkeys)):$msg = "Authentication failed, invalid api or secret keys!";array_push($errors,$msg);else:endif;
+
+if(count($errors) > 0):
+return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
+else:
+$create = $api->CreateHeading($title);    
+if($create == true):    
+return json_encode(['status'=>200,'response'=>"success"]);
+else:
+$msg = "fail to fetch response";    
+array_push($errors,$msg);
+return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
+endif;
+endif;
+});
+/*========================= Create Headings ENDS =========================*/
+
+/*========================= Edit Headings =========================*/
+$app->put('/sections/edit/{id}', function (Request $request, Response $response,array $args) {
+$api = new Apiclass();    
+$errors = array();
+
+$apikeys = $api->cleanInputs($request->getParam('apiKey'));    
+$secretkeys = $api->cleanInputs($request->getParam('secretKey'));  
+$id = $api->cleanInputs($request->getAttribute('id'));
+$title = $api->cleanInputs($request->getParam('title'));
+
+if(empty($apikeys)):$msg = "No api key provided!";array_push($errors,$msg);else:endif;
+if(empty($secretkeys)):$msg = "No secret key provided!";array_push($errors,$msg);else:endif;
+if(empty($title)):$msg = "No title field provided!";array_push($errors,$msg);else:endif;
+if($api->checkIfTitleIdExists($id) == false):$msg = "id doesn't exist!";array_push($errors,$msg);else:endif;
+$checkkeys = $api->checkKeys($apikeys,$secretkeys);
+if($checkkeys == false && !empty($apikeys) && !empty($secretkeys)):$msg = "Authentication failed, invalid api or secret keys!";array_push($errors,$msg);else:endif;
+
+if(count($errors) > 0):
+return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
+else:
+$edit = $api->editHeading($id,$title);    
+if($edit == true):    
+return json_encode(['status'=>200,'response'=>"success"]);
+else:
+$msg = "fail to fetch response";    
+array_push($errors,$msg);
+return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
+endif;
+endif;
+});
+/*========================= Edit Heading ENDS =========================*/
+
+/*========================= Delete Headings =========================*/
+$app->delete("/sections/delete/{id}", function (Request $request, Response $response,array $args) {
+$api = new Apiclass();    
+$errors = array();
+
+$apikeys = $api->cleanInputs($request->getParam('apiKey'));    
+$secretkeys = $api->cleanInputs($request->getParam('secretKey'));  
+$id = $api->cleanInputs($request->getAttribute('id'));
+
+if(empty($apikeys)):$msg = "No api key provided!";array_push($errors,$msg);else:endif;
+if(empty($secretkeys)):$msg = "No secret key provided!";array_push($errors,$msg);else:endif;
+if($api->checkIfTitleIdExists($id) == false):$msg = "id doesn't exist!";array_push($errors,$msg);else:endif;
+$checkkeys = $api->checkKeys($apikeys,$secretkeys);
+if($checkkeys == false && !empty($apikeys) && !empty($secretkeys)):$msg = "Authentication failed, invalid api or secret keys!";array_push($errors,$msg);else:endif;
+
+if(count($errors) > 0):
+return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
+else:
+$delete = $api->DeleteHeading($id);    
+if($delete == true):    
+return json_encode(['status'=>200,'response'=>"success"]);
+else:
+$msg = "fail to fetch response";    
+array_push($errors,$msg);
+return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
+endif;
+endif;
+});
+/*========================= Delete Heading ENDS =========================*/
+
+/*========================= Miscellaneous =========================*/
+$app->post("/user/personal-details/miscellaneous", function (Request $request, Response $response,array $args) {
+$api = new Apiclass();    
+$errors = array();
+
+$apikeys = $request->getParam('apiKey');    
+$secretkeys = $request->getParam('secretKey');  
+$id = $api->cleanInputs($request->getParam('headerId'));
+$pid = $api->cleanInputs($request->getParam('personalDetailsId'));
+$value = $api->cleanInputs($request->getParam('value'));
+
+if(empty($apikeys)):$msg = "No api key provided!";array_push($errors,$msg);else:endif;
+if(empty($secretkeys)):$msg = "No secret key provided!";array_push($errors,$msg);else:endif;
+if(empty($id)):$msg = "No id provided!";array_push($errors,$msg);else:endif;
+if(empty($value)):$msg = "No value provided!";array_push($errors,$msg);else:endif;
+if($api->checkIfmiscExists($id,$pid) == true):$msg = "data on this id already exists!";array_push($errors,$msg);else:endif;
+if($api->checkIfPidExists($pid) == false && !empty($pid)):$msg = "invalid personal details id!";array_push($errors,$msg);else:endif;
+if($api->checkIfTitleIdExists($id) == false):$msg = "id doesn't exist!";array_push($errors,$msg);else:endif;
+$checkkeys = $api->checkKeys($apikeys,$secretkeys);
+if($checkkeys == false && !empty($apikeys) && !empty($secretkeys)):$msg = "Authentication failed, invalid api or secret keys!";array_push($errors,$msg);else:endif;
+
+if(count($errors) > 0):
+return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
+else:
+$create = $api->CreateMiscellaneous($id,$pid,$value);    
+if($create == true):    
+return json_encode(['status'=>200,'response'=>"success"]);
+else:
+$msg = "fail to fetch response";    
+array_push($errors,$msg);
+return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
+endif;
+endif;
+});
+/*========================= Miscellaneous ENDS =========================*/
 
 
+/*========================= Templates Listing =========================*/
+$app->get("/user/template-lists/{apiKey}/{secretKey}", function (Request $request, Response $response,array $args) {
+$api = new Apiclass();    
+$errors = array();
+
+$apikeys = $request->getAttribute('apiKey');    
+$secretkeys = $request->getAttribute('secretKey');  
+
+if(empty($apikeys)):$msg = "No api key provided!";array_push($errors,$msg);else:endif;
+if(empty($secretkeys)):$msg = "No secret key provided!";array_push($errors,$msg);else:endif;
+$checkkeys = $api->checkKeys($apikeys,$secretkeys);
+if($checkkeys == false && !empty($apikeys) && !empty($secretkeys)):$msg = "Authentication failed, invalid api or secret keys!";array_push($errors,$msg);else:endif;
+
+if(count($errors) > 0):
+return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
+else:
+$fetch = $api->fetchTemplates();    
+
+if($fetch == true):    
+return json_encode($fetch);
+else:
+$msg = "fail to fetch response";    
+array_push($errors,$msg);
+return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
+endif;
+endif;
+});
+/*========================= Templates lists ENDS =========================*/
+
+/*========================= Create and get pdf =========================*/
+$app->post("/user/generatepdf", function (Request $request, Response $response,array $args) {
+$api = new Apiclass();    
+$errors = array();
+
+$apikeys = $request->getParam('apiKey');    
+$secretkeys = $request->getParam('secretKey');  
+$pid = $request->getParam('personalDetailsId');  
+$tmpid = $request->getParam('templateId');  
+
+if(empty($apikeys)):$msg = "No api key provided!";array_push($errors,$msg);else:endif;
+if(empty($secretkeys)):$msg = "No secret key provided!";array_push($errors,$msg);else:endif;
+if($api->checkIfPidExists($pid) == false && !empty($pid)):$msg = "invalid personal details id!";array_push($errors,$msg);else:endif;
+if($api->checkIftempIdExists($tmpid) == false && !empty($pid)):$msg = "invalid template id!";array_push($errors,$msg);else:endif;
+$checkkeys = $api->checkKeys($apikeys,$secretkeys);
+if($checkkeys == false && !empty($apikeys) && !empty($secretkeys)):$msg = "Authentication failed, invalid api or secret keys!";array_push($errors,$msg);else:endif;
+
+if(count($errors) > 0):
+return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
+else:
+$name = rand().'.pdf';
+$command = "wkhtmltopdf http://localhost/speedapi/public/templates/cv".$tmpid.".php?pid=".$tmpid." ./genpdf/".$name." 2>&1";
+$generate = shell_exec($command);
+$udetails = $api->getpd($pid);
+$path = "http://localhost/speedapi/public/genpdf/".$name."";
+$store = $api->StorePdf($udetails['user_id'],$path);
+return json_encode(["status"=>200, "path" => $path]);
+exit;
+//else:
+//$msg = "fail to fetch response or something went wrong!";
+//array_push($errors,$msg);
+//return json_encode(["status"=>400, "error" => $errors]);    
+//endif;
+endif;
+});
+/*========================= Create and get pdf ENDS =========================*/
+
+/*========================= Get Personal Details =========================*/
+$app->get('/user/personal-details/fetch/{personalDetailsId}', function (Request $request, Response $response,array $args) {
+$api = new Apiclass();    
+$errors = array();
+
+$apikeys = $request->getParam('apiKey');    
+$secretkeys = $request->getParam('secretKey'); 
+$pid = $request->getAttribute('personalDetailsId'); 
+
+if(empty($apikeys)):$msg = "No api key provided!";array_push($errors,$msg);else:endif;
+if(empty($secretkeys)):$msg = "No secret key provided!";array_push($errors,$msg);else:endif;
+if($api->checkIfPidExists($pid) == false && !empty($pid)):$msg = "invalid personal details id!";array_push($errors,$msg);else:endif;
+$checkkeys = $api->checkKeys($apikeys,$secretkeys);
+if($checkkeys == false && !empty($apikeys) && !empty($secretkeys)):$msg = "Authentication failed, invalid api or secret keys!";array_push($errors,$msg);else:endif;
+
+if(count($errors) > 0):
+return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
+else:
+$fetch = $api->getpd($pid);
+if($fetch == true):    
+return json_encode(['status'=>200,'data'=>$fetch]);
+else:
+$msg = "fail to fetch response";    
+array_push($errors,$msg);
+return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
+endif;
+endif;
+});
+/*========================= Get Personal Details ENDS =========================*/
+
+/*========================= Edit Personal Details =========================*/
+$app->put('/user/personal-details/edit/{personalDetailsId}', function (Request $request, Response $response,array $args) {
+$api = new Apiclass();    
+$errors = array();
+
+$apikeys = $request->getParam('apiKey');    
+$secretkeys = $request->getParam('secretKey'); 
+$pid = $request->getAttribute('personalDetailsId'); 
+$name = $api->cleanInputs($request->getParam('name'));
+$email = $api->cleanInputs($request->getParam('email'));
+$phone = $api->cleanInputs($request->getParam('phone'));
+$address = $api->cleanInputs($request->getParam('address'));
+$dob = $api->cleanInputs($request->getParam('dateOfBirth'));
+$website = $api->cleanInputs($request->getParam('website'));
+$image = $api->cleanInputs($request->getParam('profilePicture'));
+
+$details = $api->getpd($pid);
+
+if(empty($apikeys)):$msg = "No api key provided!";array_push($errors,$msg);else:endif;
+if(empty($secretkeys)):$msg = "No secret key provided!";array_push($errors,$msg);else:endif;
+if(empty($name)):$msg = "No name provided!";array_push($errors,$msg);else:endif;
+if(empty($email)):$msg = "No email provided!";array_push($errors,$msg);else:endif;
+if(!filter_var($email,FILTER_VALIDATE_EMAIL) && !empty($email)):$msg = "invalid email supplied!";array_push($errors,$msg);else:endif;
+if($api->checkIfPidExists($pid) == false && !empty($pid)):$msg = "invalid personal details id!";array_push($errors,$msg);else:endif;
+$checkkeys = $api->checkKeys($apikeys,$secretkeys);
+if($checkkeys == false && !empty($apikeys) && !empty($secretkeys)):$msg = "Authentication failed, invalid api or secret keys!";array_push($errors,$msg);else:endif;
+
+if(empty($image)):    
+$file = $details['profile'];    
+else:
+$folderPath = "images/";
+$image_parts = explode(";base64,", $image);
+$image_type_aux = explode("image/", $image_parts[0]);
+$image_type = $image_type_aux[1];
+$image_base64 = base64_decode($image_parts[1]);
+$file = rand().time() . '.png';
+$oldImage = "./images/".$details['profile'];
+if(file_exists($oldImage)): unlink($oldImage);endif;
+file_put_contents($folderPath.''.$file, $image_base64);    
+endif;    
+
+if(count($errors) > 0):
+return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
+else:
+$peditdetails = $api->UpdatepersonalDetails($pid,$name,$email,$address,$phone,$dob,$website,$file);
+if($peditdetails == true):    
+return json_encode(['status'=>200,'response'=>'OK']);
+else:
+$msg = "fail to fetch response";    
+array_push($errors,$msg);
+return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
+endif;
+endif;
+});
+/*========================= Edit Personal Details ENDS =========================*/
+
+/*========================= Get Education Details =========================*/
+$app->get('/user/education/fetch/{personalDetailsId}', function (Request $request, Response $response,array $args) {
+$api = new Apiclass();    
+$errors = array();
+
+$apikeys = $request->getParam('apiKey');    
+$secretkeys = $request->getParam('secretKey'); 
+$pid = $request->getAttribute('personalDetailsId'); 
+
+if(empty($apikeys)):$msg = "No api key provided!";array_push($errors,$msg);else:endif;
+if(empty($secretkeys)):$msg = "No secret key provided!";array_push($errors,$msg);else:endif;
+if(empty($pid)):$msg = "No personal details id provided!";array_push($errors,$msg);else:endif;
+if($api->checkIfPidExists($pid) == false && !empty($pid)):$msg = "invalid personal details id!";array_push($errors,$msg);else:endif;
+$checkkeys = $api->checkKeys($apikeys,$secretkeys);
+if($checkkeys == false && !empty($apikeys) && !empty($secretkeys)):$msg = "Authentication failed, invalid api or secret keys!";array_push($errors,$msg);else:endif;
+
+if(count($errors) > 0):
+return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
+else:
+$fetch = $api->getAllEduBypid($pid);
+if($fetch == true):    
+return json_encode($fetch);
+else:
+$msg = "fail to fetch response";    
+array_push($errors,$msg);
+return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
+endif;
+endif;
+});
+/*========================= Get Education Details ENDS =========================*/
+
+/*========================= Edit education =========================*/
+$app->put('/user/education/edit/{personalDetailsId}/{id}', function (Request $request, Response $response,array $args) {
+$api = new Apiclass();    
+$errors = array();
+
+$apikeys = $api->cleanInputs($request->getParam('apiKey'));    
+$secretkeys = $api->cleanInputs($request->getParam('secretKey')); 
+$id = $api->cleanInputs($request->getAttribute('id'));
+$pid = $api->cleanInputs($request->getAttribute('personalDetailsId'));
+$course = $api->cleanInputs($request->getParam('course'));
+$school = $api->cleanInputs($request->getParam('school'));
+$grade = $api->cleanInputs($request->getParam('grade'));
+$year = $api->cleanInputs($request->getParam('year'));
+
+if(empty($apikeys)):$msg = "No api key provided!";array_push($errors,$msg);else:endif;
+if(empty($secretkeys)):$msg = "No secret key provided!";array_push($errors,$msg);else:endif;
+if(empty($pid)):$msg = "No personal details id provided!";array_push($errors,$msg);else:endif;
+if(empty($id)):$msg = "No id provided!";array_push($errors,$msg);else:endif;
+if(empty($course)):$msg = "No course provided!";array_push($errors,$msg);else:endif;
+if(empty($grade)):$msg = "No grade provided!";array_push($errors,$msg);else:endif;
+if(empty($school)):$msg = "No school provided!";array_push($errors,$msg);else:endif;
+if(empty($year)):$msg = "No year provided!";array_push($errors,$msg);else:endif;
+$checkkeys = $api->checkKeys($apikeys,$secretkeys);
+if($checkkeys == false && !empty($apikeys) && !empty($secretkeys)):$msg = "Authentication failed, invalid api or secret keys!";array_push($errors,$msg);else:endif;
+if($api->checkIfPidExists($pid) == false && !empty($pid)):$msg = "invalid personal details id!";array_push($errors,$msg);else:endif;
+if($api->checkIfEduExists($pid,$school,$year) == true):$msg = "data already exists!";array_push($errors,$msg);else:endif;
+
+if(count($errors) > 0):
+return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
+else:
+$upedu = $api->UpdateEducation($pid,$id,$course,$grade,$year,$school);
+if($upedu == true):    
+return json_encode(['status'=>200,"response"=>"success"]);
+else:
+$msg = "fail to fetch response!";    
+array_push($errors,$msg);
+return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
+endif;
+endif;
+});
+/*========================= Edit education ENDS =========================*/
 
 
 

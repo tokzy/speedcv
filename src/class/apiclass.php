@@ -4,7 +4,7 @@ class Apiclass {
 private $hostname = 'localhost';
 private $user = 'root';
 private $dbname = 'speedy';
-private $password = 'jehovah205';
+private $password = '';
 protected $connection;
 private $charset = 'utf8';
 
@@ -420,18 +420,18 @@ return $row;
 }
 
 public function getreference(int $pid,string $refname){
-    $conn = $this->connect();
-    $conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
-    $sql = "SELECT * from reference WHERE pid = :pid AND refereeName = :ref LIMIT 1"; 
-    $stmt = $this->connect()->prepare($sql);
-    
-    $stmt->bindParam(':pid',$pid,PDO::PARAM_INT);
-    $stmt->bindParam(':ref',$refname,PDO::PARAM_STR);
-    
-    $stmt->execute();
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    return $row;
-    }
+$conn = $this->connect();
+$conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+$sql = "SELECT * from reference WHERE pid = :pid AND refereeName = :ref LIMIT 1"; 
+$stmt = $this->connect()->prepare($sql);
+
+$stmt->bindParam(':pid',$pid,PDO::PARAM_INT);
+$stmt->bindParam(':ref',$refname,PDO::PARAM_STR);
+
+$stmt->execute();
+$row = $stmt->fetch(PDO::FETCH_ASSOC);
+return $row;
+}
 
 public function getproject(int $pid,string $title){
 $conn = $this->connect();
@@ -542,6 +542,318 @@ return false;
 endif;        
 }
 
+public function fetchHeadings(){
+$conn = $this->connect();
+$conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+$sql = "SELECT title,id from headings ORDER BY id ASC"; 
+$stmt = $this->connect()->prepare($sql);
+$stmt->execute();
+$row = $stmt->fetchAll();
+return $row;
+}
+
+public function checkIfTitleExists(string $title){
+$connect = $this->connect();
+
+$connect->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING);  
+$sql = "SELECT count(*) FROM headings WHERE title = :title"; 
+
+$stmt = $connect->prepare($sql);
+$stmt->bindParam(':title',$title,PDO::PARAM_STR);
+
+$stmt->execute();
+$rowcount = $stmt->fetchColumn();
+if($rowcount > 0):return true;else:return false;endif;    
+}
+
+public function checkIfTitleIdExists(int $id){
+$connect = $this->connect();
+
+$connect->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING);  
+$sql = "SELECT count(*) FROM headings WHERE id = :id"; 
+
+$stmt = $connect->prepare($sql);
+$stmt->bindParam(':id',$id,PDO::PARAM_INT);
+
+$stmt->execute();
+$rowcount = $stmt->fetchColumn();
+if($rowcount > 0):return true;else:return false;endif;    
+}
+
+public function checkIfmiscExists(int $id,int $pid){
+$connect = $this->connect();
+
+$connect->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING);  
+$sql = "SELECT count(*) FROM miscellaneous WHERE headingId = :id AND pid = :pid"; 
+
+$stmt = $connect->prepare($sql);
+$stmt->bindParam(':id',$id,PDO::PARAM_INT);
+$stmt->bindParam(':pid',$pid,PDO::PARAM_INT);
+$stmt->execute();
+$rowcount = $stmt->fetchColumn();
+if($rowcount > 0):return true;else:return false;endif;    
+}
+
+public function CreateHeading(string $title){
+$conn = $this->connect();
+$date = date("Y-m-d H:i:s");
+$conn->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING );   
+
+$sql = "INSERT INTO headings (title,datemade)
+VALUES(:title,:datemade)";
+
+$stmt = $this->connect()->prepare($sql);
+
+$stmt->bindParam(':title',$title,\PDO::PARAM_STR);
+$stmt->bindParam(':datemade',$date,\PDO::PARAM_STR);
+
+$result = $stmt->execute();
+if($result):
+return true;
+else:
+return false;
+endif;        
+}
+
+public function editHeading(int $id, string $title){
+$conn = $this->connect();
+$conn->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING );   
+
+$sql = "UPDATE headings SET title = :title WHERE id = :id";
+
+$stmt = $this->connect()->prepare($sql);
+$stmt->bindParam(':id',$id,\PDO::PARAM_INT);
+$stmt->bindParam(':title',$title,\PDO::PARAM_STR);
+
+$result = $stmt->execute();
+if($result):
+return true;
+else:
+return false;
+endif;        
+}
+
+public function DeleteHeading(int $id){
+$conn = $this->connect();
+$conn->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING );   
+
+$sql = "DELETE FROM headings WHERE id = :id";
+
+$stmt = $this->connect()->prepare($sql);
+$stmt->bindParam(':id',$id,\PDO::PARAM_INT);
+
+$result = $stmt->execute();
+if($result):
+return true;
+else:
+return false;
+endif;        
+}
+
+public function CreateMiscellaneous(int $id,int $pid,string $value){
+$conn = $this->connect();
+$date = date("Y-m-d H:i:s");
+$conn->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING );   
+$sql = "INSERT INTO `miscellaneous`(headingId,pid,value,datemade)
+VALUES(:hid,:pid,:value,:datemade)";
+
+$stmt = $this->connect()->prepare($sql);
+
+$stmt->bindParam(':hid',$id,\PDO::PARAM_INT);
+$stmt->bindParam(':pid',$pid,\PDO::PARAM_INT);
+$stmt->bindParam(':value',$value,\PDO::PARAM_STR);
+$stmt->bindParam(':datemade',$date,\PDO::PARAM_STR);
+
+$result = $stmt->execute();
+if($result):
+return true;
+else:
+return false;
+endif;        
+}
+
+public function fetchTemplates(){
+$conn = $this->connect();
+$conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+$sql = "SELECT path,id from `templateLists` ORDER BY id ASC"; 
+$stmt = $this->connect()->prepare($sql);
+$stmt->execute();
+$row = $stmt->fetchAll();
+return $row;
+}
+
+public function getpd(int $pid){
+$conn = $this->connect();
+$conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+$sql = "SELECT * from `personalDetails` WHERE id = :pid"; 
+$stmt = $this->connect()->prepare($sql);
+
+$stmt->bindParam(':pid',$pid,PDO::PARAM_INT);
+
+$stmt->execute();
+$row = $stmt->fetch(PDO::FETCH_ASSOC);
+return $row;
+}
+
+public function getAllpdById(int $pid){
+$conn = $this->connect();
+$conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+$sql = "SELECT * from `personalDetails` WHERE id = :pid"; 
+$stmt = $this->connect()->prepare($sql);
+
+$stmt->bindParam(':pid',$pid,PDO::PARAM_INT);
+
+$stmt->execute();
+$row = $stmt->fetchAll();
+return $row;
+}
+
+public function getheadersbytitle(string $title){
+$conn = $this->connect();
+$conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+$sql = "SELECT * from `headings` WHERE mydefault = :title"; 
+$stmt = $this->connect()->prepare($sql);
+
+$stmt->bindParam(':title',$title,PDO::PARAM_STR);
+
+$stmt->execute();
+$row = $stmt->fetch(PDO::FETCH_ASSOC);
+return $row;
+}
+
+public function getAllObjBypid(int $pid){
+$conn = $this->connect();
+$conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+$sql = "SELECT * from `objective` WHERE pid = :pid"; 
+$stmt = $this->connect()->prepare($sql);
+
+$stmt->bindParam(':pid',$pid,PDO::PARAM_INT);
+
+$stmt->execute();
+$row = $stmt->fetchAll();
+return $row;
+}
+
+public function getAllEduBypid(int $pid){
+$conn = $this->connect();
+$conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+$sql = "SELECT * from `education` WHERE pid = :pid"; 
+$stmt = $this->connect()->prepare($sql);
+
+$stmt->bindParam(':pid',$pid,PDO::PARAM_INT);
+
+$stmt->execute();
+$row = $stmt->fetchAll();
+return $row;
+}
+
+public function checkIftempIdExists(int $id){
+$connect = $this->connect();
+
+$connect->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING);  
+$sql = "SELECT count(*) FROM `templateLists` WHERE id = :id"; 
+
+$stmt = $connect->prepare($sql);
+$stmt->bindParam(':id',$id,PDO::PARAM_INT);
+$stmt->execute();
+$rowcount = $stmt->fetchColumn();
+if($rowcount > 0):return true;else:return false;endif;    
+}
+
+public function StorePdf(int $userid,string $path){
+$conn = $this->connect();
+$date = date("Y-m-d H:i:s");
+$conn->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING );   
+
+$sql = "INSERT INTO `pdf`(user_id,path,datemade)
+VALUES(:userid,:path,:datemade)";
+$stmt = $this->connect()->prepare($sql);
+
+$stmt->bindParam(':userid',$userid,\PDO::PARAM_INT);
+$stmt->bindParam(':path',$path,\PDO::PARAM_STR);
+$stmt->bindParam(':datemade',$date,\PDO::PARAM_STR);
+
+$result = $stmt->execute();
+if($result):
+return true;
+else:
+return false;
+endif;        
+}
+
+
+public function UpdatepersonalDetails(int $pid, string $name,string $email,string $address,int $phone,string $dob,string $website,string $profile){
+$conn = $this->connect();
+$conn->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING );   
+if(empty($profile)):
+$sql = "UPDATE personalDetails SET name = :name,address = :address,email = :email,phone = :phone,dob = :dob,
+website = :website WHERE id = :pid";
+
+$stmt = $this->connect()->prepare($sql);
+$stmt->bindParam(':name',$name,\PDO::PARAM_STR);
+$stmt->bindParam(':address',$address,\PDO::PARAM_STR);
+$stmt->bindParam(':email',$email,\PDO::PARAM_STR);
+$stmt->bindParam(':phone',$phone,\PDO::PARAM_INT);
+$stmt->bindParam(':dob',$dob,\PDO::PARAM_STR);
+$stmt->bindParam(':website',$website,\PDO::PARAM_STR);
+$stmt->bindParam(':pid',$pid,\PDO::PARAM_INT);
+
+$result = $stmt->execute();
+if($result):
+return true;
+else:
+return false;
+endif;     
+else:    
+$sql = "UPDATE personalDetails SET name = :name,address = :address,email = :email,phone = :phone,dob = :dob,
+website = :website,profile = :profile WHERE id = :pid";
+
+$stmt = $this->connect()->prepare($sql);
+$stmt->bindParam(':pid',$pid,\PDO::PARAM_INT);
+$stmt->bindParam(':name',$name,\PDO::PARAM_STR);
+$stmt->bindParam(':address',$address,\PDO::PARAM_STR);
+$stmt->bindParam(':email',$email,\PDO::PARAM_STR);
+$stmt->bindParam(':phone',$phone,\PDO::PARAM_INT);
+$stmt->bindParam(':dob',$dob,\PDO::PARAM_STR);
+$stmt->bindParam(':profile',$profile,\PDO::PARAM_STR);
+$stmt->bindParam(':website',$website,\PDO::PARAM_STR);
+$result = $stmt->execute();
+if($result):
+return true;
+else:
+return false;
+endif;        
+endif;
+}
+
+public function UpdateEducation(int $pid,int $id,string $course,string $grade,string $year,string $school){
+$conn = $this->connect();
+$conn->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING );   
+
+$sql = "UPDATE education SET course = :course,school = :school,grade = :grade,year = :year WHERE pid = :pid AND id = :id";
+
+$stmt = $this->connect()->prepare($sql);
+
+$stmt->bindParam(':pid',$pid,\PDO::PARAM_INT);
+$stmt->bindParam(':id',$id,\PDO::PARAM_INT);
+$stmt->bindParam(':course',$course,\PDO::PARAM_STR);
+$stmt->bindParam(':school',$school,\PDO::PARAM_STR);
+$stmt->bindParam(':year',$year,\PDO::PARAM_STR);
+$stmt->bindParam(':grade',$grade,\PDO::PARAM_STR);
+
+$result = $stmt->execute();
+if($result):
+return true;
+else:
+return false;
+endif;        
+}
+
+
+
+
+
+
 
 }
-?>
+

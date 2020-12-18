@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>CV Template</title>
+<link href='https://fonts.googleapis.com/css?family=Tahoma' rel='stylesheet'>
+<style>
+:root{
+    --cv9Default:#173171;
+    --cv10Default:#0e597d;
+    --cv11Default:#526f1c;
+    --cv12Default:#526f1c;
+    --cv13Default:#526f1c;
+    --cv14Default:#526f1c;
+    --cv15Default:#526f1c;
+}
+
+*{
+	margin: 0;
+	padding: 0;
+	/*box-sizing: border-box;*/
+}
+body{
+    line-height: 23px;
+    font-family: "Tahoma";
+    background-color: #585c68;
+    color: #333;
+    font-size: 13px;
+}
+/*----------------general styling----------------*/
+ul{
+	list-style: none;
+}
+img{
+	width: 100%;
+}
+.row-vm{
+	display: flex;
+	flex-direction: row;
+}
+.col-vm{
+	display: flex;
+	flex-direction: column;
+}
+.fl-w{
+	flex-wrap: wrap;
+}
+.width-76{
+	width: 76%
+}
+.jus-bet{
+	justify-content: space-between;
+}
+.al{
+	align-items: center;
+}
+.bold{
+	font-weight: bold;
+	font-size: 21px;
+}
+.bl{
+	border-bottom: 1px solid #333;
+}
+.small-bold{
+	font-weight: bold;
+	text-transform: uppercase;
+}
+h1,h2{
+	margin: 10px 0;
+	text-transform: uppercase;
+}
+h2{
+	font-weight: bold;
+	font-size: 14px;
+	padding-bottom: 5px;
+}
+.container{
+	padding: 20px;
+}
+.disp-i-b{
+	display: inline-block;
+}
+.m-r{
+	margin-right: 20px;
+}
+.m-l{
+	margin-left: 20px;
+}
+.txt-al-l{
+	text-align: left;
+}
+.wrapper{
+	justify-content: center;
+	width: 100%;
+	display: flex;
+}
+.resume{
+	width: 800px;
+	background-color: #fff;
+	position: absolute;
+}
+.fw{
+	width: 100%;
+}
+.in{
+	border-bottom: 1px solid #fff;
+}
+.user-img{
+	width: 150px;
+	height: 150px;
+	display: inline-block;
+}
+.user-img img{
+	border-radius: 80px;
+	height: 100%;
+}
+.opi-item {
+	padding: 10px 0 0;
+	text-align: center;
+}
+.opi-item-title{
+	/*background-color: #fff;*/
+    /*color: #585c68;
+    height: 25px;
+    width: 25px;*/
+    font-weight: bold;
+    text-align: center;
+    /*border-radius: 50px;*/
+    display: inline-block;
+    font-size: 14px;
+}
+.opi-item-title img{
+	width: 18px;
+	height: 18px;
+}
+.extra-info{
+	background-color: transparent;
+	color: #fff;
+	width: 100%;
+	font-weight: bold;
+	height: auto;
+}
+.social,.extra-personal-info{
+	border-top: 1px solid #fff;
+	padding: 10px 0 0;
+    margin: 15px 0 0;
+}
+.education-info{
+	display: inline-block;
+}
+.objective-info,.skills-info,.education-info,.experience-info,.project-info,.reference-info{
+	padding-bottom: 13px;
+}
+.info-text{
+	padding: 0 15px;
+}
+/*.info-text > div,*/.info-text-div{
+	position: relative;
+}
+.points:before{
+	content: "";
+	position: absolute;
+	top: 6px;
+	left: -18px;
+	width: 6px;
+	height: 6px;
+	border-radius: 50px;
+}
+.points:after{
+	content: "";
+	position: absolute;
+	top: 16px;
+    left: -14px;
+    width: 2px;
+    height: 195px;
+}
+.education{
+	/*display: table;*/
+	width: 100%;
+	padding: 0;
+}
+.edu-wrap{
+	width: 100%;
+	display: table;
+}
+table {
+  /*border-collapse: collapse;*/
+  width: 100%;
+}
+td, th {
+  text-align: left;
+  padding:0px 8px;
+}
+.education-info {
+	width: 50%;
+}
+/*.skills-info > ul li,*/.skills-info-li{
+	/*margin: 10px 0;*/
+	margin: 10px 25px 10px 0;
+    list-style: none;
+    width: 200px;
+	display: inline-block;
+}
+.sp{
+	width: 100%;
+    background-color:rgb(216 216 216);
+    border-radius: 5px;
+}
+.sb{
+    background-color: rgb(116, 194, 92);
+    color: white;
+    padding: 1.5%;
+    text-align: right;
+    font-size: 20px;
+    border-radius: 5px;
+}
+.w-20{
+	width: 20%;
+}
+.w-40{
+	width: 40%;
+}
+.w-60{
+	width: 60%;
+}
+.w-80{
+	width: 80%;
+}
+.w-100{
+	width: 100%;
+}
+.pad-top{
+	padding-top: 10px;
+}
+.header-line{
+	height: 4px;
+    width: 43px;
+    margin: -10px 0 10px 10px;
+}
+.mid-sec-line{
+	width: 8px;
+	height: auto;
+	margin: 20px 5px;
+	border-radius: 20px;
+	background-color: #fff;
+}
+.education-info .points:before,.project-info .points:before{
+	border: 2px solid #4b4879;
+}
+.education-info .points:after,.project-info .points:after{
+	background-color: #4b4879;
+	height: 70px;
+}
+
+.experience-info .points:before{
+	border: 2px solid #fff;
+}
+.experience-info .points:after{
+	background-color: #fff;
+}
+
+
+/*---------------------combines styling---------------------*/
+.cv2-h2,.cv7-h2{
+	color: #fff;
+	border-radius: 15px 0 0 15px;
+	padding-bottom: 0;
+	padding:3px 10px;
+}
+.cv3-opi-item,.cv4-opi-item,.cv11-opi-item,.cv12-opi-item{
+	text-align: end;
+	justify-content: space-between;
+	border-bottom: 1px solid #cacacaeb;
+	padding: 15px 0;
+}
+.cv3-opi-item-title,.cv4-opi-item-title,.cv11-opi-item-title,.cv12-opi-item-title{
+    text-align: left;
+    font-size: 14px;
+	color: #fff;
+	font-weight: bold;
+}
+.cv3-social,.cv4-social,.cv11-social,.cv12-social{
+	padding-top: 30px;
+}
+.cv4-skills-info > ul > li,.cv7-skills-info > ul > li,.cv11-skills-info > ul > li,
+.cv12-skills-info > ul > li{
+	width: 200px;
+}
+.cv4-sp,.cv5-sp,.cv6-sp,.cv7-sp,.cv8-sp,.cv9-sp,.cv10-sp,.cv11-sp,.cv12-sp,.cv13-sp{
+    /*height: 10px;*/
+    border-radius: 10px;
+}
+.cv4-sb,.cv5-sb,.cv6-sb,.cv7-sb,.cv8-sb,.cv9-sb,.cv10-sb,.cv11-sb,.cv12-sb,.cv13-sb{
+	border-radius: 10px;
+	 padding: 2%;
+}
+.cv8-info-header,.cv9-info-header,.cv10-info-header,
+.cv11-info-header,.cv12-info-header,.cv13-info-header{
+	display: flex;
+	align-items: center;
+}
+.cv4-info-header img,.cv8-info-header i,.cv9-info-header i,.cv10-info-header i,
+.cv11-info-header i,.cv13-info-header i{
+	color: #fff;
+	height: 30px;
+    width: 30px;
+    text-align: center;
+    border-radius: 50px;
+    /*display: flex;
+    align-items: center;
+    justify-content: center;*/
+    font-size: 14px;
+    margin-right: 10px;
+}
+.cv5-extra-p-i-div,.cv9-extra-personal-info > div,
+.cv13-extra-personal-info > div {
+    width: 320px;
+    border-bottom: none;
+    justify-content: space-between;
+}
+.cv5-social,.cv6-social,.cv8-social,.cv10-social{
+    flex-wrap: wrap;
+}
+.cv5-social .opi-item .opi-item-title,.cv6-social .opi-item .opi-item-title,
+.cv8-social .opi-item .opi-item-title,.cv9-social .opi-item .opi-item-title,
+.cv13-social .opi-item .opi-item-title{
+    color: #fff;
+    margin-right: 13px;
+}
+.cv9-skills-info > ul > li,
+.cv13-skills-info > ul > li {
+    width: 100%;
+    display: flex;
+}
+.cv9-skills-info > ul > li > span,
+.cv13-skills-info > ul > li > span{
+    width: 85%;
+}
+.cv5-opi-item-title,.cv6-opi-item-title,.cv7-opi-item-title,
+.cv8-opi-item-title,.cv9-opi-item-title,.cv10-opi-item-title,
+.cv13-opi-item-title{
+    display: flex;
+    align-items: center;
+    text-align: left;
+    font-size: 14px;
+	font-weight: bold;
+}
+.cv5-top,.cv6-top,.cv8-top{
+	padding-bottom: 0;
+	justify-content: space-around;
+	align-items: center;
+}
+.cv5-user,.cv6-user,.cv13-user{
+    width: 455px;
+    display: inline-block;
+}
+.cv5-user .user-name,.cv6-user .user-name{
+	margin-left: 20px;
+}
+.cv5-opi-item,.cv6-opi-item{
+	text-align: end;
+	padding: 5px 0;
+}
+.cv6-opi-icon{
+	margin-left: 20px;
+}
+.cv5-p-i,.cv6-personal-info > div{
+	width: 100%;
+	flex-direction: row-reverse;
+}
+.cv6-skills-info > ul > li,.cv8-skills-info > ul > li,.cv10-skills-info > ul > li{
+	width: 180px;
+}
+.cv6-social > div,.cv8-social > div,.cv9-social > div,.cv10-social > div,.cv13-social > div{
+	width: 25%;
+}
+.cv6-opi,.cv8-opi,.cv9-opi,.cv10-opi{
+	width: 330px;
+}
+.cv7-extra-personal-info > div,.cv6-extra-personal-info > div,
+.cv8-extra-personal-info > div,.cv10-extra-personal-info > div{
+	width: 45%;
+	border-bottom: none;
+	margin: 0 15px;
+	justify-content: space-between;
+}
+.cv7-extra-personal-info,.cv6-extra-personal-info,.cv8-extra-personal-info,.cv10-extra-personal-info{
+	flex-wrap: wrap;
+}
+.cv8-personal-info > div,.cv9-personal-info > div,.cv10-personal-info > div,
+.cv13-personal-info > div{
+	flex-direction: row;
+	width: 100%;
+	    padding: 5px 0;
+}
+.cv13-top{
+	flex-direction: row-reverse;
+    padding: 10px 20px;
+}
+.cv9-user,.cv13-user{
+	flex-direction: row-reverse;
+}
+.cv9-user .user-name,.cv13-user .user-name{
+	margin-right: 20px;
+}
+
+/*------------individual styling------------*/
+/*---------------CV3------------*/
+.cv3-h2{
+	background-color: transparent;
+	color: #4b4879;
+	padding-bottom: 0;
+	padding:3px 0;
+}
+.cv3-header-line{
+	background-color: #4b4879;
+	margin: -10px 0 10px 0px;
+}
+.cv3-h2-edu,.cv3-exp h2{
+	color: #fff;
+}
+.cv3-exp .info-text{
+	padding: 0;
+}
+.cv3-header-line-exp{
+	background-color: #fff;
+	margin: -10px 0 10px 0px;
+}
+.cv3-col{
+	background-color: #fff;
+}
+.cv3-left{
+	width: 180px;
+    background-color: #4b4879;
+    color: #fff;
+    text-align: center;
+    align-items: center;
+    padding: 20px 30px;
+}
+.cv3-sb{
+	background-color: #4b4879;
+}
+.cv3-right{
+	width: 520px;
+	background-color: #f3f3f3;
+}
+.cv3-user,.cv3-opi{
+	padding: 10px 0;
+}
+.cv3-exp{
+	background-color: #4b4879;
+    color: #fff;
+    margin: 0 -20px 0 -22px;
+    padding: 20px;
+}
+.cv3-edu{
+	padding-bottom: 15px;
+}
+</style>
+</head>
+<body>
+<div class="wrapper ">
+<div class="resume row-vm">
+<div class="cv3-col ">
+<!-- COL 1 -->
+<div class="cv3-col1 row-vm">
+<!-- SMALLER CONTAINER AT THE LEFT-->
+<div class=" container cv3-left l-float">
+<!-- user image and name-->
+<div class="cv3-user">
+<!-- user image -->
+<div class="user-img">
+<img src="./img/images.jpg" alt="cv-img">
+</div>
+
+<!-- user name -->
+<div class="user-name">
+<h1 class="bold">JOHN DOE</h1>
+</div>
+</div>
+<!-- user image and name end-->
+<!-- other personal info -->
+<div class="opi cv3-opi">
+<div class="opi-item cv3-opi-item ">
+<p class="cv3-opi-item-title">Phone:</p>
+<p>000-000-000-000</p>
+</div>
+
+<div class="opi-item cv3-opi-item ">
+<p class="cv3-opi-item-title">Email:</p>
+<p>johndoe@gmail.com</p>
+</div>
+
+<div class="opi-item cv3-opi-item ">
+<p class="cv3-opi-item-title">Address:</p>
+<p>Block number, Street Name, City, State, Country, Zip code</p>
+</div>
+
+<div class="opi-item cv3-opi-item ">
+<p class="cv3-opi-item-title">Website:</p>
+<p>www.johndoe.com</p>
+</div>
+
+<div class="cv3-extra-personal-info">
+<div class="opi-item cv3-opi-item ">
+<p class="cv3-opi-item-title">Date of Birth:</p>
+<p>01-01-0001</p>
+</div>
+
+<div class="opi-item cv3-opi-item ">
+<p class="cv3-opi-item-title">Gender:</p>
+<p>Unknown</p>
+</div>
+
+<div class="opi-item cv3-opi-item ">
+<p class="cv3-opi-item-title">Religion</p>
+<p>Still thinking</p>
+</div>
+
+<div class="opi-item cv3-opi-item ">
+<p class="cv3-opi-item-title">Marital Status:</p>
+<p>Confused</p>
+</div>
+</div>
+
+<div class="cv3-social">
+<div class="opi-item ">
+<p class="opi-item-title"><img src="./img/linkedin-w.png"></p>
+<p>Account link</p>
+</div>
+
+<div class="opi-item ">
+<p class="opi-item-title"><img src="./img/facebook-w.png"></p>
+<p>Account link</p>
+</div>
+<div class="opi-item ">
+<p class="opi-item-title"><img src="./img/twitter-w.png"></p>
+<p>Account link</p>
+</div>
+<div class="opi-item ">
+<p class="opi-item-title"><img src="./img/instagram-w.png"></p>
+<p>Account link</p>
+</div>
+</div>
+</div>
+<!-- other personal info end-->
+</div>
+<!-- SMALLER CONTAINER END -->
+<!--(BIGGER CONTAINER) -->
+<div class=" container cv3-right r-float">
+<!-- OBJECTIVE -->
+<div class="gi">
+<div class="info-header">
+<h2 class="cv3-h2">Objective</h2>
+<div class="header-line cv3-header-line"></div>
+</div>
+<div class="info-text">
+<div class="objective-info">
+<p>
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+cillum dolore eu fugiat nulla pariatur.
+</p>
+</div>
+</div>
+</div>
+<!-- OBJECTIVE END -->
+
+<!--Education -->
+<div class="gi">
+<div class="info-header">
+<h2 class="cv3-h2">Education</h2>
+<div class="header-line  cv3-header-line"></div>
+</div>
+<div class="info-text education cv3-edu">
+<table>
+<tr class="small-bold">
+<th>Course/Degree</th>
+<th>Course/Degree</th>
+<th>Course/Degree</th>
+</tr>
+<tr>
+<td>School/university name</td>
+<td>School/university name</td>
+<td>School/university name</td>
+</tr>
+<tr>
+<td>Grade/Score</td>
+<td>Grade/Score</td>
+<td>Grade/Score</td>
+</tr>
+<tr>
+<td>Year</td>
+<td>Year</td>
+<td>Year</td>
+</tr>
+</table>
+</div>
+</div>
+<!--Education end-->
+<!--Experience -->
+<div class="gi cv3-exp">
+<div class="info-header">
+<h2>Experience</h2>
+<div class="header-line cv3-header-line-exp"></div>
+</div>
+<div class="info-text">
+<div class="experience-info info-text-div">
+<p class="small-bold points">Company/Name</p>
+<p>Job/Title</p>
+<p>Start date - End date</p>
+<p class="pad-top">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+</div>
+</div>
+</div>
+<!--Experience end-->
+<!--Project -->
+<div class="gi">
+<div class="info-header">
+<h2 class="cv3-h2">Pojects</h2>
+<div class="header-line cv3-header-line"></div>
+</div>
+<div class="info-text">
+<div class="project-info info-text-div">
+<p class="small-bold points">Title</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+consequat.</p>
+</div>
+</div>
+</div>
+<!--Project end-->
+<!--Skills -->
+<div class="gi">
+<div class="info-header">
+<h2 class="cv3-h2">Skills</h2>
+<div class="header-line cv3-header-line"></div>
+</div>
+<div class="info-text">
+<div class="skills-info">
+<table>
+<tr>
+<td>
+<li class="skills-info-li">
+<p class="skill-name">Lorem ipsum dolor</p>
+<div class="sp cv3-sp">
+<div class="sb cv3-sb w-20"></div>
+</div>
+</li>
+</td>
+<td>
+<li class="skills-info-li">
+<p class="skill-name">Lorem ipsum dolor</p>
+<div class="sp cv3-sp">
+<div class="sb cv3-sb w-80"></div>
+</div>
+</li>
+</td>
+</tr>
+<tr>
+<td>
+<li class="skills-info-li">
+<p class="skill-name">Lorem ipsum dolor</p>
+<div class="sp cv3-sp">
+<div class="sb cv3-sb w-60"></div>
+</div>
+</li>
+</td>
+<td>
+<li class="skills-info-li">
+<p class="skill-name">Lorem ipsum dolor</p>
+<div class="sp cv3-sp">
+<div class="sb cv3-sb w-80"></div>
+</div>
+</li>
+</td>
+</tr>
+<tr>
+<td>
+<li class="skills-info-li">
+<p class="skill-name">Lorem ipsum dolor</p>
+<div class="sp cv3-sp">
+<div class="sb cv3-sb w-80"></div>
+</div>
+</li>
+</td>
+<td>
+<li class="skills-info-li">
+<p class="skill-name">Lorem ipsum dolor</p>
+<div class="sp cv3-sp">
+<div class="sb cv3-sb w-80"></div>
+</div>
+</li>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<!--Skills end-->
+<!--Reference -->
+<div class="gi">
+<div class="info-header">
+<h2 class="cv3-h2">Reference</h2>
+<div class="header-line cv3-header-line"></div>
+</div>
+<div class="info-text">
+<div class="reference-info ">
+<p>Lorem ipsum dolor sit amet.</p>
+</div>
+</div>
+</div>
+<!--Reference end-->
+</div>
+<!-- BIGGER CONTAINER END -->
+
+
+</div>
+<!-- COL1 END -->
+</div>
+
+</div>
+</div>
+</body>
+</html>
