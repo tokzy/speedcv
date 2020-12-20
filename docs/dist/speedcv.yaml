@@ -1074,4 +1074,1004 @@ paths:
                     type: string
                     example: success                          
         '400':
-          description: errors                                                                                                                                                                                                                                                                                                                                     
+          description: errors
+   /user/education/delete/{personalDetailsId}/{id}:
+    delete:
+      tags:
+        - Template Details 
+      summary: delete contents from education section.
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - name: apiKey          
+          required: true
+          description: The api key of the application.
+          schema:
+            type: string
+        - name: secretKey
+          required: true
+          description: The secret key of the application.
+          schema:
+            type: string
+        - name: personalDetailsId
+          in: path
+          required: true
+          description: personal details id
+          schema:
+            type: integer
+        - name: id
+          required: true
+          description: education id  
+          schema:
+            type: integer         
+      responses:
+        '200':
+          description: data object.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example : 200
+                  response:
+                    type: string
+                    example: success
+        '400':
+          description: errors        
+   /user/experience/fetch/{personalDetailsId}:
+    get:
+      tags:
+        - Template Details 
+      summary: get the contents from experience section.
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - name: apiKey
+          
+          required: true
+          description: The api key of the application.
+          schema:
+            type: string
+        - name: secretKey
+          
+          required: true
+          description: The secret key of the application.
+          schema:
+            type: string
+        - name: personalDetailsId
+          in: path
+          required: true
+          description: personal details id
+          schema:
+            type: integer    
+      responses:
+        '200':
+          description: data object.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example : 2
+                  pid:
+                    type: integer
+                    example: 1
+                  companyName: 
+                    type: string
+                    example: twitter inc.
+                  jobTitle: 
+                    type: string
+                    example: devops
+                  startDate:
+                    type: string
+                    example: 2020 - 01 - 19
+                  endDate: 
+                    type: string
+                    example: 2020 - 09 - 20
+                  details:
+                    type: string
+                    example: fullstack developer with knack for solving problems with code  
+
+        '400':
+          description: errors  
+   /user/experience/edit/{personalDetailsId}/{id}:
+    put:
+      tags:
+        - Template Details 
+      summary: edit the contents of experience section.
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - name: apiKey          
+          required: true
+          description: The api key of the application.
+          schema:
+            type: string
+        - name: secretKey
+          required: true
+          description: The secret key of the application.
+          schema:
+            type: string
+        - name: personalDetailsId
+          in: path
+          required: true
+          description: personal details id
+          schema:
+            type: integer
+        - name: id
+          in: path
+          required: true
+          description: experience section id
+          schema:
+            type: integer
+        - name: companyName
+          required: true
+          description: name of the company
+          schema:
+            type: string
+        - name: jobTitle
+          required: true
+          description: job title
+          schema:
+            type: string
+        - name: startDate
+          required: true
+          description: employment start date
+          schema:
+            type: string            
+        - name: endDate
+          required: true
+          description: employment end date
+          schema:
+            type: string     
+        - name: details
+          required: true
+          description: employment details
+          schema:
+            type: string
+      responses:
+        '200':
+          description: data object.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example : 2
+                  response:
+                    type: integer
+                    example: success
+        '400':
+          description: errors
+   /user/experience/delete/{personalDetailsId}/{id}:
+    delete:
+      tags:
+        - Template Details 
+      summary: delete contents from experience section.
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - name: apiKey          
+          required: true
+          description: The api key of the application.
+          schema:
+            type: string
+        - name: secretKey
+          required: true
+          description: The secret key of the application.
+          schema:
+            type: string
+        - name: personalDetailsId
+          in: path
+          required: true
+          description: personal details id
+          schema:
+            type: integer
+        - name: id
+          in: path
+          required: true
+          description: experience id  
+          schema:
+            type: integer         
+      responses:
+        '200':
+          description: data object.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example : 200
+                  response:
+                    type: string
+                    example: success
+        '400':
+          description: errors                 
+   /user/skills/fetch/{personalDetailsId}:
+    get:
+      tags:
+        - Template Details 
+      summary: fetch the content from skills section.
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - name: apiKey          
+          required: true
+          description: The api key of the application.
+          schema:
+            type: string
+        - name: secretKey
+          required: true
+          description: The secret key of the application.
+          schema:
+            type: string
+        - name: personalDetailsId
+          in: path
+          required: true
+          description: personal details id
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: data object.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example : 2
+                  pid:
+                    type: integer
+                    example: 1
+                  skills: 
+                    type: string
+                    example: aws
+                  level:
+                    type: integer
+                    example: 4    
+        '400':
+          description: errors  
+   /user/skills/edit/{personalDetailsId}/{id}:
+    put:
+      tags:
+        - Template Details 
+      summary: edit content from skills section.
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - name: apiKey          
+          required: true
+          description: The api key of the application.
+          schema:
+            type: string
+        - name: secretKey
+          required: true
+          description: The secret key of the application.
+          schema:
+            type: string
+        - name: personalDetailsId
+          in: path
+          required: true
+          description: personal details id
+          schema:
+            type: integer
+        - name: id
+          in: path
+          required: true
+          description: skills id
+          schema:
+            type: integer    
+      responses:
+        '200':
+          description: data object.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example : 200
+                  response:
+                    type: string
+                    example: OK
+        '400':
+          description: errors
+   /user/skills/delete/{personalDetailsId}/{id}:
+    delete:
+      tags:
+        - Template Details 
+      summary: delete contents from skills section.
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - name: apiKey          
+          required: true
+          description: The api key of the application.
+          schema:
+            type: string
+        - name: secretKey
+          required: true
+          description: The secret key of the application.
+          schema:
+            type: string
+        - name: personalDetailsId
+          in: path
+          required: true
+          description: personal details id
+          schema:
+            type: integer
+        - name: id
+          in: path
+          required: true
+          description: skills id  
+          schema:
+            type: integer         
+      responses:
+        '200':
+          description: data object.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example : 200
+                  response:
+                    type: string
+                    example: success
+        '400':
+          description: errors          
+   /user/objective/fetch/{personalDetailsId}:
+    get:
+      tags:
+        - Template Details 
+      summary: fetch content from objective section.
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - name: apiKey          
+          required: true
+          description: The api key of the application.
+          schema:
+            type: string
+        - name: secretKey
+          required: true
+          description: The secret key of the application.
+          schema:
+            type: string
+        - name: personalDetailsId
+          in: path
+          required: true
+          description: personal details id
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: data object.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example : 2
+                  pid:
+                    type: integer
+                    example: 1
+                  obj:
+                    type: string
+                    example: testing the lifecycle of softwares and developing world class application  
+        '400':
+          description: errors  
+   /user/objective/edit/{personalDetailsId}/{id}:
+    put:
+      tags:
+        - Template Details 
+      summary: edit content from objective section.
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - name: apiKey          
+          required: true
+          description: The api key of the application.
+          schema:
+            type: string
+        - name: secretKey
+          required: true
+          description: The secret key of the application.
+          schema:
+            type: string
+        - name: personalDetailsId
+          in: path
+          required: true
+          description: personal details id
+          schema:
+            type: integer
+        - name: id
+          required: true
+          description: objective id
+          schema:
+            type: integer
+        - name: objective
+          required: true
+          description: objective content
+          schema:
+            type: string        
+      responses:
+        '200':
+          description: data object.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example : 200
+                  response:
+                    type: string
+                    example: OK
+        '400':
+          description: errors       
+   /user/objective/delete/{personalDetailsId}/{id}:
+    delete:
+      tags:
+        - Template Details 
+      summary: delete contents from objective section.
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - name: apiKey          
+          required: true
+          description: The api key of the application.
+          schema:
+            type: string
+        - name: secretKey
+          required: true
+          description: The secret key of the application.
+          schema:
+            type: string
+        - name: personalDetailsId
+          in: path
+          required: true
+          description: personal details id
+          schema:
+            type: integer
+        - name: id
+          in: path
+          required: true
+          description: objective id  
+          schema:
+            type: integer         
+      responses:
+        '200':
+          description: data object.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example : 200
+                  response:
+                    type: string
+                    example: success
+        '400':
+          description: errors               
+   /user/reference/fetch/{personalDetailsId}:
+    get:
+      tags:
+        - Template Details 
+      summary: fetch content from reference section.
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - name: apiKey          
+          required: true
+          description: The api key of the application.
+          schema:
+            type: string
+        - name: secretKey
+          required: true
+          description: The secret key of the application.
+          schema:
+            type: string
+        - name: personalDetailsId
+          in: path
+          required: true
+          description: personal details id
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: data object.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example : 2
+                  pid:
+                    type: integer
+                    example: 1
+                  refereeName:
+                    type: string
+                    example: john doe
+                  jobTitle:
+                    type: string
+                    example: senior devops
+                  companyName:
+                    type: string
+                    example: twitter inc
+                  email:
+                    type: string
+                    example: test@gmail.com
+                  phone:
+                    type: integer
+                    example: 07040302352          
+        '400':
+          description: errors          
+   /user/reference/edit/{personalDetailsId}/{id}:
+    put:
+      tags:
+        - Template Details 
+      summary: edit content from reference section.
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - name: apiKey          
+          required: true
+          description: The api key of the application.
+          schema:
+            type: string
+        - name: secretKey
+          required: true
+          description: The secret key of the application.
+          schema:
+            type: string
+        - name: personalDetailsId
+          in: path
+          required: true
+          description: personal details id
+          schema:
+            type: integer
+        - name: id
+          required: true
+          description: reference id
+          schema:
+            type: integer
+        - name: refereeName
+          required: true
+          description: referee name
+          schema:
+            type: string        
+        - name: jobTitle
+          required: true
+          description: title of job
+          schema:
+            type: string        
+        - name: companyName
+          required: true
+          description: company name
+          schema:
+            type: string 
+        - name: email
+          required: true
+          description: email of user
+          schema:
+            type: string     
+        - name: phone 
+          required: true
+          description: phone of user
+          schema:
+            type: string                     
+      responses:
+        '200':
+          description: data object.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example : 200
+                  response:
+                    type: string
+                    example: success
+        '400':
+          description: errors
+   /user/reference/delete/{personalDetailsId}/{id}:
+    delete:
+      tags:
+        - Template Details 
+      summary: delete contents from reference section.
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - name: apiKey          
+          required: true
+          description: The api key of the application.
+          schema:
+            type: string
+        - name: secretKey
+          required: true
+          description: The secret key of the application.
+          schema:
+            type: string
+        - name: personalDetailsId
+          in: path
+          required: true
+          description: personal details id
+          schema:
+            type: integer
+        - name: id
+          required: true
+          description: reference id
+          schema:
+            type: integer         
+      responses:
+        '200':
+          description: data object.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example : 200
+                  response:
+                    type: string
+                    example: success
+        '400':
+          description: errors                      
+   /user/projects/fetch/{personalDetailsId}:
+    get:
+      tags:
+        - Template Details 
+      summary: fetch content from projects section.
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - name: apiKey          
+          required: true
+          description: The api key of the application.
+          schema:
+            type: string
+        - name: secretKey
+          required: true
+          description: The secret key of the application.
+          schema:
+            type: string
+        - name: personalDetailsId
+          in: path
+          required: true
+          description: personal details id
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: data object.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example : 2
+                  pid:
+                    type: integer
+                    example: 1
+                  title:
+                    type: string
+                    example: e-learning management
+                  description:
+                    type: string
+                    example: management of online learning materials
+        '400':
+          description: errors
+   /user/projects/edit/{personalDetailsId}/{id}:
+    put:
+      tags:
+        - Template Details 
+      summary: edit content from projects section.
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - name: apiKey          
+          required: true
+          description: The api key of the application.
+          schema:
+            type: string
+        - name: secretKey
+          required: true
+          description: The secret key of the application.
+          schema:
+            type: string
+        - name: personalDetailsId
+          in: path
+          required: true
+          description: personal details id
+          schema:
+            type: integer
+        - name: id
+          in: path
+          required: true
+          description: reference id
+          schema:
+            type: integer
+        - name: title
+          required: true
+          description: projects title
+          schema:
+            type: string        
+        - name: description
+          required: true
+          description: description of projects
+          schema:
+            type: string        
+      responses:
+        '200':
+          description: data object.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example : 200
+                  response:
+                    type: string
+                    example: success
+        '400':
+          description: errors
+   /user/projects/delete/{personalDetailsId}/{id}:
+    delete:
+      tags:
+        - Template Details 
+      summary: delete contents from project section.
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - name: apiKey          
+          required: true
+          description: The api key of the application.
+          schema:
+            type: string
+        - name: secretKey
+          required: true
+          description: The secret key of the application.
+          schema:
+            type: string
+        - name: personalDetailsId
+          in: path
+          required: true
+          description: personal details id
+          schema:
+            type: integer
+        - name: id
+          required: true
+          description: reference id
+          schema:
+            type: integer         
+      responses:
+        '200':
+          description: data object.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example : 200
+                  response:
+                    type: string
+                    example: success
+        '400':
+          description: errors
+   /user/miscellaneous/fetch/{personalDetailsId}/{sectionId}:
+    get:
+      tags:
+        - Template Details 
+      summary: fetch content from user created sections.
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - name: apiKey          
+          required: true
+          description: The api key of the application.
+          schema:
+            type: string
+        - name: secretKey
+          required: true
+          description: The secret key of the application.
+          schema:
+            type: string
+        - name: personalDetailsId
+          in: path
+          required: true
+          description: personal details id
+          schema:
+            type: integer
+        - name: sectionId  
+          in: path
+          required: true
+          description: section id 
+          schema:
+            type: integer  
+      responses:
+        '200':
+          description: data object.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example : 2
+                  pid:
+                    type: integer
+                    example: 1
+                  headingId:
+                    type: integer
+                    example: 4
+                  value:
+                    type: string
+                    example: management of online learning materials
+        '400':
+          description: errors
+   /user/miscellaneous/edit/{personalDetailsId}/{sectionId}:
+    put:
+      tags:
+        - Template Details 
+      summary: edit content from user created section.
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - name: apiKey          
+          required: true
+          description: The api key of the application.
+          schema:
+            type: string
+        - name: secretKey
+          required: true
+          description: The secret key of the application.
+          schema:
+            type: string
+        - name: personalDetailsId
+          in: path
+          required: true
+          description: personal details id
+          schema:
+            type: integer
+        - name: id
+          in: path
+          required: true
+          description: id of user created section
+          schema:
+            type: integer
+        - name: value
+          required: true
+          description: contents 
+          schema:
+            type: string        
+      responses:
+        '200':
+          description: data object.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example : 200
+                  response:
+                    type: string
+                    example: success
+        '400':
+          description: errors
+   /user/miscellaneous/delete/{personalDetailsId}/{id}:
+    delete:
+      tags:
+        - Template Details 
+      summary: delete contents from user created section.
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - name: apiKey          
+          required: true
+          description: The api key of the application.
+          schema:
+            type: string
+        - name: secretKey
+          required: true
+          description: The secret key of the application.
+          schema:
+            type: string
+        - name: personalDetailsId
+          in: path
+          required: true
+          description: personal details id
+          schema:
+            type: integer
+        - name: id
+          required: true
+          description: miscellaneous id returned from get 
+          schema:
+            type: integer         
+      responses:
+        '200':
+          description: data object.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example : 200
+                  response:
+                    type: string
+                    example: success
+        '400':
+          description: errors                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     

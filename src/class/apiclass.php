@@ -849,10 +849,323 @@ return false;
 endif;        
 }
 
+public function getExperience(int $pid){
+$conn = $this->connect();
+$conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+$sql = "SELECT * from experience WHERE pid = :pid"; 
+$stmt = $this->connect()->prepare($sql);
+
+$stmt->bindParam(':pid',$pid,PDO::PARAM_INT);
+
+$stmt->execute();
+$row = $stmt->fetchAll();
+return $row;
+}
+
+public function UpdateExperience(int $pid,int $id,string $companyName,string $jobTitle,string $startDate,string $endDate,string $details){
+$conn = $this->connect();
+$date = date("Y-m-d H:i:s");
+$conn->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING );   
+
+$sql = "UPDATE experience SET companyName = :company,jobTitle = :jobTitle ,startDate = :startDate
+,endDate = :endDate ,details = :details WHERE id = :id AND pid = :pid";
+
+$stmt = $this->connect()->prepare($sql);
+
+$stmt->bindParam(':pid',$pid,\PDO::PARAM_INT);
+$stmt->bindParam(':id',$id,\PDO::PARAM_INT);
+$stmt->bindParam(':company',$companyName,\PDO::PARAM_STR);
+$stmt->bindParam(':jobTitle',$jobTitle,\PDO::PARAM_STR);
+$stmt->bindParam(':startDate',$startDate,\PDO::PARAM_STR);
+$stmt->bindParam(':endDate',$endDate,\PDO::PARAM_STR);
+$stmt->bindParam(':details',$details,\PDO::PARAM_STR);
+
+$result = $stmt->execute();
+if($result):
+return true;
+else:
+return false;
+endif;        
+}
+
+public function getAllSkills(int $pid){
+$conn = $this->connect();
+$conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+$sql = "SELECT * from skills WHERE pid = :pid"; 
+$stmt = $this->connect()->prepare($sql);
+
+$stmt->bindParam(':pid',$pid,PDO::PARAM_INT);
+
+$stmt->execute();
+$row = $stmt->fetchAll();
+return $row;
+}
+
+public function UpdateSkills(int $pid,int $id,string $skills,string $level){
+$conn = $this->connect();
+$conn->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING );   
+
+$sql = "UPDATE skills SET skills = :skills,level = :level WHERE id = :id AND pid = :pid";
+$stmt = $this->connect()->prepare($sql);
+
+$stmt->bindParam(':pid',$pid,\PDO::PARAM_INT);
+$stmt->bindParam(':id',$id,\PDO::PARAM_INT);
+$stmt->bindParam(':skills',$skills,\PDO::PARAM_STR);
+$stmt->bindParam(':level',$level,\PDO::PARAM_STR);
+
+$result = $stmt->execute();
+if($result):
+return true;
+else:
+return false;
+endif;        
+}
+
+public function getAllobjective(int $pid){
+$conn = $this->connect();
+$conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+$sql = "SELECT * from `objective` WHERE pid = :pid"; 
+$stmt = $this->connect()->prepare($sql);
+
+$stmt->bindParam(':pid',$pid,PDO::PARAM_INT);
+
+$stmt->execute();
+$row = $stmt->fetchAll();
+return $row;
+}
+
+public function Updateobjective(int $pid,int $id,string $objective){
+$conn = $this->connect();
+$conn->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING );   
+
+$sql = "UPDATE objective SET obj = :obj WHERE id = :id AND pid = :pid";
+$stmt = $this->connect()->prepare($sql);
+
+$stmt->bindParam(':pid',$pid,\PDO::PARAM_INT);
+$stmt->bindParam(':id',$id,\PDO::PARAM_INT);
+$stmt->bindParam(':obj',$objective,\PDO::PARAM_STR);
+$result = $stmt->execute();
+if($result):
+return true;
+else:
+return false;
+endif;        
+}
+
+public function getAllreference(int $pid){
+$conn = $this->connect();
+$conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+$sql = "SELECT * from `reference` WHERE pid = :pid"; 
+$stmt = $this->connect()->prepare($sql);
+
+$stmt->bindParam(':pid',$pid,PDO::PARAM_INT);
+
+$stmt->execute();
+$row = $stmt->fetchAll();
+return $row;
+}  
+
+public function Updatereference(int $pid,int $id,string $refname,string $jobtitle,string $companyName,string $email, int $phone){
+$conn = $this->connect();
+$conn->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING );   
+
+$sql = "UPDATE reference SET refereeName = :refname,jobTitle = :jobtitle,companyName = :company,
+email = :email,phone = :phone WHERE id = :id AND pid = :pid";
+
+$stmt = $this->connect()->prepare($sql);
+
+$stmt->bindParam(':pid',$pid,\PDO::PARAM_INT);
+$stmt->bindParam(':id',$id,\PDO::PARAM_INT);
+$stmt->bindParam(':refname',$refname,\PDO::PARAM_STR);
+$stmt->bindParam(':jobtitle',$jobtitle,\PDO::PARAM_STR);
+$stmt->bindParam(':company',$companyName,\PDO::PARAM_STR);
+$stmt->bindParam(':email',$email,\PDO::PARAM_STR);
+$stmt->bindParam(':phone',$phone,\PDO::PARAM_STR);
+
+$result = $stmt->execute();
+if($result):
+return true;
+else:
+return false;
+endif;        
+}
+
+public function deleteReference(int $pid,int $id){
+$conn = $this->connect();
+$conn->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING );   
+
+$sql = "DELETE FROM reference WHERE id = :id AND pid = :pid";
+$stmt = $this->connect()->prepare($sql);
+
+$stmt->bindParam(':pid',$pid,\PDO::PARAM_INT);
+$stmt->bindParam(':id',$id,\PDO::PARAM_INT);
+
+$result = $stmt->execute();
+if($result):
+return true;
+else:
+return false;
+endif;        
+}
+
+public function getAllproject(int $pid){
+$conn = $this->connect();
+$conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+$sql = "SELECT * from `projects` WHERE pid = :pid"; 
+$stmt = $this->connect()->prepare($sql);
+
+$stmt->bindParam(':pid',$pid,PDO::PARAM_INT);
+
+$stmt->execute();
+$row = $stmt->fetchAll();
+return $row;
+}  
+
+public function UpdateProject(int $pid,int $id,string $title,string $description){
+$conn = $this->connect();
+$conn->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING );   
+
+$sql = "UPDATE projects SET title = :title,description = :descrip WHERE id = :id AND pid = :pid";
+
+$stmt = $this->connect()->prepare($sql);
+
+$stmt->bindParam(':pid',$pid,\PDO::PARAM_INT);
+$stmt->bindParam(':id',$id,\PDO::PARAM_INT);
+$stmt->bindParam(':title',$title,\PDO::PARAM_STR);
+$stmt->bindParam(':descrip',$description,\PDO::PARAM_STR);
+
+$result = $stmt->execute();
+if($result):
+return true;
+else:
+return false;
+endif;        
+}
+
+public function GetMiscellaneous(int $pid,int $id){
+$conn = $this->connect();
+$conn->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING );   
+
+$sql = "SELECT * FROM `miscellaneous` WHERE headingId = :id AND pid = :pid";
+$stmt = $this->connect()->prepare($sql);
+
+$stmt->bindParam(':pid',$pid,\PDO::PARAM_INT);
+$stmt->bindParam(':id',$id,\PDO::PARAM_INT);
+
+$stmt->execute();
+$row = $stmt->fetchAll();
+return $row;       
+}
+
+public function UpdateMiscellaneous(int $id,int $pid,string $value){
+$conn = $this->connect();
+$conn->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING );   
+
+$sql = "UPDATE `miscellaneous` SET value = :val WHERE id = :id AND pid = :pid";
+$stmt = $this->connect()->prepare($sql);
+
+$stmt->bindParam(':pid',$pid,\PDO::PARAM_INT);
+$stmt->bindParam(':id',$id,\PDO::PARAM_INT);
+$stmt->bindParam(':val',$value,\PDO::PARAM_STR);
+
+$result = $stmt->execute();
+if($result):
+return true;
+else:
+return false;
+endif;        
+}
+
+public function deleteMiscellaneous(int $pid,int $id){
+$conn = $this->connect();
+$conn->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING );   
+
+$sql = "DELETE FROM `miscellaneous` WHERE id = :id AND pid = :pid";
+$stmt = $this->connect()->prepare($sql);
+
+$stmt->bindParam(':pid',$pid,\PDO::PARAM_INT);
+$stmt->bindParam(':id',$id,\PDO::PARAM_INT);
+
+$result = $stmt->execute();
+if($result):
+return true;
+else:
+return false;
+endif;        
+}
 
 
+public function deleteEdu(int $pid,int $id){
+$conn = $this->connect();
+$conn->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING );   
 
+$sql = "DELETE FROM `education` WHERE id = :id AND pid = :pid";
+$stmt = $this->connect()->prepare($sql);
 
+$stmt->bindParam(':pid',$pid,\PDO::PARAM_INT);
+$stmt->bindParam(':id',$id,\PDO::PARAM_INT);
+
+$result = $stmt->execute();
+if($result):
+return true;
+else:
+return false;
+endif;        
+}
+
+public function deleteExperience(int $pid,int $id){
+$conn = $this->connect();
+$conn->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING );   
+
+$sql = "DELETE FROM `experience` WHERE id = :id AND pid = :pid";
+$stmt = $this->connect()->prepare($sql);
+
+$stmt->bindParam(':pid',$pid,\PDO::PARAM_INT);
+$stmt->bindParam(':id',$id,\PDO::PARAM_INT);
+
+$result = $stmt->execute();
+if($result):
+return true;
+else:
+return false;
+endif;        
+}
+
+public function deleteSkills(int $pid,int $id){
+$conn = $this->connect();
+$conn->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING );   
+
+$sql = "DELETE FROM `skills` WHERE id = :id AND pid = :pid";
+$stmt = $this->connect()->prepare($sql);
+
+$stmt->bindParam(':pid',$pid,\PDO::PARAM_INT);
+$stmt->bindParam(':id',$id,\PDO::PARAM_INT);
+
+$result = $stmt->execute();
+if($result):
+return true;
+else:
+return false;
+endif;        
+}
+
+public function deleteObjective(int $pid,int $id){
+$conn = $this->connect();
+$conn->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING );   
+
+$sql = "DELETE FROM `objective` WHERE id = :id AND pid = :pid";
+$stmt = $this->connect()->prepare($sql);
+
+$stmt->bindParam(':pid',$pid,\PDO::PARAM_INT);
+$stmt->bindParam(':id',$id,\PDO::PARAM_INT);
+
+$result = $stmt->execute();
+if($result):
+return true;
+else:
+return false;
+endif;        
+}
 
 
 }
