@@ -853,7 +853,7 @@ paths:
                     example: https://speedilypay.com/api/public/template-lists/tmp1.png                    
         '400':
           description: errors  
-   /user/personal-details/fetch/{personalDetailsId}:
+   /user/personal-details/fetch/{personalDetailsId}/{apiKey}/{secretKey}:
     get:
       tags:
         - Template Details 
@@ -864,13 +864,13 @@ paths:
       - "application/json"
       parameters:
         - name: apiKey
-          
+          in: path
           required: true
           description: The api key of the application.
           schema:
             type: string
         - name: secretKey
-          
+          in: path
           required: true
           description: The secret key of the application.
           schema:
@@ -975,7 +975,7 @@ paths:
                     example: OK                  
         '400':
           description: errors
-   /user/education/fetch/{personalDetailsId}:
+   /user/education/fetch/{personalDetailsId}/{apiKey}/{secretKey}:
     get:
       tags:
         - Template Details 
@@ -986,13 +986,13 @@ paths:
       - "application/json"
       parameters:
         - name: apiKey
-          
+          in: path
           required: true
           description: The api key of the application.
           schema:
             type: string
         - name: secretKey
-          
+          in: path
           required: true
           description: The secret key of the application.
           schema:
@@ -1122,7 +1122,7 @@ paths:
                     example: success
         '400':
           description: errors        
-   /user/experience/fetch/{personalDetailsId}:
+   /user/experience/fetch/{personalDetailsId}/{apiKey}/{secretKey}:
     get:
       tags:
         - Template Details 
@@ -1133,13 +1133,13 @@ paths:
       - "application/json"
       parameters:
         - name: apiKey
-          
+          in: path
           required: true
           description: The api key of the application.
           schema:
             type: string
         - name: secretKey
-          
+          in: path
           required: true
           description: The secret key of the application.
           schema:
@@ -1303,7 +1303,7 @@ paths:
                     example: success
         '400':
           description: errors                 
-   /user/skills/fetch/{personalDetailsId}:
+   /user/skills/fetch/{personalDetailsId}/{apiKey}/{secretKey}:
     get:
       tags:
         - Template Details 
@@ -1313,12 +1313,14 @@ paths:
       produces:
       - "application/json"
       parameters:
-        - name: apiKey          
+        - name: apiKey
+          in: path          
           required: true
           description: The api key of the application.
           schema:
             type: string
         - name: secretKey
+          in: path
           required: true
           description: The secret key of the application.
           schema:
@@ -1447,7 +1449,7 @@ paths:
                     example: success
         '400':
           description: errors          
-   /user/objective/fetch/{personalDetailsId}:
+   /user/objective/fetch/{personalDetailsId}/{apiKey}/{secretKey}:
     get:
       tags:
         - Template Details 
@@ -1458,11 +1460,13 @@ paths:
       - "application/json"
       parameters:
         - name: apiKey          
+          in: path
           required: true
           description: The api key of the application.
           schema:
             type: string
         - name: secretKey
+          in: path
           required: true
           description: The secret key of the application.
           schema:
@@ -1592,7 +1596,7 @@ paths:
                     example: success
         '400':
           description: errors               
-   /user/reference/fetch/{personalDetailsId}:
+   /user/reference/fetch/{personalDetailsId}/{apiKey}/{secretKey}:
     get:
       tags:
         - Template Details 
@@ -1602,12 +1606,14 @@ paths:
       produces:
       - "application/json"
       parameters:
-        - name: apiKey          
+        - name: apiKey
+          in: path          
           required: true
           description: The api key of the application.
           schema:
             type: string
         - name: secretKey
+          in: path
           required: true
           description: The secret key of the application.
           schema:
@@ -1768,7 +1774,7 @@ paths:
                     example: success
         '400':
           description: errors                      
-   /user/projects/fetch/{personalDetailsId}:
+   /user/projects/fetch/{personalDetailsId}/{apiKey}/{secretKey}:
     get:
       tags:
         - Template Details 
@@ -1778,12 +1784,14 @@ paths:
       produces:
       - "application/json"
       parameters:
-        - name: apiKey          
+        - name: apiKey
+          in: path          
           required: true
           description: The api key of the application.
           schema:
             type: string
         - name: secretKey
+          in: path
           required: true
           description: The secret key of the application.
           schema:
@@ -1921,7 +1929,7 @@ paths:
                     example: success
         '400':
           description: errors
-   /user/miscellaneous/fetch/{personalDetailsId}/{sectionId}:
+   /user/miscellaneous/fetch/{personalDetailsId}/{sectionId}/{apiKey}/{secretKey}:
     get:
       tags:
         - Template Details 
@@ -1931,12 +1939,14 @@ paths:
       produces:
       - "application/json"
       parameters:
-        - name: apiKey          
+        - name: apiKey  
+          in: path        
           required: true
           description: The api key of the application.
           schema:
             type: string
         - name: secretKey
+          in: path
           required: true
           description: The secret key of the application.
           schema:
@@ -2074,4 +2084,231 @@ paths:
                     type: string
                     example: success
         '400':
-          description: errors                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+          description: errors   
+   /user/cv/fetch/{userId}/{apiKey}/{secretKey}:
+    get:
+      tags:
+        - Cv 
+      summary: get all user cvs.
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - name: apiKey          
+          in: path
+          required: true
+          description: The api key of the application.
+          schema:
+            type: string
+        - name: secretKey
+          in: path
+          required: true
+          description: The secret key of the application.
+          schema:
+            type: string
+        - name: userId
+          in: path
+          required: true
+          description: id of logged-in user
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: data object.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example : 2
+                  email:
+                    type: string
+                    example: test@gmail.com
+                  name:
+                    type: string
+                    example: tomsy jack  
+        '400':
+          description: errors 
+   /user/cv/delete/{userId}:
+    delete:
+      tags:
+        - Cv
+      summary: delete cv.
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - name: apiKey          
+          required: true
+          description: The api key of the application.
+          schema:
+            type: string
+        - name: secretKey
+          required: true
+          description: The secret key of the application.
+          schema:
+            type: string
+        - name: userId
+          in: path
+          required: true
+          description: id of logged-in user
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: data object.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example : 200
+                  response:
+                    type: string
+                    example: success
+        '400':
+          description: errors 
+   /user/generatepdf:
+    post:
+      tags:
+        - Cv
+      summary: generate the cv in pdf format.
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - name: apiKey          
+          required: true
+          description: The api key of the application.
+          schema:
+            type: string
+        - name: secretKey
+          required: true
+          description: The secret key of the application.
+          schema:
+            type: string
+        - name: personalDetailsId
+          in: path
+          required: true
+          description: personal details id
+          schema:
+            type: integer
+        - name: templateId
+          in: path
+          required: true
+          description: id of template selected
+          schema:
+            type: integer    
+      responses:
+        '200':
+          description: data object.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example : 200
+                  path:
+                    type: string
+                    example: https://test.com/speedapi/public/genpdf/278001870.pdf
+        '400':
+          description: errors   
+   /user/cv/fetchpdf/{userId}/{apiKey}/{secretKey}:
+    get:
+      tags:
+        - Cv
+      summary: fetch all generated pdf for user.
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - name: apiKey          
+          in: path
+          required: true
+          description: The api key of the application.
+          schema:
+            type: string
+        - name: secretKey
+          in: path
+          required: true
+          description: The secret key of the application.
+          schema:
+            type: string
+        - name: userId
+          in: path
+          required: true
+          description: id of user
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: data object.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example : 2
+                  path:
+                    type: string
+                    example: https://test.com/speedapi/public/genpdf/278001870.pdf
+                  user_id:
+                    type: integer
+                    example : 2  
+
+        '400':
+          description: errors
+   /user/cv/pdf/delete/{id}:
+    delete:
+      tags:
+        - Cv
+      summary: delete pdf.
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - name: apiKey          
+          required: true
+          description: The api key of the application.
+          schema:
+            type: string
+        - name: secretKey
+          required: true
+          description: The secret key of the application.
+          schema:
+            type: string
+        - name: id
+          in: path
+          required: true
+          description: pdf id
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: data object.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example : 200
+                  response:
+                    type: string
+                    example: success
+        '400':
+          description: errors                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     

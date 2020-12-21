@@ -1167,6 +1167,82 @@ return false;
 endif;        
 }
 
+public function GetUserCvs(int $id){
+$conn = $this->connect();
+$conn->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING );   
+
+$sql = "SELECT name,email,id FROM `personalDetails` WHERE user_id = :id";
+$stmt = $this->connect()->prepare($sql);
+
+$stmt->bindParam(':id',$id,\PDO::PARAM_INT);
+
+$stmt->execute();
+$row = $stmt->fetchAll();
+return $row;       
+}
+
+public function deleteCvs(int $id){
+$conn = $this->connect();
+$conn->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING );   
+
+$sql = "DELETE FROM `personalDetails` WHERE id = :id";
+$stmt = $this->connect()->prepare($sql);
+
+$stmt->bindParam(':id',$id,\PDO::PARAM_INT);
+
+$result = $stmt->execute();
+if($result):
+return true;
+else:
+return false;
+endif;        
+}
+
+public function getAllPdf(int $id){
+$conn = $this->connect();
+$conn->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING );   
+
+$sql = "SELECT * FROM `pdf` WHERE user_id = :id";
+$stmt = $this->connect()->prepare($sql);
+
+$stmt->bindParam(':id',$id,\PDO::PARAM_INT);
+
+$stmt->execute();
+$row = $stmt->fetchAll();
+return $row;       
+}
+
+public function getPdfByid(int $id){
+    $conn = $this->connect();
+    $conn->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING );   
+    
+    $sql = "SELECT * FROM `pdf` WHERE id = :id";
+    $stmt = $this->connect()->prepare($sql);
+    
+    $stmt->bindParam(':id',$id,\PDO::PARAM_INT);
+    
+    $stmt->execute();
+    $row = $stmt->fetch(\PDO::FETCH_ASSOC);
+    return $row;       
+    }
+
+public function deletePdf(int $id){
+    $conn = $this->connect();
+    $conn->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING );   
+    
+    $sql = "DELETE FROM `pdf` WHERE id = :id";
+    $stmt = $this->connect()->prepare($sql);
+    
+    $stmt->bindParam(':id',$id,\PDO::PARAM_INT);
+    
+    $result = $stmt->execute();
+    if($result):
+    return true;
+    else:
+    return false;
+    endif;        
+    }
+    
 
 }
 

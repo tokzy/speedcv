@@ -35,6 +35,12 @@ img{
 	display: flex;
 	flex-direction: column;
 }
+.l-float{
+	float: left;
+}
+.r-float{
+	float: right;
+}
 .fl-w{
 	flex-wrap: wrap;
 }
@@ -90,7 +96,7 @@ h2{
 .resume{
 	width: 800px;
 	background-color: #fff;
-	position: absolute;
+    overflow-y: hidden;
 }
 .fw{
 	width: 100%;
@@ -187,8 +193,7 @@ td, th {
 .education-info {
 	width: 50%;
 }
-/*.skills-info > ul li,*/.skills-info-li{
-	/*margin: 10px 0;*/
+.skills-info-li{
 	margin: 10px 25px 10px 0;
     list-style: none;
     width: 200px;
@@ -332,8 +337,8 @@ td, th {
 .cv5-opi-item-title,.cv6-opi-item-title,.cv7-opi-item-title,
 .cv8-opi-item-title,.cv9-opi-item-title,.cv10-opi-item-title,
 .cv13-opi-item-title{
-    display: flex;
-    align-items: center;
+    /*display: flex;
+    align-items: center;*/
     text-align: left;
     font-size: 14px;
 	font-weight: bold;
@@ -350,22 +355,15 @@ td, th {
 .cv5-user .user-name,.cv6-user .user-name{
 	margin-left: 20px;
 }
-.cv5-opi-item,.cv6-opi-item{
-	text-align: end;
-	padding: 5px 0;
-}
-.cv6-opi-icon{
-	margin-left: 20px;
-}
 .cv5-p-i,.cv6-personal-info > div{
 	width: 100%;
 	flex-direction: row-reverse;
 }
-.cv6-skills-info > ul > li,.cv8-skills-info > ul > li,.cv10-skills-info > ul > li{
-	width: 180px;
-}
 .cv6-social > div,.cv8-social > div,.cv9-social > div,.cv10-social > div,.cv13-social > div{
-	width: 25%;
+	/*width: 25%;*/
+	width: 21%;
+    margin: 0 5px;
+    display: inline-block;
 }
 .cv6-opi,.cv8-opi,.cv9-opi,.cv10-opi{
 	width: 330px;
@@ -391,7 +389,13 @@ td, th {
     padding: 10px 20px;
 }
 .cv9-user,.cv13-user{
-	flex-direction: row-reverse;
+	display: inline-block;
+    width: 421px;
+    text-align: end;
+    vertical-align: top;
+}
+.cv9-user .user-img,.cv13-user .user-img{
+	display: inherit;
 }
 .cv9-user .user-name,.cv13-user .user-name{
 	margin-right: 20px;
@@ -404,21 +408,16 @@ td, th {
 	background-color:#5f9ea0;
 	color: #fff;
 	text-align: center;
-	float: left;
+	height: 100%
 }
 .cv1-left-div{
 	padding: 13px 0;
-	align-items: center;
 }
 .cv1-right{
 	width: 520px;
-	float: right;
 	background-color: #fff;
 }
-.cv1-sb{
-    background-color:#5f9ea0;
-}
-.cv1-skills-bar::-webkit-progress-value {
+.cv1-sb,.cv1-skills-bar::-webkit-progress-value {
 	background-color:#5f9ea0;
 }
 /*---------------CV2------------*/
@@ -441,6 +440,7 @@ td, th {
     background-color:#8b0000;
     color: #fff;
     text-align: center;
+    height: 95%;
 }
 .cv2-right > div{
 	padding: 10px 0;
@@ -474,18 +474,19 @@ td, th {
 	background-color: #fff;
 }
 .cv3-left{
-	width: 180px;
+	width: 170px;
     background-color: #4b4879;
     color: #fff;
     text-align: center;
     align-items: center;
     padding: 20px 30px;
+    height: 100%
 }
 .cv3-sb{
 	background-color: #4b4879;
 }
 .cv3-right{
-	width: 520px;
+	width: 530px;
 	background-color: #f3f3f3;
 }
 .cv3-user,.cv3-opi{
@@ -502,14 +503,15 @@ td, th {
 }
 /*--------------------CV4---------------*/
 .cv4-right {
-    width: 180px;
+    width: 170px;
     background-color:#1c6f67;
     color: #fff;
     text-align: center;
     align-items: center;
+    height: 100%;
 }
 .cv4-left{
-	width: 580px;
+	width: 590px;
 }
 .cv4-left .user-name{
 	border: 3px solid#1c6f67;
@@ -568,6 +570,8 @@ td, th {
     width: 45%;
     margin: 0 5px;
     display: inline-block;
+    /*text-align: end;*/
+	padding: 5px 0;
 }
 .cv5-info-text{
 	padding: 0;
@@ -583,6 +587,13 @@ td, th {
 	/*width:100%;*/
 	padding-top:0;
 }
+.cv6-opi-item{
+	text-align: left;
+	padding: 5px 0;
+}
+.cv6-opi-icon{
+	margin-left: 20px;
+}
 .cv6-h2 {
     background-color: #3e7777;
     color: #fff;
@@ -593,10 +604,15 @@ td, th {
 .cv6-sb{
 	background-color: #3e7777;
 }
-/*.cv6-social .opi-item .opi-item-title{
-    background-color: #3e7777;
+.cv6-opi-item:after {
+    content: '';
+    display: inline-block;
+    /*width: 100%;*/
 }
-*/.cv6-opi-icon{
+.cv6-opi-item>div{
+
+}
+.cv6-opi-icon{
 	background-color: #3e7777;
 }
 /*-------------cv7-------------*/
@@ -605,13 +621,16 @@ td, th {
 	border-radius: 0;
 }
 .cv7-left {
-    width: 200px;
+    width: 170px;
     background-color: #e8e8e8;
     color: #610116;
     text-align: center;
     align-items: center;
     margin: 0 11px;
     z-index: 99;
+    position: fixed;
+    height: 100%;
+    overflow: auto;
 }
 .cv7-left .user-img img{
 	border: 5px solid #610116;
@@ -633,21 +652,22 @@ td, th {
 	font-size: 14px;
 }
 .cv7-right{
-	width: 600px;
+	width: 568px;
 }
 .cv7-right .user-name {
-    margin: 0px 0px 0px -217px;
+    margin: 0px 0px 0px -235px;
     text-align: center;
     background-color:#610116;
     color: #fff;
-    display: flex;
-    justify-content: flex-end;
+    text-align: end;
+    display: table;
 }
 .cv7-right .user-name h1 {
     padding: 12px 25px;
-    width: 72%;
+    width: 62.5%;
     border: 3px solid #fff;
     margin: 0px 10px;
+    display: inline-block;
 }
 .cv7-right >div{
 	padding: 13px 0;
@@ -689,15 +709,21 @@ td, th {
 }
 /*--------------cv9--------------*/
 .cv9-top{
-	justify-content: space-between;
-	flex-direction: row-reverse;
+	display: table;
+}
+.cv9-opi{
+	display: inline-block;
+}
+.cv9-content{
+	height: 70%;
 }
 .cv9-left,.cv13-left{
-	width: 480px;
+	width: 420px;
 	text-align: right;
 	border-right: 2px solid var(--cv9Default);
 	padding-top: 0;
 	padding-bottom: 0;
+	height: 100%;
 }
 .cv9-left .gi,.cv9-right .gi{
     margin-top: -11px;
@@ -708,7 +734,8 @@ td, th {
 }
 
 .cv9-right{
-	width: 320px;
+	height: 100%;
+	width:296px;
 	border-left: 2px solid var(--cv9Default);
 	border-right: 0;
 	padding-top: 0;

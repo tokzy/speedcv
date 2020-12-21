@@ -568,6 +568,7 @@ endif;
 
 /*========================= Create and get pdf =========================*/
 $app->post("/user/generatepdf", function (Request $request, Response $response,array $args) {
+$baseurl = "http://localhost/speedapi/public";    
 $api = new Apiclass();    
 $errors = array();
 
@@ -587,10 +588,10 @@ if(count($errors) > 0):
 return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
 else:
 $name = rand().'.pdf';
-$command = "wkhtmltopdf http://localhost/speedapi/public/templates/cv".$tmpid.".php?pid=".$tmpid." ./genpdf/".$name." 2>&1";
+$command = "wkhtmltopdf ".$baseurl."/templates/cv".$tmpid.".php?pid=".$tmpid." ./genpdf/".$name." 2>&1";
 $generate = shell_exec($command);
 $udetails = $api->getpd($pid);
-$path = "http://localhost/speedapi/public/genpdf/".$name."";
+$path = $baseurl."/genpdf/".$name."";
 $store = $api->StorePdf($udetails['user_id'],$path);
 return json_encode(["status"=>200, "path" => $path]);
 exit;
@@ -604,12 +605,12 @@ endif;
 /*========================= Create and get pdf ENDS =========================*/
 
 /*========================= Get Personal Details =========================*/
-$app->get('/user/personal-details/fetch/{personalDetailsId}', function (Request $request, Response $response,array $args) {
+$app->get('/user/personal-details/fetch/{personalDetailsId}/{apiKey}/{secretKey}', function (Request $request, Response $response,array $args) {
 $api = new Apiclass();    
 $errors = array();
 
-$apikeys = $request->getParam('apiKey');    
-$secretkeys = $request->getParam('secretKey'); 
+$apikeys = $request->getAttribute('apiKey');    
+$secretkeys = $request->getAttribute('secretKey'); 
 $pid = $request->getAttribute('personalDetailsId'); 
 
 if(empty($apikeys)):$msg = "No api key provided!";array_push($errors,$msg);else:endif;
@@ -690,12 +691,12 @@ endif;
 /*========================= Edit Personal Details ENDS =========================*/
 
 /*========================= Get Education Details =========================*/
-$app->get('/user/education/fetch/{personalDetailsId}', function (Request $request, Response $response,array $args) {
+$app->get('/user/education/fetch/{personalDetailsId}/{apiKey}/{secretKey}', function (Request $request, Response $response,array $args) {
 $api = new Apiclass();    
 $errors = array();
 
-$apikeys = $request->getParam('apiKey');    
-$secretkeys = $request->getParam('secretKey'); 
+$apikeys = $request->getAttribute('apiKey');    
+$secretkeys = $request->getAttribute('secretKey'); 
 $pid = $request->getAttribute('personalDetailsId'); 
 
 if(empty($apikeys)):$msg = "No api key provided!";array_push($errors,$msg);else:endif;
@@ -796,12 +797,12 @@ endif;
 /*========================= Get Education Details ENDS =========================*/
 
 /*========================= Get experience =========================*/
-$app->get('/user/experience/fetch/{personalDetailsId}', function (Request $request, Response $response,array $args) {
+$app->get('/user/experience/fetch/{personalDetailsId}/{apiKey}/{secretKey}', function (Request $request, Response $response,array $args) {
 $api = new Apiclass();    
 $errors = array();
 
-$apikeys = $api->cleanInputs($request->getParam('apiKey'));    
-$secretkeys = $api->cleanInputs($request->getParam('secretKey'));  
+$apikeys = $api->cleanInputs($request->getAttribute('apiKey'));    
+$secretkeys = $api->cleanInputs($request->getAttribute('secretKey'));  
 $pid = $api->cleanInputs($request->getAttribute('personalDetailsId'));
 
 if(empty($apikeys)):$msg = "No api key provided!";array_push($errors,$msg);else:endif;
@@ -898,12 +899,12 @@ endif;
 /*========================= Delete Experience ENDS =========================*/
 
 /*========================= Get skills =========================*/
-$app->get('/user/skills/fetch/{personalDetailsId}', function (Request $request, Response $response,array $args) {
+$app->get('/user/skills/fetch/{personalDetailsId}/{apiKey}/{secretKey}', function (Request $request, Response $response,array $args) {
 $api = new Apiclass();    
 $errors = array();
 
-$apikeys = $api->cleanInputs($request->getParam('apiKey'));    
-$secretkeys = $api->cleanInputs($request->getParam('secretKey'));  
+$apikeys = $api->cleanInputs($request->getAttribute('apiKey'));    
+$secretkeys = $api->cleanInputs($request->getAttribute('secretKey'));  
 $pid = $api->cleanInputs($request->getAttribute('personalDetailsId'));
 
 if(empty($apikeys)):$msg = "No api key provided!";array_push($errors,$msg);else:endif;
@@ -999,12 +1000,12 @@ endif;
 /*========================= Delete Skills ENDS =========================*/
 
 /*========================= Get objective =========================*/
-$app->get('/user/objective/fetch/{personalDetailsId}', function (Request $request, Response $response,array $args) {
+$app->get('/user/objective/fetch/{personalDetailsId}/{apiKey}/{secretKey}', function (Request $request, Response $response,array $args) {
 $api = new Apiclass();    
 $errors = array();
 
-$apikeys = $api->cleanInputs($request->getParam('apiKey'));    
-$secretkeys = $api->cleanInputs($request->getParam('secretKey'));  
+$apikeys = $api->cleanInputs($request->getAttribute('apiKey'));    
+$secretkeys = $api->cleanInputs($request->getAttribute('secretKey'));  
 $pid = $api->cleanInputs($request->getAttribute('personalDetailsId'));
 
 if(empty($apikeys)):$msg = "No api key provided!";array_push($errors,$msg);else:endif;
@@ -1099,12 +1100,12 @@ endif;
 
 
 /*========================= Get reference =========================*/
-$app->get('/user/reference/fetch/{personalDetailsId}', function (Request $request, Response $response,array $args) {
+$app->get('/user/reference/fetch/{personalDetailsId}/{apiKey}/{secretKey}', function (Request $request, Response $response,array $args) {
 $api = new Apiclass();    
 $errors = array();
 
-$apikeys = $api->cleanInputs($request->getParam('apiKey'));    
-$secretkeys = $api->cleanInputs($request->getParam('secretKey'));  
+$apikeys = $api->cleanInputs($request->getAttribute('apiKey'));    
+$secretkeys = $api->cleanInputs($request->getAttribute('secretKey'));  
 $pid = $api->cleanInputs($request->getAttribute('personalDetailsId'));
 
 if(empty($apikeys)):$msg = "No api key provided!";array_push($errors,$msg);else:endif;
@@ -1206,12 +1207,12 @@ endif;
 /*========================= Delete reference ENDS =========================*/
 
 /*========================= Get projects =========================*/
-$app->get('/user/projects/fetch/{personalDetailsId}', function (Request $request, Response $response,array $args) {
+$app->get('/user/projects/fetch/{personalDetailsId}/{apiKey}/{secretKey}', function (Request $request, Response $response,array $args) {
 $api = new Apiclass();    
 $errors = array();
 
-$apikeys = $api->cleanInputs($request->getParam('apiKey'));    
-$secretkeys = $api->cleanInputs($request->getParam('secretKey'));  
+$apikeys = $api->cleanInputs($request->getAttribute('apiKey'));    
+$secretkeys = $api->cleanInputs($request->getAttribute('secretKey'));  
 $pid = $api->cleanInputs($request->getAttribute('personalDetailsId'));
 
 if(empty($apikeys)):$msg = "No api key provided!";array_push($errors,$msg);else:endif;
@@ -1307,12 +1308,12 @@ endif;
 /*========================= Delete Projects ENDS =========================*/
 
 /*========================= Fetch Miscellaneous =========================*/
-$app->get("/user/miscellaneous/fetch/{personalDetailsId}/{sectionId}", function (Request $request, Response $response,array $args) {
+$app->get("/user/miscellaneous/fetch/{personalDetailsId}/{sectionId}/{apiKey}/{secretKey}", function (Request $request, Response $response,array $args) {
 $api = new Apiclass();    
 $errors = array();
 
-$apikeys = $request->getParam('apiKey');    
-$secretkeys = $request->getParam('secretKey');  
+$apikeys = $request->getAttribute('apiKey');    
+$secretkeys = $request->getAttribute('secretKey');  
 $sid = $api->cleanInputs($request->getAttribute('sectionId'));
 $pid = $api->cleanInputs($request->getAttribute('personalDetailsId'));
 
@@ -1405,3 +1406,126 @@ endif;
 endif;
 });
 /*========================= Delete Miscellaneous projects ENDS =========================*/
+
+/*========================= Fetch User Cvs =========================*/
+$app->get("/user/cv/fetch/{userId}/{apiKey}/{secretKey}", function (Request $request, Response $response,array $args) {
+$api = new Apiclass();    
+$errors = array();
+
+$apikeys = $request->getAttribute('apiKey');    
+$secretkeys = $request->getAttribute('secretKey');  
+$uid = $api->cleanInputs($request->getAttribute('userId'));
+
+if(empty($apikeys)):$msg = "No api key provided!";array_push($errors,$msg);else:endif;
+if(empty($secretkeys)):$msg = "No secret key provided!";array_push($errors,$msg);else:endif;
+if(empty($uid)):$msg = "No user id provided!";array_push($errors,$msg);else:endif;
+$checkkeys = $api->checkKeys($apikeys,$secretkeys);
+if($checkkeys == false && !empty($apikeys) && !empty($secretkeys)):$msg = "Authentication failed, invalid api or secret keys!";array_push($errors,$msg);else:endif;
+
+if(count($errors) > 0):
+return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
+else:
+$getmisc = $api->GetUserCvs($uid);    
+if($getmisc == true):    
+return json_encode($getmisc);
+else:
+$msg = "fail to fetch response";    
+array_push($errors,$msg);
+return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
+endif;
+endif;
+});
+/*========================= Fetch User Cvs ENDS =========================*/
+
+/*========================= Delete User Cvs =========================*/
+$app->get("/user/cv/delete/{userId}", function (Request $request, Response $response,array $args) {
+$api = new Apiclass();    
+$errors = array();
+
+$apikeys = $request->getParam('apiKey');    
+$secretkeys = $request->getParam('secretKey');  
+$uid = $api->cleanInputs($request->getAttribute('userId'));
+
+if(empty($apikeys)):$msg = "No api key provided!";array_push($errors,$msg);else:endif;
+if(empty($secretkeys)):$msg = "No secret key provided!";array_push($errors,$msg);else:endif;
+if(empty($uid)):$msg = "No user id provided!";array_push($errors,$msg);else:endif;
+$checkkeys = $api->checkKeys($apikeys,$secretkeys);
+if($checkkeys == false && !empty($apikeys) && !empty($secretkeys)):$msg = "Authentication failed, invalid api or secret keys!";array_push($errors,$msg);else:endif;
+
+if(count($errors) > 0):
+return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
+else:
+$getmisc = $api->deleteCvs($uid);    
+if($getmisc == true):    
+return json_encode(['status' => 200, 'response' => 'success']);
+else:
+$msg = "fail to fetch response";    
+array_push($errors,$msg);
+return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
+endif;
+endif;
+});
+/*========================= Delete User Cvs ENDS =========================*/
+
+/*========================= Get Pdf =========================*/
+$app->get('/user/cv/fetchpdf/{userId}/{apiKey}/{secretKey}', function (Request $request, Response $response,array $args) {
+$api = new Apiclass();    
+$errors = array();
+
+$apikeys = $api->cleanInputs($request->getAttribute('apiKey'));    
+$secretkeys = $api->cleanInputs($request->getAttribute('secretKey'));  
+$uid = $api->cleanInputs($request->getAttribute('userId'));
+
+if(empty($apikeys)):$msg = "No api key provided!";array_push($errors,$msg);else:endif;
+if(empty($secretkeys)):$msg = "No secret key provided!";array_push($errors,$msg);else:endif;
+if(empty($uid)):$msg = "No user id provided!";array_push($errors,$msg);else:endif;
+$checkkeys = $api->checkKeys($apikeys,$secretkeys);
+if($checkkeys == false && !empty($apikeys) && !empty($secretkeys)):$msg = "Authentication failed, invalid api or secret keys!";array_push($errors,$msg);else:endif;
+
+if(count($errors) > 0):
+return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
+else:
+$getpdf = $api->getAllPdf($uid);
+if($getpdf == true):   
+return json_encode($getpdf);
+else:
+$msg = "fail to fetch response!";    
+array_push($errors,$msg);
+return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
+endif;
+endif;
+});
+/*========================== Get Pdf ENDS =========================*/
+
+/*========================= Delete User pdf =========================*/
+$app->delete("/user/cv/pdf/delete/{id}", function (Request $request, Response $response,array $args) {
+$api = new Apiclass();    
+$errors = array();
+
+$apikeys = $request->getParam('apiKey');    
+$secretkeys = $request->getParam('secretKey');  
+$uid = $api->cleanInputs($request->getAttribute('id'));
+
+if(empty($apikeys)):$msg = "No api key provided!";array_push($errors,$msg);else:endif;
+if(empty($secretkeys)):$msg = "No secret key provided!";array_push($errors,$msg);else:endif;
+if(empty($uid)):$msg = "No user id provided!";array_push($errors,$msg);else:endif;
+$checkkeys = $api->checkKeys($apikeys,$secretkeys);
+if($checkkeys == false && !empty($apikeys) && !empty($secretkeys)):$msg = "Authentication failed, invalid api or secret keys!";array_push($errors,$msg);else:endif;
+
+if(count($errors) > 0):
+return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
+else:
+$details = $api->getPdfByid($uid);
+$path = $details['path'];       
+$getmisc = $api->deletePdf($uid);    
+//unlink($path);
+if($getmisc == true):    
+return json_encode(['status' => 200, 'response' => 'success']);
+else:
+$msg = "fail to fetch response";    
+array_push($errors,$msg);
+return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
+endif;
+endif;
+});
+/*========================= Delete User Cvs ENDS =========================*/
