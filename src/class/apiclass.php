@@ -73,6 +73,7 @@ $row = $stmt->fetch(PDO::FETCH_ASSOC);
 return $row;
 }
 
+
 public function getpdetailsByKey(string $key){
 $conn = $this->connect();
 $conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
@@ -141,6 +142,19 @@ $rowcount = $stmt->fetchColumn();
 if($rowcount > 0):return true;else:return false;endif;    
 }
 
+public function checkIfIdExists(int $id){
+$connect = $this->connect();
+
+$connect->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING);  
+$sql = "SELECT count(*) FROM users WHERE id = :id"; 
+
+$stmt = $connect->prepare($sql);
+$stmt->bindParam(':id',$id,\PDO::PARAM_INT);
+
+$stmt->execute();
+$rowcount = $stmt->fetchColumn();
+if($rowcount > 0):return true;else:return false;endif;    
+}
 
 public function signup(string $name,string $email,string $password,int $phone){
 $conn = $this->connect();
@@ -721,6 +735,19 @@ $row = $stmt->fetch(PDO::FETCH_ASSOC);
 return $row;
 }
 
+public function getheadersbyheaderId(int $id){
+$conn = $this->connect();
+$conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+$sql = "SELECT * from `headings` WHERE id = :id"; 
+$stmt = $this->connect()->prepare($sql);
+
+$stmt->bindParam(':id',$id,PDO::PARAM_INT);
+
+$stmt->execute();
+$row = $stmt->fetch(PDO::FETCH_ASSOC);
+return $row;
+}
+
 public function getAllObjBypid(int $pid){
 $conn = $this->connect();
 $conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
@@ -1213,36 +1240,62 @@ return $row;
 }
 
 public function getPdfByid(int $id){
-    $conn = $this->connect();
-    $conn->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING );   
-    
-    $sql = "SELECT * FROM `pdf` WHERE id = :id";
-    $stmt = $this->connect()->prepare($sql);
-    
-    $stmt->bindParam(':id',$id,\PDO::PARAM_INT);
-    
-    $stmt->execute();
-    $row = $stmt->fetch(\PDO::FETCH_ASSOC);
-    return $row;       
-    }
+$conn = $this->connect();
+$conn->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING );   
+
+$sql = "SELECT * FROM `pdf` WHERE id = :id";
+$stmt = $this->connect()->prepare($sql);
+
+$stmt->bindParam(':id',$id,\PDO::PARAM_INT);
+
+$stmt->execute();
+$row = $stmt->fetch(\PDO::FETCH_ASSOC);
+return $row;       
+}
 
 public function deletePdf(int $id){
-    $conn = $this->connect();
-    $conn->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING );   
-    
-    $sql = "DELETE FROM `pdf` WHERE id = :id";
-    $stmt = $this->connect()->prepare($sql);
-    
-    $stmt->bindParam(':id',$id,\PDO::PARAM_INT);
-    
-    $result = $stmt->execute();
-    if($result):
-    return true;
-    else:
-    return false;
-    endif;        
-    }
-    
+$conn = $this->connect();
+$conn->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING );   
+
+$sql = "DELETE FROM `pdf` WHERE id = :id";
+$stmt = $this->connect()->prepare($sql);
+
+$stmt->bindParam(':id',$id,\PDO::PARAM_INT);
+
+$result = $stmt->execute();
+if($result):
+return true;
+else:
+return false;
+endif;        
+}
+
+public function getMisc(int $pid){
+$conn = $this->connect();
+$conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+$sql = "SELECT * from `miscellaneous` WHERE pid = :pid GROUP BY headingId"; 
+$stmt = $this->connect()->prepare($sql);
+
+$stmt->bindParam(':pid',$pid,PDO::PARAM_INT);
+
+$stmt->execute();
+$row = $stmt->fetchAll();
+return $row;
+}  
+
+public function getAllValues(int $headingId,int $pid){
+$conn = $this->connect();
+$conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+$sql = "SELECT * from `miscellaneous` WHERE pid = :pid AND headingId = :hid"; 
+$stmt = $this->connect()->prepare($sql);
+
+$stmt->bindParam(':pid',$pid,PDO::PARAM_INT);
+$stmt->bindParam(':hid',$headingId,PDO::PARAM_INT);
+
+$stmt->execute();
+$row = $stmt->fetchAll();
+return $row;
+}  
 
 }
 

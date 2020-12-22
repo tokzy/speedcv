@@ -398,7 +398,9 @@ else:
 $fetch = $api->fetchHeadings();
 if($fetch == true):    
 return json_encode($fetch);
-else:
+elseif(count($fetch) <= 0):
+return json_encode($fetch);
+else: 
 $msg = "fail to fetch response";    
 array_push($errors,$msg);
 return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
@@ -557,7 +559,9 @@ $fetch = $api->fetchTemplates();
 
 if($fetch == true):    
 return json_encode($fetch);
-else:
+elseif(count($fetch) <= 0):
+return json_encode($fetch);
+else: 
 $msg = "fail to fetch response";    
 array_push($errors,$msg);
 return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
@@ -625,6 +629,8 @@ else:
 $fetch = $api->getpd($pid);
 if($fetch == true):    
 return json_encode(['status'=>200,'data'=>$fetch]);
+elseif(count($fetch) <= 0):
+return json_encode($fetch);
 else:
 $msg = "fail to fetch response";    
 array_push($errors,$msg);
@@ -712,7 +718,9 @@ else:
 $fetch = $api->getAllEduBypid($pid);
 if($fetch == true):    
 return json_encode($fetch);
-else:
+elseif(count($fetch) <= 0):
+return json_encode($fetch);
+else: 
 $msg = "fail to fetch response";    
 array_push($errors,$msg);
 return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
@@ -818,7 +826,9 @@ else:
 $getedu = $api->getExperience($pid);
 if($getedu == true):   
 return json_encode($getedu);
-else:
+elseif(count($getedu) <= 0):
+return json_encode($getedu);
+else: 
 $msg = "fail to fetch response!";    
 array_push($errors,$msg);
 return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
@@ -920,7 +930,9 @@ else:
 $skills = $api->getAllSkills($pid);
 if($skills == true):    
 return json_encode($skills);
-else:
+elseif(count($skills) <= 0):
+return json_encode($skills);
+else: 
 $msg = "fail to fetch response";    
 array_push($errors,$msg);
 return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
@@ -1021,7 +1033,9 @@ else:
 $getobj = $api->getAllobjective($pid);
 if($getobj == true):
 return json_encode($getobj);
-else:
+elseif(count($getobj) <= 0):
+return json_encode($getobj);
+else: 
 $msg = "fail to fetch response";    
 array_push($errors,$msg);
 return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
@@ -1121,7 +1135,9 @@ else:
 $ref = $api->getAllreference($pid);
 if($ref == true):    
 return json_encode($ref);
-else:
+elseif(count($ref) <= 0):
+return json_encode($ref);
+else: 
 $msg = "fail to fetch response";    
 array_push($errors,$msg);
 return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
@@ -1228,6 +1244,8 @@ else:
 $project = $api->getAllproject($pid);
 if($project == true):    
 return json_encode($project);
+elseif(count($project) <= 0):
+return json_encode($project);
 else:
 $msg = "fail to fetch response";    
 array_push($errors,$msg);
@@ -1331,7 +1349,9 @@ else:
 $getmisc = $api->GetMiscellaneous($pid,$sid);    
 if($getmisc == true):    
 return json_encode($getmisc);
-else:
+elseif(count($getmisc) <= 0):
+return json_encode($getmisc);
+else: 
 $msg = "fail to fetch response";    
 array_push($errors,$msg);
 return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
@@ -1419,6 +1439,7 @@ $uid = $api->cleanInputs($request->getAttribute('userId'));
 if(empty($apikeys)):$msg = "No api key provided!";array_push($errors,$msg);else:endif;
 if(empty($secretkeys)):$msg = "No secret key provided!";array_push($errors,$msg);else:endif;
 if(empty($uid)):$msg = "No user id provided!";array_push($errors,$msg);else:endif;
+if($api->checkIfIdExists($uid) == false):$msg = "user id does not exists!";array_push($errors,$msg);else:endif;
 $checkkeys = $api->checkKeys($apikeys,$secretkeys);
 if($checkkeys == false && !empty($apikeys) && !empty($secretkeys)):$msg = "Authentication failed, invalid api or secret keys!";array_push($errors,$msg);else:endif;
 
@@ -1428,7 +1449,9 @@ else:
 $getmisc = $api->GetUserCvs($uid);    
 if($getmisc == true):    
 return json_encode($getmisc);
-else:
+elseif(count($getmisc) <= 0):
+return json_encode($getmisc);
+else:    
 $msg = "fail to fetch response";    
 array_push($errors,$msg);
 return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
@@ -1488,7 +1511,9 @@ else:
 $getpdf = $api->getAllPdf($uid);
 if($getpdf == true):   
 return json_encode($getpdf);
-else:
+elseif(count($getpdf) <= 0):
+return json_encode($getpdf);
+else: 
 $msg = "fail to fetch response!";    
 array_push($errors,$msg);
 return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);

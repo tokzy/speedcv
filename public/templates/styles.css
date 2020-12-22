@@ -1057,3 +1057,23 @@ td, th {
 .cv19-right{
 	    padding-top: 12px;
 }
+
+/* Create three equal columns that floats next to each other */
+.column {
+	float: left;
+	width: 30.33%;
+	padding: 4px;
+  }
+
+  .column2 {
+	float: left;
+	width:40%;
+	padding-left:24px;
+  }
+  
+  /* Clear floats after the columns */
+  .row:after {
+	content: "";
+	display: table;
+	clear: both;
+  }
