@@ -8,7 +8,7 @@ header("Access-Control-Allow-Methods: PUT, POST, GET, OPTIONS, DELETE");
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-$url = "http://localhost/speedapi/public/";
+$url = "https://speedcv.net/public/";
 
 $app = new \Slim\App;
 
@@ -166,7 +166,6 @@ $checkkeys = $api->checkKeys($apikeys,$secretkeys);
 if($checkkeys == false && !empty($apikeys) && !empty($secretkeys)):$msg = "Authentication failed, invalid api or secret keys!";array_push($errors,$msg);else:endif;
 if($api->checkIfPidExists($pid) == false && !empty($pid)):$msg = "invalid personal details id!";array_push($errors,$msg);else:endif;
 if($api->checkIfEduExists($pid,$school,$year) == true):$msg = "data already exists!";array_push($errors,$msg);else:endif;
-
 
 if(count($errors) > 0):
 return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
@@ -572,7 +571,7 @@ endif;
 
 /*========================= Create and get pdf =========================*/
 $app->post("/user/generatepdf", function (Request $request, Response $response,array $args) {
-$baseurl = "http://localhost/speedapi/public";    
+$baseurl = "https://speedcv.net/public";    
 $api = new Apiclass();    
 $errors = array();
 
@@ -592,7 +591,7 @@ if(count($errors) > 0):
 return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
 else:
 $name = rand().'.pdf';
-$command = "wkhtmltopdf ".$baseurl."/templates/cv".$tmpid.".php?pid=".$tmpid." ./genpdf/".$name." 2>&1";
+$command = "wkhtmltopdf ".$baseurl."/templates/cv".$tmpid.".php?pid=".$pid." ./genpdf/".$name." 2>&1";
 $generate = shell_exec($command);
 $udetails = $api->getpd($pid);
 $path = $baseurl."/genpdf/".$name."";
