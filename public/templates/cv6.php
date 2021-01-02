@@ -79,6 +79,7 @@ $pdetails = $api->getpd($pid);
 
 <!--Bigger container for Other details -->
 <div class="container cv6-right general-info">
+<?php if(empty($pdetails['dob']) && empty($pdetails['gender']) && empty($pdetails['religion'])): else:?>
 <!--Personal Info -->
 <div class="gi">
 <div class="info-header">
@@ -87,201 +88,231 @@ $pdetails = $api->getpd($pid);
 <div class="info-text">
 <div class="objective-info">
 <div class="cv6-extra-personal-info ">
-
+<?php if(empty($pdetails['dob'])):else:?>
 <div class="opi-item cv6-opi-item disp-i-b">
 <p class="cv6-opi-item-title disp-i-b">Date of Birth:</p>
-<p class="disp-i-b">01-01-0001</p>
+<p class="disp-i-b"><?php echo $pdetails['dob'];?></p>
 </div>
-
+<?php endif;?>
+<?php if(empty($pdetails['gender'])):else:?>
 <div class="opi-item cv6-opi-item disp-i-b">
 <p class="cv6-opi-item-title disp-i-b">Gender:</p>
-<p class="disp-i-b">Unknown</p>
+<p class="disp-i-b"><?php echo $pdetails['gender'];?></p>
 </div>
-
+<?php endif;?>
+<?php if(empty($pdetails['religion'])):else:?>
 <div class="opi-item cv6-opi-item disp-i-b">
 <p class="cv6-opi-item-title disp-i-b">Religion</p>
 <p class="disp-i-b">Still thinking</p>
 </div>
-
-<div class="opi-item cv6-opi-item disp-i-b">
-<p class="cv6-opi-item-title disp-i-b">Marital Status:</p>
-<p class="disp-i-b">Confused</p>
+<?php endif;?>
 </div>
-</div>
+<?php endif;?>
 </div>
 </div>
 </div>
 <!--Personal Info ends-->
+<?php
+$title = "Objective";
+$obj = $api->getheadersbytitle($title);
+$objectives = $api->getAllObjBypid($pid);
+if(count($objectives) <= 0):else:
+?>
 <!--Objective -->
 <div class="gi">
 <div class="info-header">
-<h2 class="cv6-h2">Objective</h2>
+<h2 class="cv6-h2"><?php echo $obj['title'];?></h2>
 </div>
 <div class="info-text">
 <div class="objective-info">
 <p>
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-cillum dolore eu fugiat nulla pariatur.
+<?php
+foreach($objectives as $objective):
+?>
+<p><?php echo nl2br($objective['obj']);?></p>
+<?php
+endforeach;	
+?>
 </p>
 </div>
 </div>
 </div>
 <!--Objective ends-->
+<?php endif;?>
+
+<?php
+$title2 = "Education";
+$obj2 = $api->getheadersbytitle($title2);
+$edus = $api->getAllEduBypid($pid);
+if(count($edus) <= 0):else:
+?>
 <!--Education -->
 <div class="gi">
 <div class="info-header">
-<h2 class="cv6-h2">Education</h2>
+<h2 class="cv6-h2"><?php echo $obj2['title'];?></h2>
 </div>
 <div class="info-text education ">
-<table>
-<tr class="small-bold">
-<th>Course/Degree</th>
-<th>Course/Degree</th>
-<th>Course/Degree</th>
-</tr>
-<tr>
-<td>School/university name</td>
-<td>School/university name</td>
-<td>School/university name</td>
-</tr>
-<tr>
-<td>Grade/Score</td>
-<td>Grade/Score</td>
-<td>Grade/Score</td>
-</tr>
-<tr>
-<td>Year</td>
-<td>Year</td>
-<td>Year</td>
-</tr>
-</table>
+<div class="row" style="padding-left:10px;">
+<?php foreach($edus as $edu):?>
+<div class="column">
+<h2><?php echo $edu['course'];?></h2>
+<p><?php echo $edu['school'];?></p>
+<p><?php echo $edu['grade'];?></p>
+<?php echo $edu['year'];?>
+</div>
+<?php endforeach;?>
+</div>
 </div>
 </div>
 <!--Education end-->
+<?php endif;?>
+
+<?php
+$title3 = "Skills";
+$obj3 = $api->getheadersbytitle($title3);
+$skills = $api->getAllSkills($pid);
+if(count($skills) <= 0):else:
+?>
 <!--Skills -->
 <div class="gi">
 <div class="info-header">
-<h2 class="cv6-h2">Skills</h2>
+<h2 class="cv6-h2"><?php echo $obj3['title'];?></h2>
 </div>
 <div class="info-text">
 <div class="skills-info cv6-skills-info">
-<table>
-<tr>
-<td class="skills-info-li">
-<p class="skill-name">Lorem ipsum dolor</p>
+<div class="row" style="padding-left:10px;">
+<?php foreach($skills as $skill):?>
+<div class="column2">
+<div class="skills-info-li">
+<p class="skill-name"><?php echo $skill["skills"];?></p>
 <div class="sp cv6-sp">
+<?php if($skill['level'] == "1"):?>
+<div class="sb cv6-sb w-20"></div>
+<?php elseif($skill['level'] == "2"):?>
+<div class="sb cv6-sb w-40"></div>
+<?php elseif($skill['level'] == "3"):?>
+<div class="sb cv6-sb w-60"></div>
+<?php elseif($skill['level'] == "4"):?>
 <div class="sb cv6-sb w-80"></div>
+<?php elseif($skill['level'] == "5"):?>
+<div class="sb cv6-sb w-100"></div>
+<?php endif;?>	
 </div>
-</td>
-<td class="skills-info-li">
-<p class="skill-name">Lorem ipsum dolor</p>
-<div class="sp cv6-sp">
-<div class="sb cv6-sb w-80"></div>
 </div>
-</td>
-<td class="skills-info-li">
-<p class="skill-name">Lorem ipsum dolor</p>
-<div class="sp cv6-sp">
-<div class="sb cv6-sb w-80"></div>
 </div>
-</td>
-</tr>
-<tr>
-<td class="skills-info-li">
-<p class="skill-name">Lorem ipsum dolor</p>
-<div class="sp cv6-sp">
-<div class="sb cv6-sb w-80"></div>
+<?php endforeach;?>
+
 </div>
-</td>
-<td class="skills-info-li">
-<p class="skill-name">Lorem ipsum dolor</p>
-<div class="sp cv6-sp">
-<div class="sb cv6-sb w-80"></div>
-</div>
-</td>
-<td class="skills-info-li">
-<p class="skill-name">Lorem ipsum dolor</p>
-<div class="sp cv6-sp">
-<div class="sb cv6-sb w-80"></div>
-</div>
-</td>
-</tr>
-<tr>
-<td class="skills-info-li">
-<p class="skill-name">Lorem ipsum dolor</p>
-<div class="sp cv6-sp">
-<div class="sb cv6-sb w-80"></div>
-</div>
-</td>
-<td class="skills-info-li">
-<p class="skill-name">Lorem ipsum dolor</p>
-<div class="sp cv6-sp">
-<div class="sb cv6-sb w-80"></div>
-</div>
-</td>
-<td class="skills-info-li">
-<p class="skill-name">Lorem ipsum dolor</p>
-<div class="sp cv6-sp">
-<div class="sb cv6-sb w-80"></div>
-</div>
-</td>
-</tr>
-</table>
 </div>
 </div>
 </div>
 <!--Skills end-->
+<?php endif;?>
+
+<?php 
+$title4 = "Experience";
+$obj4 = $api->getheadersbytitle($title4);
+$experiences = $api->getExperience($pid);
+if(count($experiences) <= 0):else:
+?>
 <!--Experience -->
 <div class="gi">
 <div class="info-header">
-<h2 class="cv6-h2">Experience</h2>
+<h2 class="cv6-h2"><?php echo $obj4['title'];?></h2>
 </div>
+<?php foreach($experiences as $exp):?>
 <div class="info-text">
 <div class="experience-info">
-<p class="small-bold">Company/Name</p>
-<p>Job/Title</p>
-<p>Start date - End date</p>
-<p class="pad-top">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<p class="small-bold"><?php echo ucwords($exp['companyName']);?></p>
+<p><?php echo $exp['jobTitle'];?></p>
+<p><?php echo $exp['startDate'];?> - <?php echo ucwords($exp['endDate']);?></p>
+<p class="pad-top">
+<?php echo nl2br($exp['details']);?>
+</p>
 </div>
 </div>
+<?php endforeach;?>
 </div>
 <!--Experience end-->
+<?php endif;?>
+
+<?php 
+$title5 = "Project";
+$obj5 = $api->getheadersbytitle($title5);
+$projects = $api->getAllproject($pid);
+if(count($projects) <= 0):else:
+?>
 <!--Project -->
 <div class="gi">
 <div class="info-header">
-<h2 class="cv6-h2">Pojects</h2>
+<h2 class="cv6-h2"><?php echo $obj5['title'];?></h2>
 </div>
+<?php foreach($projects as $project):?>
 <div class="info-text">
 <div class="project-info">
-<p class="small-bold">Title</p>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat.</p>
+<p class="small-bold"><?php echo ucwords($project['title']);?></p>
+<p><?php echo nl2br($project['description']);?></p>
 </div>
 </div>
+<?php endforeach;?>
 </div>
 <!--Project end-->
+<?php endif;?>
+
+<?php 
+$title6 = "Reference";
+$obj6 = $api->getheadersbytitle($title6);
+$referes = $api->getAllreference($pid);
+if(count($referes) <= 0):else:
+?>
 <!--Reference -->
 <div class="gi">
 <div class="info-header">
-<h2 class="cv6-h2">Reference</h2>
+<h2 class="cv6-h2"><?php echo $obj6['title'];?></h2>
 </div>
+<?php foreach($referes as $ref):?>
 <div class="info-text">
 <div class="reference-info">
-<p>Lorem ipsum dolor sit amet.</p>
+<p>
+<span style="font-size:20px;"><?php echo $ref['refereeName'];?></span><br/>
+<?php echo $ref['jobTitle'];?><br/>
+<?php echo $ref['companyName'];?><br/>
+<?php echo $ref['email'];?><br/>
+<?php echo $ref['phone'];?><br/>
+</p>
 </div>
 </div>
+<?php endforeach;?>
 </div>
 <!--Reference end-->
+<?php endif;?>
+
+<?php 
+//$title6 = "Reference";
+//$obj6 = $api->getheadersbytitle($title6);
+$misc = $api->getMisc($pid);
+if(count($misc) <= 0):else:
+foreach($misc as $miscell):    
+$id = $api->getheadersbyheaderId($miscell['headingId']);
+?>
+<!--miscellaneous -->
+<div class="gi">
+<div class="info-header">
+<h2 class="cv6-h2"><?php echo $id['title'];?></h2>
+</div>
+<div class="info-text">
+<div class="reference-info ">
+<?php
+$values = $api->getAllValues($miscell['headingId'],$pid);
+foreach($values as $value):
+?>
+<p><?php echo $value['value'];?></p>
+<?php endforeach;?>
+</div>
+</div>
+<?php endforeach; endif;?>
+
+<?php if(empty($pdetails['facebook']) && empty($pdetails['twitter']) && empty($pdetails['instagram']) && empty($pdetails['linkedin'])): else:?>
 <!--Social -->
 <div class="gi">
 <div class="info-header">
@@ -289,28 +320,38 @@ consequat.</p>
 </div>
 <div class="info-text">
 <div class="cv6-social ">
+<?php if(empty($pdetails['linkedin'])):else:?>
 <div class="opi-item al">
 <p class="opi-item-title"><img src="./img/linkedin-b.png"></p>
-<p>Account link</p>
+<p><?php echo $pdetails['linkedin'];?></p>
 </div>
+<?php endif;?>
 
+<?php if(empty($pdetails['facebook'])):else:?>
 <div class="opi-item al">
 <p class="opi-item-title"><img src="./img/facebook-b.png"></p>
-<p>Account link</p>
+<p><?php echo $pdetails['facebook'];?></p>
 </div>
+<?php endif;?>
+
+<?php if(empty($pdetails['twitter'])):else:?>
 <div class="opi-item al">
 <p class="opi-item-title"><img src="./img/twitter-b.png"></p>
 <p>Account link</p>
 </div>
+<?php endif;?>
+
+<?php if(empty($pdetails['instagram'])):else:?>
 <div class="opi-item al">
 <p class="opi-item-title"><img src="./img/instagram-b.png"></p>
 <p>Account link</p>
 </div>
+<?php endif;?>
 </div>
 </div>
 </div>
 <!--Social end-->
-
+<?php endif;?>
 </div>
 <!--Bigger container for Other details end-->
 </div>
