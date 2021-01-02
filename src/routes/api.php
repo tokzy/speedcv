@@ -571,7 +571,7 @@ endif;
 
 /*========================= Create and get pdf =========================*/
 $app->post("/user/generatepdf", function (Request $request, Response $response,array $args) {
-$baseurl = "https://speedcv.net/public";    
+$baseurl = "http://localhost/speedapi/public";    
 $api = new Apiclass();    
 $errors = array();
 
