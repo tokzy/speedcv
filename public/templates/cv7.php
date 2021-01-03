@@ -90,39 +90,7 @@ $pdetails = $api->getpd($pid);
 <?php if(empty($pdetails['linkedin'])):else:?>
 <div class="opi-item row-vm">
 <p class="opi-item-title"><img src="./img/linkedin-b.png"></p>
-<p><?php if(empty($pdetails['linkedin'])):else:?></p>
-</div>
-<?php endif;?>
-
-<?php if(empty($pdetails['facebook'])):else:?>
-<div class="opi-item row-vm">
-<p class="opi-item-title"><img src="./img/facebook-b.png"></p>
-<p><?php echo $pdetails['facebook'];?></p>
-</div>
-<?php endif;?>
-
-<?php if(empty($pdetails['twitter'])):else:?>
-<div class="opi-item row-vm">
-<p class="opi-item-title"><img src="./img/twitter-b.png"></p>
-<p><?php echo $pdetails['twitter'];?></p>
-</div>
-<?php endif;?>
-
-<?php if(empty($pdetails['instagram'])):else:?>
-<div class="opi-item row-vm">
-<p class="opi-item-title"><img src="./img/instagram-b.png"></p>
-<p>Account link</p>
-</div>
-<?php endif;?>
-</div>
-<?php endif;?>
-
-<?php if(empty($pdetails['facebook']) && empty($pdetails['twitter']) && empty($pdetails['instagram']) && empty($pdetails['linkedin'])): else:?>
-<div class="social">
-<?php if(empty($pdetails['linkedin'])):else:?>
-<div class="opi-item row-vm">
-<p class="opi-item-title"><img src="./img/linkedin-b.png"></p>
-<p>Account link</p>
+<p><?php echo $pdetails['linkedin'];?></p>
 </div>
 <?php endif;?>
 
@@ -334,6 +302,33 @@ if(count($referes) <= 0):else:
 </div>
 <!--Reference end-->
 <?php endif;?>
+<?php 
+//$title6 = "Reference";
+//$obj6 = $api->getheadersbytitle($title6);
+$misc = $api->getMisc($pid);
+if(count($misc) <= 0):else:
+foreach($misc as $miscell):    
+$id = $api->getheadersbyheaderId($miscell['headingId']);
+?>
+<!--miscellaneous -->
+<div class="gi">
+<div class="info-header">
+<h2 class="cv7-h2"><?php echo $id['title'];?></h2>
+</div>
+<div class="info-text">
+<div class="reference-info col-vm">
+<?php
+$values = $api->getAllValues($miscell['headingId'],$pid);
+foreach($values as $value):
+?>
+<p><?php echo $value['value'];?></p>
+<?php endforeach;?>
+</div>
+</div>
+</div><br/>
+<!--miscellaneous end-->
+<?php endforeach;endif;?>
+
 </div>
 <!-- BIGGER CONTAINER END -->
 

@@ -334,10 +334,6 @@ foreach($values as $value):
 </div><br/>
 <!--Reference end-->
 <?php endforeach;endif;?>
-
-
-
-
 </div>
 <!-- BIGGER CONTAINER END -->
 </div>
