@@ -157,7 +157,6 @@ endforeach;
 <!-- OBJECTIVE END -->
 <?php endif;?>
 
-
 <?php
 $title2 = "Education";
 $obj2 = $api->getheadersbytitle($title2);
@@ -167,7 +166,7 @@ if(count($edus) <= 0):else:
 <!--Education -->
 <div class="gi">
 <div class="info-header cv11-info-header">
-<h2 class="cv11-h2">Education</h2>
+<h2 class="cv11-h2"><?php echo $obj2['title'];?></h2>
 </div>
 <div class="row" style="padding-left:10px;">
 <?php foreach($edus as $edu):?>
