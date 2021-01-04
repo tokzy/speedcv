@@ -8,7 +8,7 @@ header("Access-Control-Allow-Methods: PUT, POST, GET, OPTIONS, DELETE");
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-$url = "https://speedcv.net/public/";
+$url = "https://speedcv.net/public";
 
 $app = new \Slim\App;
 
@@ -571,7 +571,7 @@ endif;
 
 /*========================= Create and get pdf =========================*/
 $app->post("/user/generatepdf", function (Request $request, Response $response,array $args) {
-$baseurl = "http://localhost/speedapi/public";    
+$baseurl = "https://speedcv.net/public";    
 $api = new Apiclass();    
 $errors = array();
 
