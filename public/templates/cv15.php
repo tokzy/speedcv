@@ -176,7 +176,7 @@ if(count($edus) <= 0):else:
 <div class="gi">
 <div class="info-header cv4-info-header">
 <img class="disp-i-b" src="./img/graduation-cap-w.png">
-<h2 class="disp-i-b">Education</h2>
+<h2 class="disp-i-b"><?php echo $obj2['title'];?></h2>
 </div>
 <div class="info-text education">
 <div class="row" style="padding-left:10px;">
