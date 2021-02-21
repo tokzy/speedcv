@@ -4,7 +4,7 @@ class Apiclass {
 private $hostname = 'localhost';
 private $user = 'root';
 private $dbname = 'speedy';
-private $password = '';
+private $password = 'jehovah205';
 protected $connection;
 private $charset = 'utf8';
 
@@ -61,6 +61,23 @@ else:
 return false;
 endif;        
 }
+
+
+public function getsectionBytitle(string $title,$pid){
+    $conn = $this->connect();
+    $conn->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+
+    $sql = "SELECT id,title from `headings` WHERE title = :title AND pid = :pid LIMIT 1";
+    $stmt = $this->connect()->prepare($sql);
+
+    $stmt->bindParam(':pid',$pid,PDO::PARAM_INT);
+    $stmt->bindParam(':title',$title,PDO::PARAM_STR);
+
+    $stmt->execute();
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $row;
+    }
+
 
 public function getuserdetailsByEmail(string $email){
 $conn = $this->connect();
@@ -184,7 +201,7 @@ public function personalDetails(string $tracker,int $userid, string $name,string
 $conn = $this->connect();
 $date = date("Y-m-d H:i:s");
 $conn->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING );   
-if(empty($profile)):
+if(!empty($profile)):
 $sql = "INSERT INTO personalDetails (trackcv,user_id,name,address,email,phone,dob,website,profile,datemade)
 VALUES(:trackcv,:uid,:name,:address,:email,:phone,:dob,:website,:profile,:datemade)";
 
@@ -566,19 +583,21 @@ $row = $stmt->fetchAll();
 return $row;
 }
 
-public function checkIfTitleExists(string $title){
+public function checkIfTitleExists(string $title,int $pid){
 $connect = $this->connect();
 
 $connect->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING);  
-$sql = "SELECT count(*) FROM headings WHERE title = :title"; 
+$sql = "SELECT count(*) FROM headings WHERE title = :title AND pid =:pid"; 
 
 $stmt = $connect->prepare($sql);
+$stmt->bindParam(':pid',$pid,PDO::PARAM_INT);
 $stmt->bindParam(':title',$title,PDO::PARAM_STR);
 
 $stmt->execute();
 $rowcount = $stmt->fetchColumn();
 if($rowcount > 0):return true;else:return false;endif;    
 }
+
 
 public function checkIfTitleIdExists(int $id){
 $connect = $this->connect();
@@ -608,16 +627,17 @@ $rowcount = $stmt->fetchColumn();
 if($rowcount > 0):return true;else:return false;endif;    
 }
 
-public function CreateHeading(string $title){
+public function CreateHeading(string $title,int $pid){
 $conn = $this->connect();
 $date = date("Y-m-d H:i:s");
 $conn->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING );   
 
-$sql = "INSERT INTO headings (title,datemade)
-VALUES(:title,:datemade)";
+$sql = "INSERT INTO headings (pid,title,datemade)
+VALUES(:pid,:title,:datemade)";
 
 $stmt = $this->connect()->prepare($sql);
 
+$stmt->bindParam(':pid',$pid,PDO::PARAM_INT);
 $stmt->bindParam(':title',$title,\PDO::PARAM_STR);
 $stmt->bindParam(':datemade',$date,\PDO::PARAM_STR);
 
@@ -628,6 +648,7 @@ else:
 return false;
 endif;        
 }
+
 
 public function editHeading(int $id, string $title){
 $conn = $this->connect();

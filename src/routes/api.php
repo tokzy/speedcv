@@ -126,8 +126,8 @@ $image_parts = explode(";base64,", $image);
 $image_type_aux = explode("image/", $image_parts[0]);
 $image_type = $image_type_aux[1];
 $image_base64 = base64_decode($image_parts[1]);
-$file = $folderPath . rand().time() . '.png';
-file_put_contents($file, $image_base64);    
+$file =  rand().time() . '.png';
+file_put_contents($folderPath .''.$file, $image_base64);    
 endif;    
 $pdetails = $api->personalDetails($tracker,$userid,$name,$email,$address,$phone,$dob,$website,$file);
 if($pdetails == true):
@@ -407,7 +407,6 @@ endif;
 endif;
 });
 /*========================= Headings ENDS =========================*/
-
 /*========================= Create Headings =========================*/
 $app->post('/sections/create', function (Request $request, Response $response,array $args) {
 $api = new Apiclass();    
@@ -416,20 +415,23 @@ $errors = array();
 $apikeys = $request->getParam('apiKey');    
 $secretkeys = $request->getParam('secretKey');  
 $title = $api->cleanInputs($request->getParam('title'));
+$pid = $api->cleanInputs($request->getParam('personalDetailsId'));
 
 if(empty($apikeys)):$msg = "No api key provided!";array_push($errors,$msg);else:endif;
 if(empty($secretkeys)):$msg = "No secret key provided!";array_push($errors,$msg);else:endif;
 if(empty($title)):$msg = "No title field provided!";array_push($errors,$msg);else:endif;
-if($api->checkIfTitleExists($title) == true):$msg = "title already exists!";array_push($errors,$msg);else:endif;
+if($api->checkIfTitleExists($title,$pid) == true):$msg = "title already exists!";array_push($errors,$msg);else:endif;
 $checkkeys = $api->checkKeys($apikeys,$secretkeys);
 if($checkkeys == false && !empty($apikeys) && !empty($secretkeys)):$msg = "Authentication failed, invalid api or secret keys!";array_push($errors,$msg);else:endif;
+if($api->checkIfPidExists($pid) == false && !empty($pid)):$msg = "invalid personal details id!";array_push($errors,$msg);else:endif;
 
 if(count($errors) > 0):
 return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
 else:
-$create = $api->CreateHeading($title);    
+$create = $api->CreateHeading($title,$pid);
+$get = $api->getsectionBytitle($title,$pid)['id'];    
 if($create == true):    
-return json_encode(['status'=>200,'response'=>"success"]);
+return json_encode(['status'=>200,'response'=>"success",'id' =>$get]);
 else:
 $msg = "fail to fetch response";    
 array_push($errors,$msg);
@@ -516,7 +518,6 @@ if(empty($apikeys)):$msg = "No api key provided!";array_push($errors,$msg);else:
 if(empty($secretkeys)):$msg = "No secret key provided!";array_push($errors,$msg);else:endif;
 if(empty($id)):$msg = "No id provided!";array_push($errors,$msg);else:endif;
 if(empty($value)):$msg = "No value provided!";array_push($errors,$msg);else:endif;
-if($api->checkIfmiscExists($id,$pid) == true):$msg = "data on this id already exists!";array_push($errors,$msg);else:endif;
 if($api->checkIfPidExists($pid) == false && !empty($pid)):$msg = "invalid personal details id!";array_push($errors,$msg);else:endif;
 if($api->checkIfTitleIdExists($id) == false):$msg = "id doesn't exist!";array_push($errors,$msg);else:endif;
 $checkkeys = $api->checkKeys($apikeys,$secretkeys);

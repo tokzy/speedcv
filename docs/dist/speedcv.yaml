@@ -657,6 +657,9 @@ paths:
               schema:
                 type: object
                 properties:
+                  id:
+                   type: integer
+                   example: 12        
                   status:
                     type: integer
                     example: 200 
