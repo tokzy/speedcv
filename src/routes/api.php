@@ -77,7 +77,7 @@ $port = "465";
 $username = 'isaiahtokunbo11@gmail.com';
 $password = 'jehovah202';
 $subject = "Reset Password";
-$body = " Hi, we heard you lost Your Password, Here is Your Password Reset Code<br/> $code";
+$body = "Speed CV<br/>Hi, we heard you lost Your Password, Here is Your Password Reset Code<br/> <b style='font-size:25px;'>$code</b>";
 $headers = array ('From' => $from, 'To' => $email ,'Subject' => $subject,"MIME-Version" => "1.0", "Content-type" => "text/html");
 $smtp = Mail::factory('smtp',
  array ('host' => $host,
