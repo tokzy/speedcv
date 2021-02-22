@@ -47,6 +47,54 @@ endif;
 });
 /*========================= LOGIN ENDS =========================*/
 
+
+
+
+
+/*========================= RESET PASSWORDS =========================*/
+$app->post('user/password/reset', function (Request $request, Response $response,array $args) {
+$api = new Apiclass();    
+
+$errors = array();
+
+$apikeys = $api->cleanInputs($request->getParam('apiKey'));    
+$secretkeys = $api->cleanInputs($request->getParam('secretKey'));    
+$email = $api->cleanInputs($request->getParam('email'));
+
+if(empty($apikeys)):$msg = "No api key provided!";array_push($errors,$msg);else:endif;
+if(empty($secretkeys)):$msg = "No secret key provided!";array_push($errors,$msg);else:endif;
+if(empty($email)):$msg = "No email provided!";array_push($errors,$msg);else:endif;
+if($api->checkIfEmailExists($email) == false):$msg ="email does not exist!"; array_push($errors,$msg);else:endif;
+if(!filter_var($email,FILTER_VALIDATE_EMAIL) && !empty($email)):$msg = "invalid email supplied!";array_push($errors,$msg);else:endif;
+$checkkeys = $api->checkKeys($apikeys,$secretkeys);
+if($checkkeys == false && !empty($apikeys) && !empty($secretkeys)):$msg = "Authentication failed, invalid api or secret keys!";array_push($errors,$msg);else:endif;
+
+if(count($errors) > 0):
+return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
+else:
+
+endif;
+});
+/*========================= RESET PASSWORD ENDS =========================*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*========================= REGISTER =========================*/
 $app->post('/register', function (Request $request, Response $response,array $args) {
 $api = new Apiclass();    

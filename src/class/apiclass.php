@@ -4,7 +4,7 @@ class Apiclass {
 private $hostname = 'localhost';
 private $user = 'root';
 private $dbname = 'speedy';
-private $password = 'jehovah205';
+private $password = '';
 protected $connection;
 private $charset = 'utf8';
 
