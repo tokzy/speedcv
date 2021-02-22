@@ -52,7 +52,7 @@ endif;
 
 
 /*========================= RESET PASSWORDS =========================*/
-$app->post('user/password-reset', function (Request $request, Response $response,array $args) {
+$app->post('/user/password/reset', function (Request $request, Response $response,array $args) {
 $api = new Apiclass();    
 
 $errors = array();
