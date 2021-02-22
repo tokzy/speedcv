@@ -109,9 +109,11 @@ $apikeys = $api->cleanInputs($request->getParam('apiKey'));
 $secretkeys = $api->cleanInputs($request->getParam('secretKey'));    
 $code = $api->cleanInputs($request->getParam('code'));
 $email = $api->cleanInputs($request->getParam('email'));
+$newPass = $api->cleanInputs($request->getParam('newPassword'));
 
 if(empty($apikeys)):$msg = "No api key provided!";array_push($errors,$msg);else:endif;
 if(empty($secretkeys)):$msg = "No secret key provided!";array_push($errors,$msg);else:endif;
+if(empty($newPass)):$msg = "No password provided!";array_push($errors,$msg);else:endif;
 if(empty($email)):$msg = "No email provided!";array_push($errors,$msg);else:endif;
 if(empty($code)):$msg = "No code provided!";array_push($errors,$msg);else:endif;
 if($api->checkIfCodeMatchesEmail($code,$email) == false): $msg = 'Code does not exist or does not match the email account'; array_push($errors,$msg); endif;
@@ -123,7 +125,14 @@ if($checkkeys == false && !empty($apikeys) && !empty($secretkeys)):$msg = "Authe
 if(count($errors) > 0):
 return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
 else:
-
+$update = $api->UpdatePassword($email,$newPass);
+if($update == true):
+return json_encode(['status'=>200,"response"=>"success"]);    
+else:
+$msg = "oops sth went wrong!";
+array_push($errors,$msg);
+return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
+endif;
 endif;
 });
 /*========================= UPDATE PASSWORD ENDS =========================*/

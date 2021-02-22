@@ -4,7 +4,7 @@ class Apiclass {
 private $hostname = 'localhost';
 private $user = 'root';
 private $dbname = 'speedy';
-private $password = '';
+private $password = 'jehovah205';
 protected $connection;
 private $charset = 'utf8';
 
@@ -81,6 +81,24 @@ else:
 return false;
 endif;        
 }
+
+public function UpdatePassword(string $email,string $password){
+    $conn = $this->connect();
+    $conn->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING );   
+    $passwordHash = password_hash($password, PASSWORD_BCRYPT, array("cost" => 12));
+    $sql = "UPDATE `users` SET password = :pass WHERE email = :email";
+    
+    $stmt = $this->connect()->prepare($sql);
+    $stmt->bindParam(':email',$email,\PDO::PARAM_STR);
+    $stmt->bindParam(':pass',$passwordHash,\PDO::PARAM_STR);
+    
+    $result = $stmt->execute();
+    if($result):
+    return true;
+    else:
+    return false;
+    endif;        
+    }
 
 public function Code(int $len){
 $result = "";
