@@ -72,7 +72,7 @@ $code = $api->Code(5);
 $check = $api->checkCode($email);
 
 $subject = "Reset Password";
-$myemail = 'info@speedcv.net';
+$myemail = 'isaiahtokunbo11@gmail.com';
 $message  = " Hi, we heard you lost Your Password, Here is Your Password Reset Code<br/> $code";
 
 $header = "From:$myemail\r\n";
