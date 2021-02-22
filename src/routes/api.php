@@ -71,7 +71,7 @@ else:
 $code = $api->Code(5);    
 $check = $api->checkCode($email);
 
-$from = "info@speedcv.net";
+$from = "isaiahtokunbo11@gmail.com";
 $host = "ssl://smtp.gmail.com";
 $port = "465";
 $username = 'isaiahtokunbo11@gmail.com';
