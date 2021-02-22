@@ -47,10 +47,6 @@ endif;
 });
 /*========================= LOGIN ENDS =========================*/
 
-
-
-
-
 /*========================= RESET PASSWORDS =========================*/
 $app->post('/user/password/reset', function (Request $request, Response $response,array $args) {
 $api = new Apiclass();    
@@ -72,28 +68,12 @@ if($checkkeys == false && !empty($apikeys) && !empty($secretkeys)):$msg = "Authe
 if(count($errors) > 0):
 return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
 else:
+$code = $api->Code(5);    
+$save = $api->resetCode($email,$code);
 
 endif;
 });
 /*========================= RESET PASSWORD ENDS =========================*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /*========================= REGISTER =========================*/
 $app->post('/register', function (Request $request, Response $response,array $args) {

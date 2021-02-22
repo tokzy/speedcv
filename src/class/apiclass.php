@@ -33,6 +33,39 @@ $rowcount = $stmt->fetchColumn();
 if($rowcount > 0):return true;else:return false;endif;    
 }
 
+
+public function Code(int $len){
+$result = "";
+$chars = "0123456789";	
+$chararray = str_split($chars);
+for($i=0;$i<$len;$i++){
+$randitem = array_rand($chararray);
+$result .= "".$chararray[$randitem];	
+}		
+return $result.''.rand();
+}	   
+
+public function resetCode(string $email,int $code){
+$conn = $this->connect();
+$date = date("Y-m-d H:i:s");
+$conn->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING );   
+
+$sql = "INSERT INTO `passResetCode` (email,code,datemade)
+VALUES(:email,:code,:datemade)";
+
+$stmt = $this->connect()->prepare($sql);
+$stmt->bindParam(':email',$email,\PDO::PARAM_STR);
+$stmt->bindParam(':code',$code,\PDO::PARAM_INT);
+$stmt->bindParam(':datemade',$date,\PDO::PARAM_STR);
+
+$result = $stmt->execute();
+if($result):
+return true;
+else:
+return false;
+endif;        
+}
+
 public function cleanInputs($data){
 $data = trim($data);
 $data2 = stripslashes($data);
