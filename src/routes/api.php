@@ -81,7 +81,7 @@ $header .= "Content-type:text/html\r\n";
 
 $retval = mail ($email,$subject,$message,$header);
 if($retval):
-    
+
 if($check == true):
 $update = $api->UpdateCode($email,$code);
 else:
@@ -97,6 +97,42 @@ endif;
 endif;
 });
 /*========================= RESET PASSWORD ENDS =========================*/
+
+
+/*========================= UPDATE PASSWORDS =========================*/
+$app->put('/user/password/reset/update', function (Request $request, Response $response,array $args) {
+$api = new Apiclass();    
+
+$errors = array();
+
+$apikeys = $api->cleanInputs($request->getParam('apiKey'));    
+$secretkeys = $api->cleanInputs($request->getParam('secretKey'));    
+$code = $api->cleanInputs($request->getParam('code'));
+$email = $api->cleanInputs($request->getParam('email'));
+
+if(empty($apikeys)):$msg = "No api key provided!";array_push($errors,$msg);else:endif;
+if(empty($secretkeys)):$msg = "No secret key provided!";array_push($errors,$msg);else:endif;
+if(empty($email)):$msg = "No email provided!";array_push($errors,$msg);else:endif;
+if(empty($code)):$msg = "No code provided!";array_push($errors,$msg);else:endif;
+if($api->checkIfCodeMatchesEmail($code,$email) == false): $msg = 'Code does not exist or does not match the email account'; array_push($errors,$msg); endif;
+if($api->checkIfEmailExists($email) == false):$msg ="email does not exist!"; array_push($errors,$msg);else:endif;
+if(!filter_var($email,FILTER_VALIDATE_EMAIL) && !empty($email)):$msg = "invalid email supplied!";array_push($errors,$msg);else:endif;
+$checkkeys = $api->checkKeys($apikeys,$secretkeys);
+if($checkkeys == false && !empty($apikeys) && !empty($secretkeys)):$msg = "Authentication failed, invalid api or secret keys!";array_push($errors,$msg);else:endif;
+
+if(count($errors) > 0):
+return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
+else:
+
+endif;
+});
+/*========================= UPDATE PASSWORD ENDS =========================*/
+
+
+
+
+
+
 
 /*========================= REGISTER =========================*/
 $app->post('/register', function (Request $request, Response $response,array $args) {

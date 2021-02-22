@@ -47,6 +47,21 @@ $rowcount = $stmt->fetchColumn();
 if($rowcount > 0):return true;else:return false;endif;    
 }
 
+public function checkIfCodeMatchesEmail(int $code,string $email){
+$connect = $this->connect();
+
+$connect->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING);  
+$sql = "SELECT count(*) FROM `passResetCode` WHERE code = :code AND email = :email"; 
+
+$stmt = $connect->prepare($sql);
+$stmt->bindParam(':email',$email,\PDO::PARAM_STR);
+$stmt->bindParam(':code',$code,\PDO::PARAM_INT);
+
+$stmt->execute();
+$rowcount = $stmt->fetchColumn();
+if($rowcount > 0):return true;else:return false;endif;    
+}
+
 public function UpdateCode(string $email,int $code){
 $conn = $this->connect();
 $date = date("Y-m-d H:i:s");
