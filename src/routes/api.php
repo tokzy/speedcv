@@ -69,6 +69,7 @@ if(count($errors) > 0):
 return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
 else:
 $code = $api->Code(5);    
+$check = $api->checkCode($email);
 
 $subject = "Reset Password";
 $myemail = 'info@speedcv.net';
@@ -80,7 +81,13 @@ $header .= "Content-type:text/html\r\n";
 
 $retval = mail ($email,$subject,$message,$header);
 if($retval):
-$save = $api->resetCode($email,$code);    
+    
+if($check == true):
+$update = $api->UpdateCode($email,$code);
+else:
+$save = $api->resetCode($email,$code);     
+endif;
+
 return json_encode(['status'=>200,"response"=>"email sent","email"=>$email,"code" => $code]);
 else:
 $msg = "email not sent";

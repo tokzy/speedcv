@@ -34,6 +34,39 @@ if($rowcount > 0):return true;else:return false;endif;
 }
 
 
+public function checkCode(string $email){
+$connect = $this->connect();
+
+$connect->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING);  
+$sql = "SELECT count(*) FROM `passResetCode` WHERE email = :email"; 
+
+$stmt = $connect->prepare($sql);
+$stmt->bindParam(':email',$email,\PDO::PARAM_STR);
+$stmt->execute();
+$rowcount = $stmt->fetchColumn();
+if($rowcount > 0):return true;else:return false;endif;    
+}
+
+public function UpdateCode(string $email,int $code){
+$conn = $this->connect();
+$date = date("Y-m-d H:i:s");
+$conn->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING );   
+
+$sql = "UPDATE `passResetCode` SET code = :code,datemade = :datemade WHERE email = :email";
+
+$stmt = $this->connect()->prepare($sql);
+$stmt->bindParam(':email',$email,\PDO::PARAM_STR);
+$stmt->bindParam(':code',$code,\PDO::PARAM_INT);
+$stmt->bindParam(':datemade',$date,\PDO::PARAM_STR);
+
+$result = $stmt->execute();
+if($result):
+return true;
+else:
+return false;
+endif;        
+}
+
 public function Code(int $len){
 $result = "";
 $chars = "0123456789";	
