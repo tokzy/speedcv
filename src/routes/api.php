@@ -72,21 +72,20 @@ $code = $api->Code(5);
 $check = $api->checkCode($email);
 
 $from = "isaiahtokunbo11@gmail.com";
-$to = 'netsage23@gmail.com';
 $host = "ssl://smtp.gmail.com";
 $port = "465";
 $username = 'isaiahtokunbo11@gmail.com';
 $password = 'jehovah202';
 $subject = "Reset Password";
 $body = " Hi, we heard you lost Your Password, Here is Your Password Reset Code<br/> $code";
-$headers = array ('From' => $from, 'To' => $email,'Subject' => $subject,"MIME-Version" => "1.0", "Content-type" => "text/html");
+$headers = array ('From' => $from, 'To' => $email ,'Subject' => $subject,"MIME-Version" => "1.0", "Content-type" => "text/html");
 $smtp = Mail::factory('smtp',
  array ('host' => $host,
    'port' => $port,
    'auth' => true,
    'username' => $username,
    'password' => $password));
-$mail = $smtp->send($to, $headers, $body);
+$mail = $smtp->send($email, $headers, $body);
 
 if(PEAR::isError($mail)):
 $msg = $mail->getMessage();
