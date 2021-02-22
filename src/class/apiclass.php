@@ -42,7 +42,7 @@ for($i=0;$i<$len;$i++){
 $randitem = array_rand($chararray);
 $result .= "".$chararray[$randitem];	
 }		
-return $result.''.rand();
+return $result;
 }	   
 
 public function resetCode(string $email,int $code){

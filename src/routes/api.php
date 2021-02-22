@@ -71,6 +71,22 @@ else:
 $code = $api->Code(5);    
 $save = $api->resetCode($email,$code);
 
+$subject = "Reset Password";
+$myemail = 'info@speedcv.net';
+$message  = " Hi, we heard you lost Your Password, Here is Your Password Reset Code<br/> $code";
+
+$header = "From:$myemail\r\n";
+$header .= "MIME-Version:1.0\r\n";
+$header .= "Content-type:text/html\r\n";
+
+$retval = mail ($email,$subject,$message,$header);
+if($retval):
+return json_encode(['status'=>200,"response"=>"email sent","email"=>$email,"code" => $code]);
+else:
+$msg = "email not sent";
+array_push($errors,$msg);    
+return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
+endif;
 endif;
 });
 /*========================= RESET PASSWORD ENDS =========================*/
