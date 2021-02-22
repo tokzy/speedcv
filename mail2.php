@@ -8,7 +8,7 @@ $username = 'isaiahtokunbo11@gmail.com';
 $password = 'jehovah202';
 $subject = "speedcv";
 $body = "testing the mail package";
-$headers = array ('From' => $from, 'To' => $to,'Subject' => $subject);
+$headers = array ('From' => $from, 'To' => $to,'Subject' => $subject,"MIME-Version" => "1.0", "Content-type" => "text/html");
 $smtp = Mail::factory('smtp',
  array ('host' => $host,
    'port' => $port,

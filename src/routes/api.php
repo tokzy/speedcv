@@ -71,28 +71,34 @@ else:
 $code = $api->Code(5);    
 $check = $api->checkCode($email);
 
+$from = "isaiahtokunbo11@gmail.com";
+$to = 'netsage23@gmail.com';
+$host = "ssl://smtp.gmail.com";
+$port = "465";
+$username = 'isaiahtokunbo11@gmail.com';
+$password = 'jehovah202';
 $subject = "Reset Password";
-$myemail = 'isaiahtokunbo11@gmail.com';
-$message  = " Hi, we heard you lost Your Password, Here is Your Password Reset Code<br/> $code";
+$body = " Hi, we heard you lost Your Password, Here is Your Password Reset Code<br/> $code";
+$headers = array ('From' => $from, 'To' => $email,'Subject' => $subject,"MIME-Version" => "1.0", "Content-type" => "text/html");
+$smtp = Mail::factory('smtp',
+ array ('host' => $host,
+   'port' => $port,
+   'auth' => true,
+   'username' => $username,
+   'password' => $password));
+$mail = $smtp->send($to, $headers, $body);
 
-$header = "From:$myemail\r\n";
-$header .= "MIME-Version:1.0\r\n";
-$header .= "Content-type:text/html\r\n";
-
-$retval = mail ($email,$subject,$message,$header);
-if($retval):
-
+if(PEAR::isError($mail)):
+$msg = $mail->getMessage();
+array_push($errors,$msg);    
+return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);    
+else:
 if($check == true):
 $update = $api->UpdateCode($email,$code);
 else:
 $save = $api->resetCode($email,$code);     
 endif;
-
 return json_encode(['status'=>200,"response"=>"email sent","email"=>$email,"code" => $code]);
-else:
-$msg = "email not sent";
-array_push($errors,$msg);    
-return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);
 endif;
 endif;
 });
