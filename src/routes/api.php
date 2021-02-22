@@ -77,7 +77,7 @@ $port = "465";
 $username = 'isaiahtokunbo11@gmail.com';
 $password = 'jehovah202';
 $subject = "Reset Password";
-$body = "Speed CV<br/>Hi, we heard you lost Your Password, Here is Your Password Reset Code<br/> <b style='font-size:25px;'>$code</b>";
+$body = "<b style='text-align:center;color:#f37c20;'>Speed CV</b><br/><br/>Hi, we heard you lost Your Password, Here is Your Password Reset Code<br/> <b style='font-size:25px;'>$code</b>";
 $headers = array ('From' => $from, 'To' => $email ,'Subject' => $subject,"MIME-Version" => "1.0", "Content-type" => "text/html");
 $smtp = Mail::factory('smtp',
  array ('host' => $host,
@@ -97,7 +97,7 @@ $update = $api->UpdateCode($email,$code);
 else:
 $save = $api->resetCode($email,$code);     
 endif;
-return json_encode(['status'=>200,"response"=>"email sent","email"=>$email,"code" => $code]);
+return json_encode(['status'=>200,"response"=>"email sent,check spam folder,inbox,social or promotion section","email"=>$email,"code" => $code]);
 endif;
 endif;
 });
