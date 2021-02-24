@@ -10,8 +10,6 @@ use \Psr\Http\Message\ResponseInterface as Response;
 
 require_once '../vendor/autoload.php';
 require_once "Mail.php";
-use Aws\Ses\SesClient;
-use Aws\Exception\AwsException;
 
 $app = new \Slim\App;
 

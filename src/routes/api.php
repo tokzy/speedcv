@@ -7,6 +7,8 @@ header("Access-Control-Allow-Methods: PUT, POST, GET, OPTIONS, DELETE");
 
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
+use Aws\Ses\SesClient;
+use Aws\Exception\AwsException;
 
 $url = "https://speedcv.net/public";
 
