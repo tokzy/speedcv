@@ -311,15 +311,8 @@ class ClassLoader
         spl_autoload_register(array($this, 'loadClass'), true, $prepend);
 
         if (null === $this->vendorDir) {
-<<<<<<< HEAD
-            return;
-        }
-
-        if ($prepend) {
-=======
             //no-op
         } elseif ($prepend) {
->>>>>>> 52efc0167c36269931dda4309a020e47bc246431
             self::$registeredLoaders = array($this->vendorDir => $this) + self::$registeredLoaders;
         } else {
             unset(self::$registeredLoaders[$this->vendorDir]);

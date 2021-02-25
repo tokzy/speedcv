@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'b67ed4afed956a4e6ff2a814df112810cf58c03a',
+    'reference' => 'd58ba45f7eac7345e72ff98a090712441b0df71c',
     'name' => '__root__',
   ),
   'versions' => 
@@ -18,34 +18,16 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'b67ed4afed956a4e6ff2a814df112810cf58c03a',
+      'reference' => 'd58ba45f7eac7345e72ff98a090712441b0df71c',
     ),
     'aws/aws-sdk-php' => 
     array (
-<<<<<<< HEAD
       'pretty_version' => '3.173.16',
       'version' => '3.173.16.0',
       'aliases' => 
       array (
       ),
       'reference' => 'e401bcb34e4ae88586a1f63bec6c0ddd12591e7a',
-=======
-      'pretty_version' => '3.173.15',
-      'version' => '3.173.15.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '8d9fd59b9a25fe5b615bd94ced9c1539340452f6',
->>>>>>> 52efc0167c36269931dda4309a020e47bc246431
-    ),
-    'container-interop/container-interop' => 
-    array (
-      'pretty_version' => '1.2.0',
-      'version' => '1.2.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '79cbf1341c22ec75643d841642dd5d6acd83bdb8',
     ),
     'guzzlehttp/guzzle' => 
     array (
@@ -94,12 +76,12 @@
     ),
     'pimple/pimple' => 
     array (
-      'pretty_version' => 'v3.2.3',
-      'version' => '3.2.3.0',
+      'pretty_version' => 'v3.3.1',
+      'version' => '3.3.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '9e403941ef9d65d20cba7d54e29fe906db42cf32',
+      'reference' => '21e45061c3429b1e06233475cc0e1f6fc774d5b0',
     ),
     'psr/container' => 
     array (
@@ -153,12 +135,12 @@
     ),
     'slim/slim' => 
     array (
-      'pretty_version' => '3.11.0',
-      'version' => '3.11.0.0',
+      'pretty_version' => '3.12.3',
+      'version' => '3.12.3.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'd378e70431e78ee92ee32ddde61ecc72edf5dc0a',
+      'reference' => '1c9318a84ffb890900901136d620b4f03a59da38',
     ),
     'symfony/polyfill-mbstring' => 
     array (

@@ -30,7 +30,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'b67ed4afed956a4e6ff2a814df112810cf58c03a',
+    'reference' => 'd58ba45f7eac7345e72ff98a090712441b0df71c',
     'name' => '__root__',
   ),
   'versions' => 
@@ -42,7 +42,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'b67ed4afed956a4e6ff2a814df112810cf58c03a',
+      'reference' => 'd58ba45f7eac7345e72ff98a090712441b0df71c',
     ),
     'aws/aws-sdk-php' => 
     array (
@@ -52,15 +52,6 @@ private static $installed = array (
       array (
       ),
       'reference' => 'e401bcb34e4ae88586a1f63bec6c0ddd12591e7a',
-    ),
-    'container-interop/container-interop' => 
-    array (
-      'pretty_version' => '1.2.0',
-      'version' => '1.2.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '79cbf1341c22ec75643d841642dd5d6acd83bdb8',
     ),
     'guzzlehttp/guzzle' => 
     array (
@@ -109,12 +100,12 @@ private static $installed = array (
     ),
     'pimple/pimple' => 
     array (
-      'pretty_version' => 'v3.2.3',
-      'version' => '3.2.3.0',
+      'pretty_version' => 'v3.3.1',
+      'version' => '3.3.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '9e403941ef9d65d20cba7d54e29fe906db42cf32',
+      'reference' => '21e45061c3429b1e06233475cc0e1f6fc774d5b0',
     ),
     'psr/container' => 
     array (
@@ -168,12 +159,12 @@ private static $installed = array (
     ),
     'slim/slim' => 
     array (
-      'pretty_version' => '3.11.0',
-      'version' => '3.11.0.0',
+      'pretty_version' => '3.12.3',
+      'version' => '3.12.3.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'd378e70431e78ee92ee32ddde61ecc72edf5dc0a',
+      'reference' => '1c9318a84ffb890900901136d620b4f03a59da38',
     ),
     'symfony/polyfill-mbstring' => 
     array (
@@ -407,6 +398,7 @@ self::$canGetVendors = method_exists('Composer\Autoload\ClassLoader', 'getRegist
 $installed = array();
 
 if (self::$canGetVendors) {
+
 foreach (ClassLoader::getRegisteredLoaders() as $vendorDir => $loader) {
 if (isset(self::$installedByVendor[$vendorDir])) {
 $installed[] = self::$installedByVendor[$vendorDir];
