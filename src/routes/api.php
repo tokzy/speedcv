@@ -72,7 +72,7 @@ $recipient_emails = ['netsage23@gmail.com','info@speedcv.net'];
 // Specify a configuration set. If you do not want to use a configuration
 // set, comment the following variable, and the
 // 'ConfigurationSetName' => $configuration_set argument below.
-$configuration_set = 'ConfigSet';
+//$configuration_set = 'ConfigSet';
 
 $subject = 'Amazon SES test (AWS SDK for PHP)';
 $plaintext_body = 'This email was sent with Amazon SES using the AWS SDK for PHP.' ;
@@ -107,7 +107,7 @@ try {
         ],
         // If you aren't using a configuration set, comment or delete the
         // following line
-        'ConfigurationSetName' => $configuration_set,
+        //'ConfigurationSetName' => $configuration_set,
     ]);
     $messageId = $result['MessageId'];
     echo("Email sent! Message ID: $messageId"."\n");
