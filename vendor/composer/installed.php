@@ -22,12 +22,21 @@
     ),
     'aws/aws-sdk-php' => 
     array (
+<<<<<<< HEAD
       'pretty_version' => '3.173.16',
       'version' => '3.173.16.0',
       'aliases' => 
       array (
       ),
       'reference' => 'e401bcb34e4ae88586a1f63bec6c0ddd12591e7a',
+=======
+      'pretty_version' => '3.173.15',
+      'version' => '3.173.15.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '8d9fd59b9a25fe5b615bd94ced9c1539340452f6',
+>>>>>>> 52efc0167c36269931dda4309a020e47bc246431
     ),
     'container-interop/container-interop' => 
     array (

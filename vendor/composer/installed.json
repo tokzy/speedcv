@@ -2,6 +2,7 @@
     "packages": [
         {
             "name": "aws/aws-sdk-php",
+<<<<<<< HEAD
             "version": "3.173.16",
             "version_normalized": "3.173.16.0",
             "source": {
@@ -13,6 +14,19 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/e401bcb34e4ae88586a1f63bec6c0ddd12591e7a",
                 "reference": "e401bcb34e4ae88586a1f63bec6c0ddd12591e7a",
+=======
+            "version": "3.173.15",
+            "version_normalized": "3.173.15.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/aws/aws-sdk-php.git",
+                "reference": "8d9fd59b9a25fe5b615bd94ced9c1539340452f6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/8d9fd59b9a25fe5b615bd94ced9c1539340452f6",
+                "reference": "8d9fd59b9a25fe5b615bd94ced9c1539340452f6",
+>>>>>>> 52efc0167c36269931dda4309a020e47bc246431
                 "shasum": ""
             },
             "require": {
@@ -48,7 +62,11 @@
                 "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
                 "ext-sockets": "To use client-side monitoring"
             },
+<<<<<<< HEAD
             "time": "2021-02-24T19:43:19+00:00",
+=======
+            "time": "2021-02-23T19:13:28+00:00",
+>>>>>>> 52efc0167c36269931dda4309a020e47bc246431
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -89,7 +107,11 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
+<<<<<<< HEAD
                 "source": "https://github.com/aws/aws-sdk-php/tree/3.173.16"
+=======
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.173.15"
+>>>>>>> 52efc0167c36269931dda4309a020e47bc246431
             },
             "install-path": "../aws/aws-sdk-php"
         },
