@@ -63,7 +63,7 @@ $senderName = 'Speed CV';
 
 // Replace recipient@example.com with a "To" address. If your account
 // is still in the sandbox, this address must be verified.
-$recipient = 'testtomsy@gmail.com';
+$recipient = 'netsage23@gmail.com';
 
 // Replace smtp_username with your Amazon SES SMTP user name.
 $usernameSmtp = 'AKIATLQTIHQASVZYYH4U';
@@ -158,6 +158,12 @@ else:
 $code = $api->Code(5);    
 $check = $api->checkCode($email);
 
+if($check == true):
+$update = $api->UpdateCode($email,$code);
+else:
+$save = $api->resetCode($email,$code);     
+endif;
+
 $cURLConnection = curl_init();
 curl_setopt($cURLConnection, CURLOPT_URL, 'https://speedilypay.com/api/public/email/'.$code.'/'.$email.'');
 curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
@@ -166,7 +172,7 @@ $response = curl_exec($cURLConnection);
 curl_close($cURLConnection);
 
 $assets = json_decode($response, true);
-return $assets;
+return $response;
 
 endif;
 });
