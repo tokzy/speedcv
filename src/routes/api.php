@@ -158,34 +158,16 @@ else:
 $code = $api->Code(5);    
 $check = $api->checkCode($email);
 
-$from = "isaiahtokunbo11@gmail.com";
-$host = "ssl://smtp.gmail.com";
-$port = "465";
-$username = 'isaiahtokunbo11@gmail.com';
-$password = 'jehovah202';
-$subject = "Reset Password";
-$body = "<b style='text-align:center;color:#f37c20;'>Speed CV</b><br/><br/>Hi, we heard you lost Your Password, Here is Your Password Reset Code<br/> <b style='font-size:25px;'>$code</b>";
-$headers = array ('From' => $from, 'To' => $email ,'Subject' => $subject,"MIME-Version" => "1.0", "Content-type" => "text/html");
-$smtp = Mail::factory('smtp',
-array ('host' => $host,
-'port' => $port,
-'auth' => true,
-'username' => $username,
-'password' => $password));
-$mail = $smtp->send($email, $headers, $body);
+$cURLConnection = curl_init();
+curl_setopt($cURLConnection, CURLOPT_URL, 'https://speedilypay.com/api/public/email/'.$code.'/'.$email.'');
+curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($cURLConnection, CURLOPT_HTTPHEADER, array("content-type: application/json","cache-control: no-cache"));
+$response = curl_exec($cURLConnection);
+curl_close($cURLConnection);
 
-if(PEAR::isError($mail)):
-$msg = $mail->getMessage();
-array_push($errors,$msg);    
-return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);    
-else:
-if($check == true):
-$update = $api->UpdateCode($email,$code);
-else:
-$save = $api->resetCode($email,$code);     
-endif;
-return json_encode(['status'=>200,"response"=>"email sent,check spam folder,inbox,social or promotion section","email"=>$email,"code" => $code]);
-endif;
+$assets = json_decode($response, true);
+return $assets;
+
 endif;
 });
 /*========================= RESET PASSWORD ENDS =========================*/
