@@ -61,6 +61,104 @@ paths:
                          
         '400':
           description: errors
+   /user/password/reset:
+    post:
+      tags:
+        - User 
+      summary: reset password code.
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - name: apiKey          
+          required: true
+          description: The api key of the application.
+          schema:
+            type: string
+        - name: secretKey
+          required: true
+          description: The secret key of the application.
+          schema:
+            type: string
+        - name: email
+          required: true
+          description: email of user.
+          schema:
+            type: string        
+      responses:
+        '200':
+          description: A user object.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example : 200
+                  response:
+                    type: string
+                    example : Your password reset code has been sent to your email, please check your spam ,inbox or promotion folder
+                  code:
+                    type: integer
+                    example: 54647   
+                  email:
+                     type: string
+                     example: test@gmail.com   
+        '400':
+          description: errors 
+   /user/password/reset/update:
+    put:
+      tags:
+        - User 
+      summary: change password.
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+        - name: apiKey          
+          required: true
+          description: The api key of the application.
+          schema:
+            type: string
+        - name: secretKey
+          required: true
+          description: The secret key of the application.
+          schema:
+            type: string
+        - name: email
+          required: true
+          description: email of user.
+          schema:
+            type: string
+        - name: code
+          required: true
+          description: reset code.
+          schema:
+            type: integer
+        - name: newPassword
+          required: true
+          description: new password.
+          schema:
+            type: string                    
+      responses:
+        '200':
+          description: A user object.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example : 200
+                  response:
+                    type: string
+                    example : success 
+        '400':
+          description: errors                  
    /register:
     post:
       tags:

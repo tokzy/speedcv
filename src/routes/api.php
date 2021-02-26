@@ -7,8 +7,9 @@ header("Access-Control-Allow-Methods: PUT, POST, GET, OPTIONS, DELETE");
 
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
-use Aws\Ses\SesClient;
-use Aws\Exception\AwsException;
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 $url = "https://speedcv.net/public";
 
@@ -55,68 +56,77 @@ endif;
 $app->get('/email/test', function (Request $request, Response $response,array $args) {
 $api = new Apiclass();    
 
-$SesClient = new SesClient([
-'profile' => 'default',
-'version' => '2010-12-01',
-'region'  => 'us-east-2'
-]);
-
 // Replace sender@example.com with your "From" address.
 // This address must be verified with Amazon SES.
-$sender_email = 'isaiahtokunb011@gmail.com';
+$sender = 'isaiahtokunbo11@gmail.com';
+$senderName = 'Speed CV';
 
-// Replace these sample addresses with the addresses of your recipients. If
-// your account is still in the sandbox, these addresses must be verified.
-$recipient_emails = ['netsage23@gmail.com','info@speedcv.net'];
+// Replace recipient@example.com with a "To" address. If your account
+// is still in the sandbox, this address must be verified.
+$recipient = 'netsage23@gmail.com';
+
+// Replace smtp_username with your Amazon SES SMTP user name.
+$usernameSmtp = 'AKIATLQTIHQASVZYYH4U';
+
+// Replace smtp_password with your Amazon SES SMTP password.
+$passwordSmtp = 'BIxyr1tmLg6wSRa47bEJb4VE8NR2fK0hh+3O0ETRt1ag';
 
 // Specify a configuration set. If you do not want to use a configuration
-// set, comment the following variable, and the
-// 'ConfigurationSetName' => $configuration_set argument below.
-//$configuration_set = 'ConfigSet';
+// set, comment or remove the next line.
+//$configurationSet = 'ConfigSet';
 
-$subject = 'Amazon SES test (AWS SDK for PHP)';
-$plaintext_body = 'This email was sent with Amazon SES using the AWS SDK for PHP.' ;
-$html_body =  '<h1>AWS Amazon Simple Email Service Test Email</h1>'.
-'<p>This email was sent with <a href="https://aws.amazon.com/ses/">'.
-'Amazon SES</a> using the <a href="https://aws.amazon.com/sdk-for-php/">'.
-'AWS SDK for PHP</a>.</p>';
-$char_set = 'UTF-8';
+// If you're using Amazon SES in a region other than US West (Oregon),
+// replace email-smtp.us-west-2.amazonaws.com with the Amazon SES SMTP
+// endpoint in the appropriate region.
+$host = 'email-smtp.us-west-2.amazonaws.com';
+$port = 587;
+
+// The subject line of the email
+$subject = 'Amazon SES test (SMTP interface accessed using PHP)';
+
+// The plain-text body of the email
+$bodyText =  "Email Test\r\nThis email was sent through the
+    Amazon SES SMTP interface using the PHPMailer class.";
+
+// The HTML-formatted body of the email
+$bodyHtml = '<h1>Email Test</h1>
+    <p>This email was sent through the
+    <a href="https://aws.amazon.com/ses">Amazon SES</a> SMTP
+    interface using the <a href="https://github.com/PHPMailer/PHPMailer">
+    PHPMailer</a> class.</p>';
+
+$mail = new PHPMailer(true);
 
 try {
-$result = $SesClient->sendEmail([
-'Destination' => [
-'ToAddresses' => $recipient_emails,
-],
-'ReplyToAddresses' => [$sender_email],
-'Source' => $sender_email,
-'Message' => [
-'Body' => [
-'Html' => [
-'Charset' => $char_set,
-'Data' => $html_body,
-],
-'Text' => [
-'Charset' => $char_set,
-'Data' => $plaintext_body,
-],
-],
-'Subject' => [
-'Charset' => $char_set,
-'Data' => $subject,
-],
-],
-// If you aren't using a configuration set, comment or delete the
-// following line
-//'ConfigurationSetName' => $configuration_set,
-]);
-$messageId = $result['MessageId'];
-echo("Email sent! Message ID: $messageId"."\n");
-} catch (AwsException $e) {
-// output error message if fails
-echo $e->getMessage();
-echo("The email was not sent. Error message: ".$e->getAwsErrorMessage()."\n");
-echo "\n";
+    // Specify the SMTP settings.
+    $mail->isSMTP();
+    $mail->setFrom($sender, $senderName);
+    $mail->Username   = $usernameSmtp;
+    $mail->Password   = $passwordSmtp;
+    $mail->Host       = $host;
+    $mail->Port       = $port;
+    $mail->SMTPAuth   = true;
+    $mail->SMTPSecure = 'tls';
+    //$mail->addCustomHeader('X-SES-CONFIGURATION-SET', $configurationSet);
+
+    // Specify the message recipients.
+    $mail->addAddress($recipient);
+    // You can also add CC, BCC, and additional To recipients here.
+
+    // Specify the content of the message.
+    $mail->isHTML(true);
+    $mail->Subject    = $subject;
+    $mail->Body       = $bodyHtml;
+    $mail->AltBody    = $bodyText;
+    $mail->Send();
+    echo "Email sent!" , PHP_EOL;
+} catch (phpmailerException $e) {
+    echo "An error occurred. {$e->errorMessage()}", PHP_EOL; //Catch errors from PHPMailer.
+} catch (Exception $e) {
+    echo "Email not sent. {$mail->ErrorInfo}", PHP_EOL; //Catch errors from Amazon SES.
 }
+
+
 
 });
 /*========================= Headings ENDS =========================*/
@@ -148,34 +158,22 @@ else:
 $code = $api->Code(5);    
 $check = $api->checkCode($email);
 
-$from = "isaiahtokunbo11@gmail.com";
-$host = "ssl://smtp.gmail.com";
-$port = "465";
-$username = 'isaiahtokunbo11@gmail.com';
-$password = 'jehovah202';
-$subject = "Reset Password";
-$body = "<b style='text-align:center;color:#f37c20;'>Speed CV</b><br/><br/>Hi, we heard you lost Your Password, Here is Your Password Reset Code<br/> <b style='font-size:25px;'>$code</b>";
-$headers = array ('From' => $from, 'To' => $email ,'Subject' => $subject,"MIME-Version" => "1.0", "Content-type" => "text/html");
-$smtp = Mail::factory('smtp',
-array ('host' => $host,
-'port' => $port,
-'auth' => true,
-'username' => $username,
-'password' => $password));
-$mail = $smtp->send($email, $headers, $body);
-
-if(PEAR::isError($mail)):
-$msg = $mail->getMessage();
-array_push($errors,$msg);    
-return json_encode(["status"=>400, "response"=>"error","errors"=>$errors]);    
-else:
 if($check == true):
 $update = $api->UpdateCode($email,$code);
 else:
 $save = $api->resetCode($email,$code);     
 endif;
-return json_encode(['status'=>200,"response"=>"email sent,check spam folder,inbox,social or promotion section","email"=>$email,"code" => $code]);
-endif;
+
+$cURLConnection = curl_init();
+curl_setopt($cURLConnection, CURLOPT_URL, 'https://speedilypay.com/api/public/email/'.$code.'/'.$email.'');
+curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($cURLConnection, CURLOPT_HTTPHEADER, array("content-type: application/json","cache-control: no-cache"));
+$response = curl_exec($cURLConnection);
+curl_close($cURLConnection);
+
+$assets = json_decode($response, true);
+return $response;
+
 endif;
 });
 /*========================= RESET PASSWORD ENDS =========================*/
