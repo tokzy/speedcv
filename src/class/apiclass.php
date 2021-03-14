@@ -349,7 +349,7 @@ $conn = $this->connect();
 $date = date("Y-m-d H:i:s");
 $conn->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING );   
 
-$sql = "INSERT INTO education (pid,course,school,grade,year,datemade)
+$sql = "INSERT IGNORE INTO education (pid,course,school,grade,year,datemade)
 VALUES(:pid,:course,:school,:grade,:year,:datemade)";
 
 $stmt = $this->connect()->prepare($sql);
@@ -374,7 +374,7 @@ $conn = $this->connect();
 $date = date("Y-m-d H:i:s");
 $conn->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING );   
 
-$sql = "INSERT INTO skills (pid,skills,level,datemade)
+$sql = "INSERT IGNORE INTO skills (pid,skills,level,datemade)
 VALUES(:pid,:skills,:level,:datemade)";
 
 $stmt = $this->connect()->prepare($sql);
@@ -476,7 +476,7 @@ $conn = $this->connect();
 $date = date("Y-m-d H:i:s");
 $conn->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING );   
 
-$sql = "INSERT INTO experience (pid,companyName,jobTitle,startDate,endDate,details,datemade)
+$sql = "INSERT IGNORE INTO experience (pid,companyName,jobTitle,startDate,endDate,details,datemade)
 VALUES(:pid,:company,:jobTitle,:startDate,:endDate,:details,:datemade)";
 
 $stmt = $this->connect()->prepare($sql);
@@ -518,7 +518,7 @@ $conn = $this->connect();
 $date = date("Y-m-d H:i:s");
 $conn->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING );   
 
-$sql = "INSERT INTO objective (pid,obj,datemade)
+$sql = "INSERT IGNORE INTO objective (pid,obj,datemade)
 VALUES(:pid,:obj,:datemade)";
 
 $stmt = $this->connect()->prepare($sql);
@@ -628,7 +628,7 @@ $conn = $this->connect();
 $date = date("Y-m-d H:i:s");
 $conn->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING );   
 
-$sql = "INSERT INTO reference (pid,refereeName,jobTitle,companyName,email,phone,datemade)
+$sql = "INSERT IGNORE INTO reference (pid,refereeName,jobTitle,companyName,email,phone,datemade)
 VALUES(:pid,:refname,:jobtitle,:companyn,:email,:phone,:datemade)";
 
 $stmt = $this->connect()->prepare($sql);
@@ -654,7 +654,7 @@ $conn = $this->connect();
 $date = date("Y-m-d H:i:s");
 $conn->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING );   
 
-$sql = "INSERT INTO projects (pid,title,description,datemade)
+$sql = "INSERT IGNORE INTO projects (pid,title,description,datemade)
 VALUES(:pid,:title,:description,:datemade)";
 
 $stmt = $this->connect()->prepare($sql);
@@ -731,7 +731,7 @@ $conn = $this->connect();
 $date = date("Y-m-d H:i:s");
 $conn->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING );   
 
-$sql = "INSERT INTO headings (pid,title,datemade)
+$sql = "INSERT IGNORE INTO headings (pid,title,datemade)
 VALUES(:pid,:title,:datemade)";
 
 $stmt = $this->connect()->prepare($sql);
@@ -788,7 +788,7 @@ public function CreateMiscellaneous(int $id,int $pid,string $value){
 $conn = $this->connect();
 $date = date("Y-m-d H:i:s");
 $conn->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING );   
-$sql = "INSERT INTO `miscellaneous`(headingId,pid,value,datemade)
+$sql = "INSERT IGNORE INTO `miscellaneous`(headingId,pid,value,datemade)
 VALUES(:hid,:pid,:value,:datemade)";
 
 $stmt = $this->connect()->prepare($sql);
@@ -912,7 +912,7 @@ $conn = $this->connect();
 $date = date("Y-m-d H:i:s");
 $conn->setAttribute( \PDO::ATTR_ERRMODE, \PDO::ERRMODE_WARNING );   
 
-$sql = "INSERT INTO `pdf`(user_id,path,datemade)
+$sql = "INSERT IGNORE INTO `pdf`(user_id,path,datemade)
 VALUES(:userid,:path,:datemade)";
 $stmt = $this->connect()->prepare($sql);
 
@@ -927,7 +927,6 @@ else:
 return false;
 endif;        
 }
-
 
 public function UpdatepersonalDetails(int $pid, string $name,string $email,string $address,int $phone,string $dob,string $website,string $profile){
 $conn = $this->connect();
